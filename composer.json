@@ -8,6 +8,9 @@
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^3.4",
         "symfony/lts": "^3",
+        "symfony/maker-bundle": "^1.1",
+        "symfony/orm-pack": "^1.0",
+        "symfony/profiler-pack": "^1.0",
         "symfony/yaml": "^3.4"
     },
     "require-dev": {
