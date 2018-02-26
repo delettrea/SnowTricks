@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks{% endblock %}
+
+{% block body %}
+    <h1>Tricks list</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Groupe</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for trick in tricks %}
+            <tr>
+                <td><a href="{{ path('trick_details', { 'id': trick.id }) }}">{{ trick.id }}</a></td>
+                <td>{{ trick.name }}</td>
+                <td>{{ trick.description }}</td>
+                <td>{{ trick.group.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('home_page', { 'id': trick.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('home_page', { 'id': trick.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('home_page') }}">Create a new trick</a>
+        </li>
+    </ul>
+{% endblock %}
