@@ -18,6 +18,14 @@
             <th>Description</th>
             <td>{{ tricks.description }}</td>
         </tr>
+        <tr>
+            <th>Groupe</th>
+            <td>{{ tricks.group.name }}</td>
+        </tr>
+        <tr>
+            <th>Boutons</th>
+            <td><a href="{{ path('trick_edit', { 'id': tricks.id }) }}">Edit</a></td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}
