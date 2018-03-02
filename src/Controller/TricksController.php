@@ -40,7 +40,7 @@ class TricksController extends Controller
      * @Route("tricks/{id}/edit", name="trick_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Tricks $trick)
+    public function edit(Request $request, Tricks $trick)
     {
         $deleteForm = $this->createDeleteForm($trick);
         $editForm = $this->createForm('App\Form\TricksType', $trick);
@@ -65,7 +65,7 @@ class TricksController extends Controller
      * @Route("/{id}", name="trick_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Tricks $trick)
+    public function delete(Request $request, Tricks $trick)
     {
         $form = $this->createDeleteForm($trick);
         $form->handleRequest($request);
@@ -97,7 +97,7 @@ class TricksController extends Controller
      * @Route("/trick/new", name="trick_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function new(Request $request)
     {
         $trick = new Tricks();
         $form = $this->createForm('App\Form\TricksType', $trick);
