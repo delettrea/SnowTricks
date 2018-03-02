@@ -37,13 +37,12 @@ class TricksController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing trick entity.
-     *
-     * @Route("/{id}/edit", name="trick_edit")
+     * @Route("tricks/{id}/edit", name="trick_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Tricks $trick)
     {
+        $deleteForm = $this->createDeleteForm($trick);
         $editForm = $this->createForm('App\Form\TricksType', $trick);
         $editForm->handleRequest($request);
 
@@ -56,6 +55,65 @@ class TricksController extends Controller
         return $this->render('tricks/edit.html.twig', array(
             'trick' => $trick,
             'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a trick entity.
+     *
+     * @Route("/{id}", name="trick_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Tricks $trick)
+    {
+        $form = $this->createDeleteForm($trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($trick);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('home_page');
+    }
+
+    /**
+     * @param Tricks $trick The trick entity
+     *
+     * @return \Symfony\Component\Form\FormInterface The form
+     */
+    private function createDeleteForm(Tricks $trick)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('trick_delete', array('id' => $trick->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+    /**
+     * @Route("/trick/new", name="trick_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newAction(Request $request)
+    {
+        $trick = new Tricks();
+        $form = $this->createForm('App\Form\TricksType', $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
+        }
+
+        return $this->render('tricks/new.html.twig', array(
+            'trick' => $trick,
+            'form' => $form->createView(),
         ));
     }
 }
