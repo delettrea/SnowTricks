@@ -34,6 +34,11 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
+     * @ORM\Column(type="json_array")
+     */
+    private $role;
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -42,6 +47,14 @@ class User implements UserInterface, \Serializable
     public function getRoles()
     {
         return array('ROLE_USER');
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
 

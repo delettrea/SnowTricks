@@ -17,9 +17,9 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $tab = array(
-            array('username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user' ),
-            array('username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user' ),
-            array('username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user' ),
+            array('username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user', 'role' => 'ROLE_USER' ),
+            array('username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user', 'role' => 'ROLE_USER'  ),
+            array('username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user', 'role' => 'ROLE_USER'  ),
         );
 
         $passwordEncoder = $this->container->get('security.password_encoder');
@@ -29,6 +29,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
             $user = new User();
             $user->setUsername($row['username']);
             $user->setEmail($row['email']);
+            $user->setRole($row['role']);
             $encodedPassword = $passwordEncoder->encodePassword($user, $row['password']);
             $user->setPassword($encodedPassword);
 
