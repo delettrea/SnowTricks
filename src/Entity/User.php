@@ -38,10 +38,12 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+
     public function getRoles()
     {
         return array('ROLE_USER');
     }
+
 
     public function __construct()
     {
