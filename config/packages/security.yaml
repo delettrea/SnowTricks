@@ -19,6 +19,9 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+            logout:
+                path:   /logout
+                target: /
             http_basic: ~
             provider: our_db_provider
 
