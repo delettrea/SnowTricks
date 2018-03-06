@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -27,16 +28,20 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/registration", name="user_new")
+     * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder){
 
         $user=new User();
         $form=$this->createForm('App\Form\UserType');
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
             $em=$this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -44,7 +49,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('home_page');
         }
 
-        return $this->render('security/new.html.twig', array(
+        return $this->render('security/registration.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
         ));
