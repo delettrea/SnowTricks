@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -36,12 +37,19 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="json_array")
      */
-    private $role;
+    private $role = ['ROLE_USER'];
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
 
 
     public function getRoles()
@@ -77,11 +85,6 @@ class User implements UserInterface, \Serializable
         return null;
     }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
 
     public function eraseCredentials()
     {
@@ -114,25 +117,47 @@ class User implements UserInterface, \Serializable
     /**
      * @param mixed $username
      */
-    public function setUsername($username): void
+    public function setUsername($username)
     {
         $this->username = $username;
     }
 
     /**
-     * @param mixed $password
+     * @param mixed $email
      */
-    public function setPassword($password): void
+    public function setEmail($email)
     {
-        $this->password = $password;
+        $this->email = $email;
     }
 
     /**
-     * @param mixed $email
+     * @return mixed
      */
-    public function setEmail($email): void
+    public function getEmail()
     {
-        $this->email = $email;
+        return $this->email;
+    }
+
+
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
 
