@@ -51,7 +51,6 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
 
-
     public function getRoles()
     {
         return array('ROLE_USER');
