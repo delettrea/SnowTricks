@@ -44,7 +44,6 @@ class SecurityController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setConfirmKey();
-
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -62,4 +61,38 @@ class SecurityController extends Controller
         ));
 
     }
+
+    /**
+     * @Route("/activeAccount/{id}/{confirm_key}", name="active_account")
+     */
+    public function activeAccount(User $user, $id, $confirm_key)
+    {
+       $em = $this->getDoctrine()->getManager();
+       $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
+
+       if(!empty($rep)) {
+           if($user->getisActive() == false)
+           {
+               $user->setIsActive(true);
+               $em->flush();
+               $message = "Votre compte à bien été activé.";
+           }
+           else
+               {
+
+               $message = "Le compte est déjà activé, vous pouvez vous connecter.";
+               };
+       }
+       else{
+           $message = "Cet email ne permet pas d'activer un compte.";
+       }
+
+       return $this->render('security/activeAccount.html.twig', array(
+           'id' => $id,
+           'key' => $confirm_key,
+           'message' => $message,
+       ));
+
+    }
+
 }

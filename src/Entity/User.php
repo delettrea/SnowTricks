@@ -185,6 +185,10 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isActive = $isActive;
     }
 
+    public function getisActive()
+    {
+        return $this->isActive;
+    }
 
     public function setConfirmKey()
     {
@@ -196,6 +200,22 @@ class User implements AdvancedUserInterface, \Serializable
     public function getConfirmKey()
     {
         return $this->confirmKey;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 }
