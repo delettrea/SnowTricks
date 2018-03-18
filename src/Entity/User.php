@@ -45,6 +45,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\Column(name="confirm_key", type="string", unique=true)
+     */
+    private $confirmKey;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
@@ -173,6 +178,24 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->isActive;
+    }
+
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+
+    public function setConfirmKey()
+    {
+        $bytes = openssl_random_pseudo_bytes(20, $cstrong);
+        $confirmKey   = bin2hex($bytes);
+        $this->confirmKey = $confirmKey;
+    }
+
+    public function getConfirmKey()
+    {
+        return $this->confirmKey;
     }
 
 }

@@ -17,9 +17,9 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $tab = array(
-            array('username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user', 'role' => 'ROLE_USER' ),
-            array('username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user', 'role' => 'ROLE_USER'  ),
-            array('username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user', 'role' => 'ROLE_USER'  ),
+            array('username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user', 'role' => 'ROLE_USER', 'isActive' => true),
+            array('username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user', 'role' => 'ROLE_USER', 'isActive' => true),
+            array('username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user', 'role' => 'ROLE_USER','isActive' => true),
         );
 
         $passwordEncoder = $this->container->get('security.password_encoder');
@@ -30,6 +30,8 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
             $user->setUsername($row['username']);
             $user->setEmail($row['email']);
             $user->setRole($row['role']);
+            $user->setConfirmKey();
+            $user->setIsActive($row['isActive']);
             $encodedPassword = $passwordEncoder->encodePassword($user, $row['password']);
             $user->setPassword($encodedPassword);
 
