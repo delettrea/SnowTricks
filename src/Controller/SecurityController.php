@@ -32,7 +32,7 @@ class SecurityController extends Controller
      * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailController $email,\Swift_Mailer $mail){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailController $email,\Swift_Mailer $mailer){
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -49,9 +49,19 @@ class SecurityController extends Controller
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $email->registrationMailer($mail);
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
+                ->setFrom('send@example.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'emails/registration.html.twig', array(
+                            'user' => $user
+                        )
+                    ),
+                    'text/html');
+
+            $mailer->send($message);
 
             return $this->redirectToRoute('home_page');
         }

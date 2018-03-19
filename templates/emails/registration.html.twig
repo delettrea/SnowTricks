@@ -2,11 +2,9 @@
 
 <h3>Confirmation de votre insription et activation de votre compte.</h3>
 
-<p>Bonjour , nous vous confirmons la création de votre compte sur <a href="{{ path('home_page') }}">Snowtricks.com</a> et nous vous en remercions.</p>
-
-    <p>Pour confirmer votre inscription veuillez cliquer sur le liens suivant : </p>
-
-<p>Merci et à très bientôt sur <a href="{{ path('home_page') }}">Snowtricks.com</a></p>
-
+<p>Bonjour {{ user.username }}, nous vous confirmons la création de votre compte sur <a href="http://snowtricks.com">Snowtricks.com</a> et nous vous en remercions. <br>
+    Pour confirmer votre inscription veuillez cliquer sur le liens suivant : <a href="http://snowtricks.com/activeAccount/{{ user.id }}/{{ user.confirmKey }}">Activer mon compte</a> <br>
+    Merci et à très bientôt sur <a href="http://snowtricks.com">Snowtricks.com</a>
+</p>
 
 {% endblock %}
