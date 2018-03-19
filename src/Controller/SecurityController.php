@@ -32,7 +32,7 @@ class SecurityController extends Controller
      * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailController $email,\Swift_Mailer $mail){
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -49,6 +49,7 @@ class SecurityController extends Controller
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $email->registrationMailer($mail);
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
@@ -67,31 +68,31 @@ class SecurityController extends Controller
      */
     public function activeAccount(User $user, $id, $confirm_key)
     {
-       $em = $this->getDoctrine()->getManager();
-       $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
+        $message = null;
+        $messageError = null;
 
-       if(!empty($rep)) {
-           if($user->getisActive() == false)
-           {
-               $user->setIsActive(true);
-               $em->flush();
-               $message = "Votre compte à bien été activé.";
-           }
-           else
-               {
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
 
-               $message = "Le compte est déjà activé, vous pouvez vous connecter.";
-               };
-       }
-       else{
-           $message = "Cet email ne permet pas d'activer un compte.";
-       }
+        if (!empty($rep)) {
+            if ($user->getisActive() == false) {
+                $user->setIsActive(true);
+                $em->flush();
+                $message = "Votre compte à bien été activé.";
+            } else {
 
-       return $this->render('security/activeAccount.html.twig', array(
-           'id' => $id,
-           'key' => $confirm_key,
-           'message' => $message,
-       ));
+                $message = "Le compte est déjà activé, vous pouvez vous connecter.";
+            };
+        } else {
+            $messageError = "Cet email ne permet pas d'activer un compte.";
+        }
+
+        return $this->render('security/activeAccount.html.twig', array(
+            'id' => $id,
+            'key' => $confirm_key,
+            'message' => $message,
+            'messageError' => $messageError
+        ));
 
     }
 

@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ message }}
+    {% if message %}
+        <p>{{ message }}</p>
+        <a href="{{ path('login') }}">Se connecter</a>
+    {% else %}
+        <p>{{ messageError }}</p>
+    {% endif %}
+
 {% endblock %}

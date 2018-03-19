@@ -218,4 +218,14 @@ class User implements AdvancedUserInterface, \Serializable
         $this->id = $id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+
+
 }

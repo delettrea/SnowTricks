@@ -1,14 +1,12 @@
 {% block body %}
 
-{# templates/emails/registration.html.twig #}
-<h3>You did it! You registered!</h3>
+<h3>Confirmation de votre insription et activation de votre compte.</h3>
 
-Hi name ! You're successfully registered.
+<p>Bonjour , nous vous confirmons la création de votre compte sur <a href="{{ path('home_page') }}">Snowtricks.com</a> et nous vous en remercions.</p>
 
-{# example, assuming you have a route named "login" #}
-To login, go to: <a href="">...</a>.
+    <p>Pour confirmer votre inscription veuillez cliquer sur le liens suivant : </p>
 
-Thanks!
+<p>Merci et à très bientôt sur <a href="{{ path('home_page') }}">Snowtricks.com</a></p>
 
 
 {% endblock %}
