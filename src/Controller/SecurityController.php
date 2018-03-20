@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use Alpha\A;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -106,4 +108,23 @@ class SecurityController extends Controller
 
     }
 
+    /**
+    * @Route("/forgot_password", name="forgot_password")
+     * @Method({"GET", "POST"})
+    */
+        public function forgotPassword()
+        {
+            $sendPassword = $this->createFormBuilder()
+                ->add('username', TextType::class)
+                ->getForm();
+
+            if($sendPassword->isSubmitted()){
+                dump($sendPassword);
+            }
+
+            return $this->render('security/forget_password.html.twig', array(
+                'form' => $sendPassword->createView(),
+            ));
+
+        }
 }

@@ -25,4 +25,5 @@ class UserType extends AbstractType
         $resolver->setDefaults([
         ]);
     }
+
 }
