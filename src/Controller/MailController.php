@@ -16,12 +16,12 @@ class MailController extends Controller
     {
 
         $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
-            ->setFrom('send@example.com')
+            ->setFrom('contact@snowtricks.com')
             ->setTo('send@example.com')
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
-                    'emails/registration.html.twig'
+                    'emails/forgot_password.html.twig'
                 ),
                 'text/html')
         ;

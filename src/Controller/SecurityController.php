@@ -6,6 +6,7 @@ use Alpha\A;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,7 @@ class SecurityController extends Controller
      * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailController $email,\Swift_Mailer $mailer){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder,\Swift_Mailer $mailer){
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -52,11 +53,10 @@ class SecurityController extends Controller
             $entityManager->flush();
 
             $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
-                ->setFrom('send@example.com')
+                ->setFrom('contact@snowtricks.com')
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                    // templates/emails/registration.html.twig
                         'emails/registration.html.twig', array(
                             'user' => $user
                         )
@@ -112,19 +112,55 @@ class SecurityController extends Controller
     * @Route("/forgot_password", name="forgot_password")
      * @Method({"GET", "POST"})
     */
-        public function forgotPassword()
-        {
-            $sendPassword = $this->createFormBuilder()
-                ->add('username', TextType::class)
-                ->getForm();
+    public function forgotPassword(Request $request, \Swift_Mailer $mailer)
+    {
 
-            if($sendPassword->isSubmitted()){
-                dump($sendPassword);
+        $sendPassword = $this->createFormBuilder()
+            ->add('username', TextType::class)
+            ->add('submit', SubmitType::class)
+            ->getForm();
+
+        $sendPassword->handleRequest($request);
+
+        if ($sendPassword->isSubmitted()) {
+
+            $username = $sendPassword->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('App:User')->findOneBy(array('username' => $username));
+
+            if(!empty($user) && $user->getIsActive() == 1) {
+                $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
+                    ->setFrom('contact@snowtricks.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/forgot_password.html.twig', array(
+                            'user' => $user
+                        )),
+                        'text/html');
+
+                $mailer->send($message);
+
+                return $this->redirectToRoute('home_page');
             }
-
-            return $this->render('security/forget_password.html.twig', array(
-                'form' => $sendPassword->createView(),
-            ));
-
+            elseif (empty($user)){
+                $this->addFlash(
+                    "error",
+                    "Le nom d'utilisateur saisit ne correspond à aucun compte sur le site."
+                );
+            }
+            else{
+                $this->addFlash(
+                    "error",
+                    "L'utilisateur n'a pas encore validé son compte."
+                );
+            }
         }
+
+        return $this->render('security/forgot_password.html.twig', array(
+            'form' => $sendPassword->createView(),
+        ));
+
+    }
 }
