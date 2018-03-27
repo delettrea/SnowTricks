@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use Alpha\A;
 use App\Entity\User;
+use App\Form\ForgotPasswordType;
 use App\Form\UserType;
+use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -112,13 +114,16 @@ class SecurityController extends Controller
     * @Route("/forgot_password", name="forgot_password")
      * @Method({"GET", "POST"})
     */
-    public function forgotPassword(Request $request, \Swift_Mailer $mailer)
+    public function forgotPassword(Request $request, MailGenerator $mailGenerator)
     {
 
         $sendPassword = $this->createFormBuilder()
             ->add('username', TextType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
+
+
+        //$sendPassword = $this->createForm(ForgotPasswordType::class);
 
         $sendPassword->handleRequest($request);
 
@@ -129,28 +134,16 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('App:User')->findOneBy(array('username' => $username));
 
-            if(!empty($user) && $user->getIsActive() == 1) {
-                $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
-                    ->setFrom('contact@snowtricks.com')
-                    ->setTo($user->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/forgot_password.html.twig', array(
-                            'user' => $user
-                        )),
-                        'text/html');
-
-                $mailer->send($message);
+            if (!empty($user) && $user->getIsActive() == 1) {
+                $mailGenerator->forgotPasswordEmail($user);
 
                 return $this->redirectToRoute('home_page');
-            }
-            elseif (empty($user)){
+            } elseif (empty($user)) {
                 $this->addFlash(
-                    "error",
+                    "send",
                     "Le nom d'utilisateur saisit ne correspond à aucun compte sur le site."
                 );
-            }
-            else{
+            } else {
                 $this->addFlash(
                     "error",
                     "L'utilisateur n'a pas encore validé son compte."
