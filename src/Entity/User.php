@@ -50,6 +50,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $confirmKey;
 
     /**
+     * @ORM\Column(name="password_key", type="string")
+     */
+    private $passwordKey;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
@@ -197,9 +202,21 @@ class User implements AdvancedUserInterface, \Serializable
         $this->confirmKey = $confirmKey;
     }
 
+    public function setPasswordKey()
+    {
+        $bytes = openssl_random_pseudo_bytes(19, $cstrong);
+        $passwordKey  = bin2hex($bytes);
+        $this->passwordKey = $passwordKey;
+    }
+
     public function getConfirmKey()
     {
         return $this->confirmKey;
+    }
+
+    public function getPasswordKey()
+    {
+        return $this->passwordKey;
     }
 
     /**

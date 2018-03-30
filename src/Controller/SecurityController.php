@@ -8,6 +8,7 @@ use App\Form\ForgotPasswordType;
 use App\Form\UserType;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class SecurityController extends Controller
      * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder,\Swift_Mailer $mailer){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder,MailGenerator $mailGenerator ){
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -49,23 +50,18 @@ class SecurityController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setConfirmKey();
+            $user->setPasswordKey();
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
-                ->setFrom('contact@snowtricks.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'emails/registration.html.twig', array(
-                            'user' => $user
-                        )
-                    ),
-                    'text/html');
+            $mailGenerator->registration($user);
 
-            $mailer->send($message);
+            $this->addFlash(
+                "registration",
+                "Votre compte à bien était créé. Veuillez confirmer votre inscription via le mail qui vient de vous être envoyé."
+            );
 
             return $this->redirectToRoute('home_page');
         }
@@ -82,9 +78,6 @@ class SecurityController extends Controller
      */
     public function activeAccount(User $user, $id, $confirm_key)
     {
-        $message = null;
-        $messageError = null;
-
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
 
@@ -94,20 +87,21 @@ class SecurityController extends Controller
                 $em->flush();
                 $message = "Votre compte à bien été activé.";
             } else {
-
-                $message = "Le compte est déjà activé, vous pouvez vous connecter.";
+                $this->addFlash(
+                    "active",
+                    "Le compte est déjà activé, vous pouvez vous connecter."
+                );
             };
         } else {
-            $messageError = "Cet email ne permet pas d'activer un compte.";
+            $this->addFlash(
+                "active",
+                "Cet email ne permet pas d'activer un compte."
+            );
         }
-
         return $this->render('security/activeAccount.html.twig', array(
             'id' => $id,
             'key' => $confirm_key,
-            'message' => $message,
-            'messageError' => $messageError
         ));
-
     }
 
     /**
@@ -145,7 +139,7 @@ class SecurityController extends Controller
                 );
             } else {
                 $this->addFlash(
-                    "error",
+                    "send",
                     "L'utilisateur n'a pas encore validé son compte."
                 );
             }
@@ -154,6 +148,36 @@ class SecurityController extends Controller
         return $this->render('security/forgot_password.html.twig', array(
             'form' => $sendPassword->createView(),
         ));
+    }
 
+    /**
+     * @Route("/restPassword/{id}/{password_key}", name="reset_password")
+     */
+    public function changePassword(User $user, $id, $password_key)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
+
+        if (!empty($rep)) {
+
+            $sendPassword = $this->createFormBuilder()
+                ->add('username', TextType::class)
+                ->add('password', PasswordType::class)
+                ->getForm();
+
+            return $this->render('security/reset_password.html.twig', array(
+                'form' => $sendPassword->createView(),
+            ));
+
+        }
+        else {
+            $messageError = "Cet email ne permet pas d'activer un compte.";
+        }
+
+        return $this->render('security/activeAccount.html.twig', array(
+            'id' => $id,
+            'key' => $password_key,
+        ));
     }
 }

@@ -3,6 +3,13 @@
 {% block title %}SnowTricks{% endblock %}
 
 {% block body %}
+
+    {% for message in app.flashes('registration') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1>Tricks list</h1>
 
     <table>

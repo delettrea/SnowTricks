@@ -31,6 +31,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
             $user->setEmail($row['email']);
             $user->setRole($row['role']);
             $user->setConfirmKey();
+            $user->setPasswordKey();
             $user->setIsActive($row['isActive']);
             $encodedPassword = $passwordEncoder->encodePassword($user, $row['password']);
             $user->setPassword($encodedPassword);

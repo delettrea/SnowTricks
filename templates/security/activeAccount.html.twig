@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if message %}
-        <p>{{ message }}</p>
-        <a href="{{ path('login') }}">Se connecter</a>
-    {% else %}
-        <p>{{ messageError }}</p>
-    {% endif %}
+    {% for message in app.flashes('active') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
 
 {% endblock %}

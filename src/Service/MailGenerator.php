@@ -16,24 +16,33 @@ class MailGenerator
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
+
+    }
+
+    public function registration($user)
+    {
+        $title = 'Activer votre compte sur Snowtricks.com';
+        $render = 'emails/registration.html.twig';
+        $arrayRender = array('user' => $user);
+        $this->sendMail($this->mailer, $this->sendFrom, $user, $title, $render, $arrayRender);
     }
 
     public function forgotPasswordEmail($user)
     {
-        $sendTo = $user->getEmail();
-        $this->sendMail($this->mailer,$this->sendFrom, $sendTo);
+        $title = 'Changer votre mot de passe Snowtricks.com';
+        $render = 'emails/forgot_password.html.twig';
+        $arrayRender = array('user' => $user);
+        $this->sendMail($this->mailer,$this->sendFrom, $user, $title, $render, $arrayRender);
     }
 
-    private function sendMail(\Swift_Mailer $mailer,$sendFrom, $sendTo)
+    private function sendMail(\Swift_Mailer $mailer,$sendFrom, $user, $title, $render, $arrayRender)
     {
-        $message = (new \Swift_Message("Activer votre compte sur Snowtricks.com"))
-            ->setFrom('contact@snowtricks.com')
-            ->setTo($sendTo)
+        $message = (new \Swift_Message($title))
+            ->setFrom($sendFrom)
+            ->setTo($user->getEmail())
             ->setBody(
                 $this->twig->render(
-                    'emails/forgot_password.html.twig', array(
-                    'user' => $sendTo
-                )),
+                    $render, $arrayRender),
                 'text/html');
 
         $mailer->send($message);
