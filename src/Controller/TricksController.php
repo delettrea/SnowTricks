@@ -42,6 +42,8 @@ class TricksController extends Controller
      */
     public function edit(Request $request, Tricks $trick)
     {
+        dump($trick);
+
         $deleteForm = $this->createDeleteForm($trick);
         $editForm = $this->createForm('App\Form\TricksType', $trick);
         $editForm->handleRequest($request);

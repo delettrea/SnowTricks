@@ -5,6 +5,7 @@ namespace App\Controller;
 use Alpha\A;
 use App\Entity\User;
 use App\Form\ForgotPasswordType;
+use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -116,7 +117,6 @@ class SecurityController extends Controller
             ->add('submit', SubmitType::class)
             ->getForm();
 
-
         //$sendPassword = $this->createForm(ForgotPasswordType::class);
 
         $sendPassword->handleRequest($request);
@@ -151,33 +151,33 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/restPassword/{id}/{password_key}", name="reset_password")
+     * @Route("/reset_password/{id}/{password_key}", name="reset_password")
      */
-    public function changePassword(User $user, $id, $password_key)
+    public function resetPassword(Request $request,User $user, $id, $password_key, UserPasswordEncoderInterface $passwordEncoder)
     {
 
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
 
         if (!empty($rep)) {
+            $form = $this->createForm(ResetPasswordType::class, $user);
 
-            $sendPassword = $this->createFormBuilder()
-                ->add('username', TextType::class)
-                ->add('password', PasswordType::class)
-                ->getForm();
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($password);
+
+                $em->flush();
+
+                return $this->redirectToRoute('home_page');
+            }
 
             return $this->render('security/reset_password.html.twig', array(
-                'form' => $sendPassword->createView(),
+                'form' => $form->createView(),
             ));
-
-        }
-        else {
-            $messageError = "Cet email ne permet pas d'activer un compte.";
         }
 
-        return $this->render('security/activeAccount.html.twig', array(
-            'id' => $id,
-            'key' => $password_key,
-        ));
+        return $this->redirectToRoute('home_page');
     }
 }
