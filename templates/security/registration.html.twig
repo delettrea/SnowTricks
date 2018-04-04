@@ -4,7 +4,9 @@
     <h1>User creation</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    {{ form_label(form.username) }}
+    {{ form_widget(form.username) }}
     <input type="submit" value="Create" />
     {{ form_end(form) }}
 

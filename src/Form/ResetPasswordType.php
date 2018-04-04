@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,8 +15,12 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('plainPassword', PasswordType::class)
+            ->add('username', TextType::class,[
+                'label' => "Nom d'utilisateur",
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label' => "Mot de passe"
+            ])
         ;
     }
 

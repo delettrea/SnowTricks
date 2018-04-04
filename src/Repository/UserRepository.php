@@ -19,4 +19,13 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function usernameResetPassword($username){
+        $query = $this->createQueryBuilder('u')
+            ->where('u.usermane = :username')
+            ->setParameter('username', $username)
+            ->getQuery()
+        ;
+        return $query;
+    }
+
 }

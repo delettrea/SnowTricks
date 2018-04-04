@@ -47,12 +47,11 @@ class SecurityController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setConfirmKey();
             $user->setPasswordKey();
-            // 4) save the User!
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -111,13 +110,7 @@ class SecurityController extends Controller
     */
     public function forgotPassword(Request $request, MailGenerator $mailGenerator)
     {
-
-        $sendPassword = $this->createFormBuilder()
-            ->add('username', TextType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
-
-        //$sendPassword = $this->createForm(ForgotPasswordType::class);
+        $sendPassword = $this->createForm(ForgotPasswordType::class);
 
         $sendPassword->handleRequest($request);
 
@@ -150,32 +143,58 @@ class SecurityController extends Controller
         ));
     }
 
+
     /**
      * @Route("/reset_password/{id}/{password_key}", name="reset_password")
      */
-    public function resetPassword(Request $request,User $user, $id, $password_key, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request, User $user, $id, $password_key, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $idUsername = $user->getUsername();
 
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
 
-        if (!empty($rep)) {
+        if (!empty($rep) && ($user->getisActive() === false)) {
+            $this->addFlash(
+                "error",
+                "La page demandée ne permet pas de changer le mot de passe d'un utilisateur qui n'a pas encore activé son compte. 
+                Veuillez vous reporter à l'email de validation de votre compte envoyé lors de votre inscription."
+            );
+        }
+        elseif (!empty($rep)) {
             $form = $this->createForm(ResetPasswordType::class, $user);
 
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
-                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($password);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-                $em->flush();
+                if ($idUsername === $user->getUsername()) {
 
-                return $this->redirectToRoute('home_page');
+                    $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                    $user->setPassword($password);
+
+                    $em->flush();
+
+                    return $this->redirectToRoute('home_page');
+                }
+                else {
+                    $this->addFlash(
+                        'error',
+                        "Nom d'utilisateur incorrect."
+                    );
+                }
             }
 
             return $this->render('security/reset_password.html.twig', array(
                 'form' => $form->createView(),
             ));
+        }
+        else {
+            $this->addFlash(
+                "error",
+                "La page demandée ne permet pas de changer le mot de passe d'un utilisateur. 
+                Veuillez vérifier le lien dans l'email qui vous à été envoyer pour le changement de mot de passe."
+            );
         }
 
         return $this->redirectToRoute('home_page');
