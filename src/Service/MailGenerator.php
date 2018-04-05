@@ -29,7 +29,7 @@ class MailGenerator
 
     public function forgotPasswordEmail($user)
     {
-        $title = 'Changer votre mot de passe Snowtricks.com';
+        $title = 'Modifier votre mot de passe Snowtricks.com';
         $render = 'emails/forgot_password.html.twig';
         $arrayRender = array('user' => $user);
         $this->sendMail($this->mailer,$this->sendFrom, $user, $title, $render, $arrayRender);

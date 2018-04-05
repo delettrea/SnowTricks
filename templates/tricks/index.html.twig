@@ -4,12 +4,7 @@
 
 {% block body %}
 
-    {% for message in app.flashes('registration') %}
-        <div class="flash-notice">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
+    {% for message in app.flashes('message') %}
         <div class="flash-notice">
             {{ message }}
         </div>

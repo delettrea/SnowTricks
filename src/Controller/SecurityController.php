@@ -2,16 +2,13 @@
 
 namespace App\Controller;
 
-use Alpha\A;
 use App\Entity\User;
 use App\Form\ForgotPasswordType;
+use App\Form\LoginType;
 use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -29,9 +26,13 @@ class SecurityController extends Controller
 
         $lastUsername = $authUtils->getLastUsername();
 
+        $form = $this->createForm(LoginType::class);
+        $form->handleRequest($request);
+
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
+            'form'          => $form->createView()
         ));
     }
 
@@ -45,25 +46,45 @@ class SecurityController extends Controller
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
 
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-            $user->setConfirmKey();
-            $user->setPasswordKey();
+            $username = $form['username']->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em = $this->getDoctrine()->getManager();
+            $resp = $em->getRepository('App:User')->findByUsername($username);
 
-            $mailGenerator->registration($user);
+            if ($form->isValid() && empty($resp)) {
 
-            $this->addFlash(
-                "registration",
-                "Votre compte à bien était créé. Veuillez confirmer votre inscription via le mail qui vient de vous être envoyé."
-            );
+                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($password);
+                $user->setConfirmKey();
+                $user->setPasswordKey();
 
-            return $this->redirectToRoute('home_page');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $mailGenerator->registration($user);
+
+                $this->addFlash(
+                    "message",
+                    "Votre compte à bien était créé. Veuillez confirmer votre inscription via le mail qui vient de vous être envoyé."
+                );
+
+                return $this->redirectToRoute('home_page');
+            }
+            elseif (!empty($resp)){
+                $this->addFlash(
+                    "message",
+                    "Le nom d'utilisateur existe déjà, veuillez en choisir un nouveau."
+                );
+            }
+            else {
+                $this->addFlash(
+                    "message",
+                    "Le formulaire n'est pas valide, veuillez remplir correctement tous les champs."
+                );
+            }
         }
 
         return $this->render('security/registration.html.twig', array(
@@ -79,9 +100,9 @@ class SecurityController extends Controller
     public function activeAccount(User $user, $id, $confirm_key)
     {
         $em = $this->getDoctrine()->getManager();
-        $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
+        $resp = $em->getRepository('App:User')->findBy(array('id' => $id, 'confirmKey' => $confirm_key));
 
-        if (!empty($rep)) {
+        if (!empty($resp)) {
             if ($user->getisActive() == false) {
                 $user->setIsActive(true);
                 $em->flush();
@@ -116,26 +137,32 @@ class SecurityController extends Controller
 
         if ($sendPassword->isSubmitted()) {
 
-            $username = $sendPassword->getData();
+            $username = $sendPassword['username']->getData();
 
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('App:User')->findOneBy(array('username' => $username));
 
-            if (!empty($user) && $user->getIsActive() == 1) {
+            if (!empty($user) && $user->getIsActive() == true) {
                 $mailGenerator->forgotPasswordEmail($user);
-
-                return $this->redirectToRoute('home_page');
-            } elseif (empty($user)) {
                 $this->addFlash(
-                    "send",
+                    "message",
+                    "Votre inscription a bien été prise en compte.
+                    Un email vient de vous être envoyé pour que vous activiez votre compte."
+                );
+            } elseif(empty($user)) {
+                $this->addFlash(
+                    "message",
                     "Le nom d'utilisateur saisit ne correspond à aucun compte sur le site."
                 );
             } else {
                 $this->addFlash(
-                    "send",
+                    "message",
                     "L'utilisateur n'a pas encore validé son compte."
                 );
             }
+
+            return $this->redirectToRoute('home_page');
+
         }
 
         return $this->render('security/forgot_password.html.twig', array(
@@ -152,16 +179,16 @@ class SecurityController extends Controller
         $idUsername = $user->getUsername();
 
         $em = $this->getDoctrine()->getManager();
-        $rep = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
+        $resp = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
 
-        if (!empty($rep) && ($user->getisActive() === false)) {
+        if (!empty($resp) && ($user->getisActive() === false)) {
             $this->addFlash(
                 "error",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur qui n'a pas encore activé son compte. 
                 Veuillez vous reporter à l'email de validation de votre compte envoyé lors de votre inscription."
             );
         }
-        elseif (!empty($rep)) {
+        elseif (!empty($resp)) {
             $form = $this->createForm(ResetPasswordType::class, $user);
 
             $form->handleRequest($request);
@@ -179,8 +206,9 @@ class SecurityController extends Controller
                 }
                 else {
                     $this->addFlash(
-                        'error',
-                        "Nom d'utilisateur incorrect."
+                        'message',
+                        "Le nom d'utilisateur est incorrect.
+                        Veuillez renseigner le nom d'utilisateur correspondant à l'adresse email renseignée."
                     );
                 }
             }
@@ -191,7 +219,7 @@ class SecurityController extends Controller
         }
         else {
             $this->addFlash(
-                "error",
+                "message",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur. 
                 Veuillez vérifier le lien dans l'email qui vous à été envoyer pour le changement de mot de passe."
             );

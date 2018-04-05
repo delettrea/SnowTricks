@@ -3,10 +3,13 @@
 {% block body %}
     <h1>User creation</h1>
 
+    {% for message in app.flashes('message') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_label(form.username) }}
-    {{ form_widget(form.username) }}
     <input type="submit" value="Create" />
     {{ form_end(form) }}
 
