@@ -9,6 +9,7 @@ use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -26,13 +27,17 @@ class SecurityController extends Controller
 
         $lastUsername = $authUtils->getLastUsername();
 
-        $form = $this->createForm(LoginType::class);
-        $form->handleRequest($request);
+        /*$form = $this->createFormBuilder()
+            ->add('_username')
+            ->add('_password', PasswordType::class)
+            ->getForm()
+            ;
+        */
 
         return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
             'error'         => $error,
-            'form'          => $form->createView()
+            'last_username' => $lastUsername
+            //'form'          => $form->createView()
         ));
     }
 
