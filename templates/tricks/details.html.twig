@@ -28,4 +28,12 @@
         </tr>
         </tbody>
     </table>
+    <div>
+        {% for comment in comments  %}
+        <div class="comment{{ comment.id }}">
+            {{ comment.author.username }}
+            {{ comment.comment }}
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Tricks;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ class TricksController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tricks = $em->getRepository('App:Tricks')->tricksIndex();
+        $tricks = $em->getRepository('App:Tricks')->findAll();
 
         return $this->render('tricks/index.html.twig', [
             'tricks' => $tricks,
@@ -31,8 +32,12 @@ class TricksController extends Controller
      */
     public function details(Tricks $tricks)
     {
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
+
         return $this->render('tricks/details.html.twig', [
             'tricks' => $tricks,
+            'comments' => $comments
         ]);
     }
 
