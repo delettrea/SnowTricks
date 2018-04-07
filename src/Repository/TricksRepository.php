@@ -19,13 +19,6 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    public function tricksIndex(){
-        $query = $this->_em->createQuery('SELECT t, g FROM App:Tricks t LEFT JOIN t.group g');
-        $result = $query->getResult();
-
-        return $result;
-    }
-
     /*
     public function findBySomething($value)
     {
