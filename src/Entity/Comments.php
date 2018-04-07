@@ -18,7 +18,6 @@ class Comments
 
     /**
      * @var string
-     *
      * @ORM\Column(name="comment", type="text")
      */
     private $comment;
@@ -36,7 +35,7 @@ class Comments
     private $trick;
 
     /**
-     *@ORM\Column(name="dateTime", type="datetime")
+     * @ORM\Column(name="dateTime", type="datetime")
      */
     private $dateTime;
 
@@ -120,7 +119,5 @@ class Comments
     {
         $this->trick = $trick;
     }
-
-
 
 }
