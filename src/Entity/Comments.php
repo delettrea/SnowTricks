@@ -35,7 +35,6 @@ class Comments
     private $trick;
 
     /**
-<<<<<<< HEAD
      * @ORM\Column(name="dateTime", type="datetime")
      */
     private $dateTime;
@@ -58,8 +57,6 @@ class Comments
 
 
     /**
-=======
->>>>>>> edit tricks repository and edit trick details for comments
      * @return mixed
      */
     public function getId()
@@ -123,9 +120,4 @@ class Comments
         $this->trick = $trick;
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> edit tricks repository and edit trick details for comments
 }
