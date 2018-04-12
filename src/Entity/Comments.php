@@ -19,7 +19,7 @@ class Comments
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="comment", type="text")
      */
     private $comment;
 
@@ -34,6 +34,28 @@ class Comments
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    /**
+     *@ORM\Column(name="dateTime", type="datetime")
+     */
+    private $dateTime;
+
+    /**
+     * @return mixed
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     *
+     */
+    public function setDateTime()
+    {
+        $this->dateTime = new \DateTime("now");
+    }
+
 
     /**
      * @return mixed
