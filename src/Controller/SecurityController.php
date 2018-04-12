@@ -10,6 +10,7 @@ use App\Form\UserType;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -18,6 +19,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
+
     /**
      * @Route("/login", name="login")
      */
@@ -28,15 +30,19 @@ class SecurityController extends Controller
         $lastUsername = $authUtils->getLastUsername();
 
         /*$form = $this->createFormBuilder()
-            ->add('_username')
-            ->add('_password', PasswordType::class)
+            ->add('_username', TextType::class, [
+                'name' => '_username'
+            ])
+            ->add('_password', PasswordType::class, [
+                'name' => '_password'
+            ])
             ->getForm()
             ;
         */
 
         return $this->render('security/login.html.twig', array(
             'error'         => $error,
-            'last_username' => $lastUsername
+            'last_username' => $lastUsername,
             //'form'          => $form->createView()
         ));
     }
@@ -110,6 +116,7 @@ class SecurityController extends Controller
         if (!empty($resp)) {
             if ($user->getisActive() == false) {
                 $user->setIsActive(true);
+                $em->persist($user);
                 $em->flush();
                 $message = "Votre compte à bien été activé.";
             } else {

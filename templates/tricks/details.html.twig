@@ -33,6 +33,7 @@
         <div class="comment{{ comment.id }}">
             {{ comment.author.username }}
             {{ comment.comment }}
+            {{ comment.dateTime|date("F jS \\a\\t g:ia", "Europe/Paris") }}
         </div>
         {% endfor %}
     </div>
