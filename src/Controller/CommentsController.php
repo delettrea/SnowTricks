@@ -1,54 +1,39 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aline
- * Date: 07/04/18
- * Time: 19:39
- */
 
 namespace App\Controller;
 
 use App\Entity\Comments;
-use App\Entity\Tricks;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+
 class CommentsController extends Controller
 {
+
     /**
-     * @Route("/comment/new/{id}", name="comment_new")
-     * @Method({"GET", "POST"})
+     * @Route("/comment/delete/{id}", name="comment_delete")
+     * @Method({"GET"})
      */
-    public function new(Request $request, Tricks $tricks)
+    public function delete(Request $request, Comments $comments)
     {
-        $form = $this->createForm('App\Form\CommentsType');
-        $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $author = $this->getUser();
-            $text = $form['comment']->getData();
-
-            $comment = new Comments();
-            $comment->setTrick($tricks);
-            $comment->setAuthor($author);
-            $comment->setComment($text);
-            $comment->setDateTime();
-
+        if($this->getUser() == $comments->getAuthor()){
             $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
+            $em->remove($comments);
             $em->flush();
 
-            return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
+            return $this->redirectToRoute('trick_details', ['id' => $comments->getTrick()->getId()]);
         }
-
-        return $this->render('comments/new.html.twig', [
-            'form' => $form->createView()
-        ]);
+        else{
+            $this->addFlash(
+                "message",
+                "Vous ne pouvez supprimer que les commentaires dont vous êtes l'auteur."
+            );
+            return $this->redirectToRoute('trick_details', ['id' => $comments->getTrick()->getId()]);
+        }
     }
 
 

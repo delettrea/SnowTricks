@@ -28,17 +28,55 @@ class TricksController extends Controller
 
     /**
      * @Route("/tricks/details/{id}", name="trick_details")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function details(Tricks $tricks)
+    public function details(Request $request, Tricks $tricks)
     {
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
 
+        $form = $this->createForm('App\Form\CommentsType');
+        $form->handleRequest($request);
+
+        $author = $this->getUser();
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $text = $form['comment']->getData();
+
+            $comment = new Comments();
+            $comment->setTrick($tricks);
+            $comment->setAuthor($author);
+            $comment->setComment($text);
+            $comment->setDateTime();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
+        }
+
         return $this->render('tricks/details.html.twig', [
             'tricks' => $tricks,
-            'comments' => $comments
+            'comments' => $comments,
+            'form' => $form->createView(),
+            'author' => $author
         ]);
+    }
+
+    /**
+     * @param Comments $comments The trick entity
+     *
+     * @return \Symfony\Component\Form\FormInterface The form
+     */
+    private function createDeleteFormComment(Comments $comments)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('comment_delete', array('id' => $comments->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
     }
 
     /**
@@ -47,8 +85,6 @@ class TricksController extends Controller
      */
     public function edit(Request $request, Tricks $trick)
     {
-        dump($trick);
-
         $deleteForm = $this->createDeleteForm($trick);
         $editForm = $this->createForm('App\Form\TricksType', $trick);
         $editForm->handleRequest($request);

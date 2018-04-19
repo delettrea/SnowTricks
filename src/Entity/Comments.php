@@ -55,7 +55,6 @@ class Comments
         $this->dateTime = new \DateTime("now");
     }
 
-
     /**
      * @return mixed
      */

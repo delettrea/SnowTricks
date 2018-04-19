@@ -29,11 +29,29 @@
         </tbody>
     </table>
     <div>
+        <h4>Comments creation</h4>
+        {% if author %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+        {{ form_end(form) }}
+        {% endif %}
+        <ul>
+            <li>
+                <a href="{{ path('home_page') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
+    <div>
         {% for comment in comments  %}
         <div class="comment{{ comment.id }}">
             {{ comment.author.username }}
             {{ comment.comment }}
             {{ comment.dateTime|date("Y-m-d H:i", "Europe/Paris") }}
+
+            {% if author == comment.author %}
+            <a href="{{ path('comment_delete', { 'id': comment.id }) }}"> Delete </a>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
