@@ -35,7 +35,6 @@ class TricksController extends Controller
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
 
-<<<<<<< HEAD
         $form = $this->createForm('App\Form\CommentsType');
         $form->handleRequest($request);
 
@@ -63,11 +62,6 @@ class TricksController extends Controller
             'comments' => $comments,
             'form' => $form->createView(),
             'author' => $author
-=======
-        return $this->render('tricks/details.html.twig', [
-            'tricks' => $tricks,
-            'comments' => $comments
->>>>>>> 6ee9c96d66500699feb66da5da5bf5daf7b9e513
         ]);
     }
 
