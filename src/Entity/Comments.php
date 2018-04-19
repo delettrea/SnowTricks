@@ -9,6 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comments
 {
+    public $date;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime("now");
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -52,7 +59,7 @@ class Comments
      */
     public function setDateTime()
     {
-        $this->dateTime = new \DateTime("now");
+        $this->dateTime = $this->date;
     }
 
     /**
