@@ -31,7 +31,7 @@ class Tricks
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Groups")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $group;

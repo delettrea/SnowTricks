@@ -31,6 +31,12 @@ class Groups
     private $description;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tricks", mappedBy="group", orphanRemoval=true)
+     */
+    private $tricks;
+
+
+    /**
      * @return mixed
      */
     public function getId()
