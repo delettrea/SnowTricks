@@ -36,7 +36,7 @@ class Comments
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tricks", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

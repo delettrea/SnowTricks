@@ -37,6 +37,11 @@ class Tricks
     private $group;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="trick", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
      * @return mixed
      */
     public function getId()
