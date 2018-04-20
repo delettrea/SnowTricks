@@ -25,6 +25,7 @@ class Comments
 
     /**
      * @var string
+     *
      * @ORM\Column(name="comment", type="text")
      */
     private $comment;

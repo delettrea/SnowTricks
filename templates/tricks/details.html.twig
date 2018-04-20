@@ -44,15 +44,15 @@
     </div>
     <div>
         {% for comment in comments  %}
-        <div class="comment{{ comment.id }}">
-            {{ comment.author.username }}
-            {{ comment.comment }}
-            {{ comment.dateTime|date("Y-m-d H:i", "Europe/Paris") }}
+            <div class="comment{{ comment.id }}">
+                {{ comment.author.username }}
+                {{ comment.comment }}
+                {{ comment.dateTime|date("Y-m-d H:i", "Europe/Paris") }}
 
-            {% if author == comment.author %}
-            <a href="{{ path('comment_delete', { 'id': comment.id }) }}"> Delete </a>
-            {% endif %}
-        </div>
+                {% if author == comment.author %}
+                    <a href="{{ path('comment_delete', { 'id': comment.id }) }}"> Delete </a>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
