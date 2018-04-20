@@ -7,6 +7,7 @@ use App\Form\ForgotPasswordType;
 use App\Form\LoginType;
 use App\Form\ResetPasswordType;
 use App\Form\UserType;
+use App\Service\FileUploader;
 use App\Service\MailGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -51,7 +52,7 @@ class SecurityController extends Controller
      * @Route("/registration", name="registration")
      * @Method({"GET", "POST"})
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder,MailGenerator $mailGenerator ){
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder,MailGenerator $mailGenerator, FileUploader $fileUploader){
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -65,6 +66,10 @@ class SecurityController extends Controller
             $resp = $em->getRepository('App:User')->findByUsername($username);
 
             if ($form->isValid() && empty($resp)) {
+
+                $file = $user->getAvatar();
+                $fileName = $fileUploader->upload($file);
+                $user->setAvatar($fileName);
 
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);

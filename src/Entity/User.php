@@ -54,9 +54,13 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $passwordKey;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\File()
+     */
+    private $avatar;
 
     private $plainPassword;
-
 
     public function getRoles()
     {
@@ -240,6 +244,19 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->role;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
 
-
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
 }
