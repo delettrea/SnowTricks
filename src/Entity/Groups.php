@@ -35,7 +35,6 @@ class Groups
      */
     private $tricks;
 
-
     /**
      * @return mixed
      */
