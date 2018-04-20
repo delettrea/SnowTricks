@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ForgotPasswordType;
-use App\Form\LoginType;
 use App\Form\ResetPasswordType;
 use App\Form\UserType;
 use App\Service\FileUploader;
@@ -21,6 +20,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends Controller
 {
 
+    public $defaultAvatar = 'default.jpg';
+
     /**
      * @Route("/login", name="login")
      */
@@ -30,21 +31,9 @@ class SecurityController extends Controller
 
         $lastUsername = $authUtils->getLastUsername();
 
-        /*$form = $this->createFormBuilder()
-            ->add('_username', TextType::class, [
-                'name' => '_username'
-            ])
-            ->add('_password', PasswordType::class, [
-                'name' => '_password'
-            ])
-            ->getForm()
-            ;
-        */
-
         return $this->render('security/login.html.twig', array(
             'error'         => $error,
             'last_username' => $lastUsername,
-            //'form'          => $form->createView()
         ));
     }
 
@@ -67,9 +56,15 @@ class SecurityController extends Controller
 
             if ($form->isValid() && empty($resp)) {
 
-                $file = $user->getAvatar();
-                $fileName = $fileUploader->upload($file);
-                $user->setAvatar($fileName);
+                if(!empty($form['avatar']->getData()))
+                {
+                    $file = $user->getAvatar();
+                    $fileName = $fileUploader->upload($file);
+                    $user->setAvatar($fileName);
+                }
+                else{
+                    $user->setAvatar($this->defaultAvatar);
+                }
 
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);

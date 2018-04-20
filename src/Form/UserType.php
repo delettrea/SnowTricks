@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Required;
 
 class UserType extends AbstractType
 {
@@ -46,9 +47,9 @@ class UserType extends AbstractType
                     ]
                 ])
             ->add('avatar', FileType::class, [
-                'label' => 'Votre avatar'
-            ])
-        ;
+                'label' => 'Votre avatar',
+                    ])
+                ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
