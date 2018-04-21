@@ -45,6 +45,7 @@
     <div>
         {% for comment in comments  %}
             <div class="comment{{ comment.id }}">
+                <img src="{{ avatars_folder }}/{{ comment.author.avatar}}" alt="avatar {{ comment.author.username }}">
                 {{ comment.author.username }}
                 {{ comment.comment }}
                 {{ comment.dateTime|date("Y-m-d H:i", "Europe/Paris") }}

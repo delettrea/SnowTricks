@@ -17,9 +17,9 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         $tab = array(
-            array('ref' => 'user1', 'username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user', 'role' => 'ROLE_USER', 'isActive' => true),
-            array('ref' => 'user2', 'username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user', 'role' => 'ROLE_USER', 'isActive' => true),
-            array('ref' => 'user3', 'username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user', 'role' => 'ROLE_USER','isActive' => true),
+            array('ref' => 'user1', 'username' => 'User1' , 'email' => 'user1@test.test', 'password' =>'user', 'role' => '[ROLE_USER]', 'isActive' => true, 'avatar' => 'default.jpg'),
+            array('ref' => 'user2', 'username' => 'User2' , 'email' => 'user2@test.test', 'password' =>'user', 'role' => '[ROLE_USER]', 'isActive' => true, 'avatar' => 'default.jpg'),
+            array('ref' => 'user3', 'username' => 'User3' , 'email' => 'user3@test.test', 'password' =>'user', 'role' => '[ROLE_USER]','isActive' => true, 'avatar' => 'default.jpg'),
         );
 
         $passwordEncoder = $this->container->get('security.password_encoder');
@@ -33,6 +33,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
             $user->setConfirmKey();
             $user->setPasswordKey();
             $user->setIsActive($row['isActive']);
+            $user->setAvatar($row['avatar']);
             $encodedPassword = $passwordEncoder->encodePassword($user, $row['password']);
             $user->setPassword($encodedPassword);
 
