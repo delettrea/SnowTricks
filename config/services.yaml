@@ -3,6 +3,7 @@
 parameters:
     locale: 'fr'
     avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
+    illustrations_directory: '%kernel.project_dir%/public/uploads/illustrations'
 
 services:
     # default configuration for services in *this* file
@@ -29,4 +30,5 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Service\FileUploader:
         arguments:
-            $targetDirectory: '%avatars_directory%'
+            $targetDirectoryAvatar: '%avatars_directory%'
+            $targetDirectoryIllustrations: '%illustrations_directory%'

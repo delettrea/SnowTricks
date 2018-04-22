@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         avatars_folder: '/uploads/avatars'
+        illustrations_folder: '/uploads/illustrations'

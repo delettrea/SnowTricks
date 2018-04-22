@@ -36,6 +36,7 @@ class TricksController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
+        $illustrations = $em->getRepository('App:Illustrations')->findBy(['trick' => $tricks]);
 
         $form = $this->createForm('App\Form\CommentsType');
         $form->handleRequest($request);
@@ -62,6 +63,7 @@ class TricksController extends Controller
         return $this->render('tricks/details.html.twig', [
             'tricks' => $tricks,
             'comments' => $comments,
+            'illustrations' => $illustrations,
             'form' => $form->createView(),
             'author' => $author
         ]);
@@ -157,7 +159,7 @@ class TricksController extends Controller
             {
                 $illustration = new Illustrations();
                 $nameFile = $file;
-                $fileName = $fileUploader->upload($nameFile);
+                $fileName = $fileUploader->upload($nameFile, 'illustrations');
                 $illustration->setName($fileName);
                 $illustration->setTrick($trick);
                 $em->persist($illustration);

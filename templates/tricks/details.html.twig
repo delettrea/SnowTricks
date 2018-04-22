@@ -4,6 +4,9 @@
 
 {% block body %}
     <h1>Trick</h1>
+    {% for img in illustrations %}
+    <img src="{{ illustrations_folder }}/{{ img.name}}" alt="image {{ tricks.name }}">
+    {% endfor %}
     <table>
         <tbody>
         <tr>

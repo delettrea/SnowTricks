@@ -59,7 +59,7 @@ class SecurityController extends Controller
                 if(!empty($form['avatar']->getData()))
                 {
                     $file = $user->getAvatar();
-                    $fileName = $fileUploader->upload($file);
+                    $fileName = $fileUploader->upload($file, 'avatar');
                     $user->setAvatar($fileName);
                 }
                 else{
