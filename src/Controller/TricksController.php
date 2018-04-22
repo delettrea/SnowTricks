@@ -70,20 +70,6 @@ class TricksController extends Controller
     }
 
     /**
-     * @param Comments $comments The trick entity
-     *
-     * @return \Symfony\Component\Form\FormInterface The form
-     */
-    private function createDeleteFormComment(Comments $comments)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('comment_delete', array('id' => $comments->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-            ;
-    }
-
-    /**
      * @Route("tricks/{id}/edit", name="trick_edit")
      * @Method({"GET", "POST"})
      */

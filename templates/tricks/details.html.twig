@@ -4,9 +4,16 @@
 
 {% block body %}
     <h1>Trick</h1>
+    {% if illustrations is empty %}
+        <img src="{{ illustrations_folder }}/default.jpg" alt="image {{ tricks.name }}">
+    {% else %}
     {% for img in illustrations %}
-    <img src="{{ illustrations_folder }}/{{ img.name}}" alt="image {{ tricks.name }}">
+        <div>
+            <img src="{{ illustrations_folder }}/{{ img.name}}" alt="image {{ tricks.name }}">
+            <a href="{{ path('illustration_delete', { 'id': img.id }) }}">Delete</a>
+        </div>
     {% endfor %}
+    {% endif %}
     <table>
         <tbody>
         <tr>
