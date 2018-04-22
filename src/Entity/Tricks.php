@@ -42,6 +42,16 @@ class Tricks
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Illustrations", mappedBy="trick", orphanRemoval=true)
+     */
+    private $illustration;
+
+    /**
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $files;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -96,4 +106,21 @@ class Tricks
     {
         $this->group = $group;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param mixed $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
+    }
+
 }

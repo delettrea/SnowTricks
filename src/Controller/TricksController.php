@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Comments;
+use App\Entity\Illustrations;
 use App\Entity\Tricks;
+use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -140,7 +142,7 @@ class TricksController extends Controller
      * @Route("/trick/new", name="trick_new")
      * @Method({"GET", "POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, FileUploader $fileUploader)
     {
         $trick = new Tricks();
         $form = $this->createForm('App\Form\TricksType', $trick);
@@ -148,7 +150,19 @@ class TricksController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $trick->setFiles(null);
             $em->persist($trick);
+
+            foreach ($form['files']->getData() as $file)
+            {
+                $illustration = new Illustrations();
+                $nameFile = $file;
+                $fileName = $fileUploader->upload($nameFile);
+                $illustration->setName($fileName);
+                $illustration->setTrick($trick);
+                $em->persist($illustration);
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
