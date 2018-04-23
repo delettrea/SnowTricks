@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Entity\Illustrations;
 use App\Entity\Tricks;
+use App\Entity\Videos;
+use App\Form\VideosType;
 use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -133,10 +135,17 @@ class TricksController extends Controller
     public function new(Request $request, FileUploader $fileUploader)
     {
         $trick = new Tricks();
+
+        $video1 = new Videos();
+        $trick->getVideos()->add($video1);
+        $video2 = new Videos();
+        $trick->getVideos()->add($video2);
+
         $form = $this->createForm('App\Form\TricksType', $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form['videos']->getData());
             $em = $this->getDoctrine()->getManager();
             $trick->setFiles(null);
             $em->persist($trick);
@@ -149,6 +158,12 @@ class TricksController extends Controller
                 $illustration->setName($fileName);
                 $illustration->setTrick($trick);
                 $em->persist($illustration);
+            }
+
+            foreach ($form['videos']->getData() as $video)
+            {
+                $video->setTrick($trick);
+                $em->persist($video);
             }
 
             $em->flush();

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +51,16 @@ class Tricks
      * @ORM\Column(type="json_array", nullable=true)
      */
     private $files;
+
+    /*
+     * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="trick", orphanRemoval=true)
+     */
+    protected $videos;
+
+    public function __construct()
+    {
+        $this->videos = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -121,6 +132,11 @@ class Tricks
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    public function getVideos()
+    {
+        return $this->videos;
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Tricks;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,13 @@ class TricksType extends AbstractType
             ))
             ->add('files', FileType::class, [
                 'multiple' => true
-            ]);
+            ]);;
+
+        $builder->add('videos', CollectionType::class, array(
+            'entry_type' => VideosType::class,
+            'entry_options' => array('label' => false),
+            'allow_add' => true,
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

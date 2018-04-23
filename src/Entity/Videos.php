@@ -10,31 +10,64 @@ use Doctrine\ORM\Mapping as ORM;
 class Videos
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tricks", inversedBy="videos")
+     */
+    private $trick;
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
     {
-        return $this->name;
+        $this->id = $id;
     }
 
-    public function setName(string $name): self
+    /**
+     * @return mixed
+     */
+    public function getTrick()
     {
-        $this->name = $name;
-
-        return $this;
+        return $this->trick;
     }
+
+    /**
+     * @param mixed $trick
+     */
+    public function setTrick($trick)
+    {
+        $this->trick = $trick;
+    }
+
+
+
 }
