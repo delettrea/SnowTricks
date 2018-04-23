@@ -14,3 +14,8 @@
         </li>
     </ul>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/newTrick.js') }}"></script>
+{% endblock %}
