@@ -10,11 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tricks
 {
-    public function __construct()
-    {
-        $this->videos = new ArrayCollection();
-        $this->dateTime = new \DateTime();
-    }
 
     /**
      * @ORM\Id
@@ -38,9 +33,14 @@ class Tricks
     private $description;
 
     /**
-     * @ORM\Column(name="dateTime", type="datetime")
+     * @ORM\Column(name="date_creation", type="datetime")
      */
-    private $dateTime;
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(name="date_edit", type="datetime")
+     */
+    private $dateEdit;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="tricks")
@@ -64,6 +64,16 @@ class Tricks
      * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="trick", orphanRemoval=true)
      */
     private $video;
+
+    private $videos;
+
+    private $date;
+
+    public function __construct()
+    {
+        $this->videos = new ArrayCollection();
+        $this->date = new \DateTime();
+    }
 
     /**
      * @return mixed
@@ -142,21 +152,6 @@ class Tricks
         return $this->videos;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDateTime()
-    {
-        return $this->dateTime;
-    }
-
-    /**
-     * @param mixed $dateTime
-     */
-    public function setDateTime($dateTime)
-    {
-        $this->dateTime = $dateTime;
-    }
 
     /**
      * @return mixed
@@ -174,6 +169,34 @@ class Tricks
         $this->video = $video;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
 
+    /**
+     */
+    public function setDateCreation()
+    {
+        $this->dateCreation = $this->date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEdit()
+    {
+        return $this->dateEdit;
+    }
+
+    /**
+     */
+    public function setDateEdit()
+    {
+        $this->dateEdit = $this->date;
+    }
 
 }
