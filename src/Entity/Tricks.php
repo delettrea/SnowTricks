@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tricks
 {
+    public function __construct()
+    {
+        $this->videos = new ArrayCollection();
+        $this->dateTime = new \DateTime();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -32,6 +38,11 @@ class Tricks
     private $description;
 
     /**
+     * @ORM\Column(name="dateTime", type="datetime")
+     */
+    private $dateTime;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -47,20 +58,12 @@ class Tricks
      */
     private $illustration;
 
-    /**
-     * @ORM\Column(type="json_array", nullable=true)
-     */
     private $files;
 
-    /*
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="trick", orphanRemoval=true)
      */
-    protected $videos;
-
-    public function __construct()
-    {
-        $this->videos = new ArrayCollection();
-    }
+    private $video;
 
     /**
      * @return mixed
@@ -138,5 +141,39 @@ class Tricks
     {
         return $this->videos;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * @param mixed $dateTime
+     */
+    public function setDateTime($dateTime)
+    {
+        $this->dateTime = $dateTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param mixed $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+    }
+
+
 
 }

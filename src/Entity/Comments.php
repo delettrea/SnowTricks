@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comments
 {
-    public $date;
+    private $date;
 
     public function __construct()
     {

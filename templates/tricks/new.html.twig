@@ -4,7 +4,13 @@
     <h1>Trick creation</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <h3>Videos</h3>
+    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+        {% for video in form.videos %}
+            <li>{{ form_row(video.name) }}</li>
+        {% endfor %}
+    </ul>
+
     <input type="submit" value="Create" />
     {{ form_end(form) }}
 

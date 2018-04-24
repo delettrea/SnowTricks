@@ -11,10 +11,10 @@ class XCommentsFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $tab = array(
-            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°1, Autheur : User1.' ),
-            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°2, Autheur : User1.' ),
-            array('author' => 'user2', 'trick' => 'trick1', 'comment' => 'Commentaire n°3, Autheur : User2.' ),
-            array('author' => 'user3', 'trick' => 'trick1', 'comment' => 'Commentaire n°4, Autheur : User3.' ),
+            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°1, Autheur : User1.', 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°2, Autheur : User1.', 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user2', 'trick' => 'trick1', 'comment' => 'Commentaire n°3, Autheur : User2.', 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user3', 'trick' => 'trick1', 'comment' => 'Commentaire n°4, Autheur : User3.', 'dateTime' => '2018-04-24 00:00:00'),
         );
 
         foreach ($tab as $row)

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Tricks;
 use App\Entity\Videos;
 use App\Form\VideoType;
-use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

@@ -78,13 +78,13 @@ class TricksController extends Controller
     public function edit(Request $request, Tricks $trick)
     {
         $deleteForm = $this->createDeleteForm($trick);
-        $editForm = $this->createForm('App\Form\TricksType', $trick);
+        $editForm = $this->createForm('App\Form\EditTrickType', $trick);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('home_page', array('id' => $trick->getId()));
+            return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }
 
         return $this->render('tricks/edit.html.twig', array(
@@ -138,14 +138,12 @@ class TricksController extends Controller
 
         $video1 = new Videos();
         $trick->getVideos()->add($video1);
-        $video2 = new Videos();
-        $trick->getVideos()->add($video2);
 
         $form = $this->createForm('App\Form\TricksType', $trick);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form['videos']->getData());
             $em = $this->getDoctrine()->getManager();
             $trick->setFiles(null);
             $em->persist($trick);
