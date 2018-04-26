@@ -46,14 +46,16 @@ class TricksType extends AbstractType
             ))
             ->add('files', FileType::class, [
                 'multiple' => true,
-                'label' => 'Photos et images de la figure'
+                'label' => 'Photos et images de la figure',
+                'required'=> false
             ]);;
 
         $builder->add('videos', CollectionType::class, array(
             'entry_type' => VideosType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,
-            'label' => 'Vidéos de la figure'
+            'label' => 'Vidéos de la figure',
+            'required'=> false
         ));
     }
 

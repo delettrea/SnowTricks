@@ -145,7 +145,7 @@ class TricksController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $trick->setFiles(null);
+            $trick->setDateCreation();
             $em->persist($trick);
 
             foreach ($form['files']->getData() as $file)
@@ -158,10 +158,16 @@ class TricksController extends Controller
                 $em->persist($illustration);
             }
 
-            foreach ($form['videos']->getData() as $video)
+            $countVideoSend = count($form['videos']) - 1;
+
+            for($i = 0; $i <= $countVideoSend; $i ++)
             {
-                $video->setTrick($trick);
-                $em->persist($video);
+                if(!empty($form['videos'][$i]['name']->getData()))
+                {
+                    $video = $form['videos'][$i]->getData();
+                    $video->setTrick($trick);
+                    $em->persist($video);
+                }
             }
 
             $em->flush();

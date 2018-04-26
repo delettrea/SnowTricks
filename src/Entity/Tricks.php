@@ -38,7 +38,7 @@ class Tricks
     private $dateCreation;
 
     /**
-     * @ORM\Column(name="date_edit", type="datetime")
+     * @ORM\Column(name="date_edit", type="datetime", nullable=true)
      */
     private $dateEdit;
 

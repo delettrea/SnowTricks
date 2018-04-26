@@ -22,6 +22,7 @@ class TricksFixtures extends Fixture
             $trick = new Tricks();
             $trick->setName($row['name']);
             $trick->setDescription($row['description']);
+            $trick->setDateCreation('2018-04-24 18:34:20');
 
             $reference = $this->getReference($row['group']);
             $trick->setGroup($reference);
