@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Tricks;
+use App\Entity\Illustrations;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +24,7 @@ class TricksType extends AbstractType
                 ])
             ]
         ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description de la figure',
                 'constraints' => [
                     new NotBlank([
@@ -43,18 +43,21 @@ class TricksType extends AbstractType
                         'message' => "Votre figure doit faire partie d'une catégorie."
                     ])
                 ]
-            ))
-            ->add('files', FileType::class, [
-                'multiple' => true,
-                'label' => 'Photos et images de la figure',
-                'required'=> false
-            ]);;
+            ));
 
         $builder->add('videos', CollectionType::class, array(
             'entry_type' => VideosType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,
-            'label' => 'Vidéos de la figure',
+            'label' => 'Vidéos',
+            'required'=> false
+        ));
+
+        $builder->add('illustrations', CollectionType::class, array(
+            'entry_type' => IllustrationsType::class,
+            'entry_options' => array('label' => false),
+            'allow_add' => true,
+            'label' => 'Images',
             'required'=> false
         ));
     }

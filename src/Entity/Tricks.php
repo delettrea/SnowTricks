@@ -54,11 +54,9 @@ class Tricks
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Illustrations", mappedBy="trick", orphanRemoval=true)
      */
-    private $illustration;
+    private $illustrations;
 
-    private $files;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="trick", orphanRemoval=true)
@@ -72,6 +70,7 @@ class Tricks
     public function __construct()
     {
         $this->videos = new ArrayCollection();
+        $this->illustrations = new ArrayCollection();
         $this->date = new \DateTime();
     }
 
@@ -131,22 +130,6 @@ class Tricks
         $this->group = $group;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param mixed $files
-     */
-    public function setFiles($files)
-    {
-        $this->files = $files;
-    }
-
     public function getVideos()
     {
         return $this->videos;
@@ -198,5 +181,24 @@ class Tricks
     {
         $this->dateEdit = $this->date;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIllustrations()
+    {
+        return $this->illustrations;
+    }
+
+    /**
+     * @param mixed $illustrations
+     */
+    public function setIllustrations($illustrations)
+    {
+        $this->illustrations = $illustrations;
+    }
+
+
+
 
 }

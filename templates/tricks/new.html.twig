@@ -11,6 +11,12 @@
         {% endfor %}
     </ul>
 
+    <ul class="illustrations" data-prototype="{{ form_widget(form.illustrations.vars.prototype)|e('html_attr') }}">
+        {% for illustration in form.illustrations %}
+            <li>{{ form_row(illustration.name) }}</li>
+        {% endfor %}
+    </ul>
+
     <input type="submit" value="Create" />
     {{ form_end(form) }}
 
@@ -23,5 +29,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('build/js/newTrick.js') }}"></script>
+    <script src="{{ asset('build/js/newVideo.js') }}"></script>
+    <script src="{{ asset('build/js/newIllustration.js') }}"></script>
 {% endblock %}

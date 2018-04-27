@@ -139,6 +139,9 @@ class TricksController extends Controller
         $video1 = new Videos();
         $trick->getVideos()->add($video1);
 
+        $file1 = new Illustrations();
+        $trick->getIllustrations()->add($file1);
+
         $form = $this->createForm('App\Form\TricksType', $trick);
         $form->handleRequest($request);
 
@@ -148,17 +151,24 @@ class TricksController extends Controller
             $trick->setDateCreation();
             $em->persist($trick);
 
-            foreach ($form['files']->getData() as $file)
+            $countIllustrationSend = count($form['illustrations']) - 1;
+
+            for($i = 0; $i <= $countIllustrationSend; $i ++)
             {
-                $illustration = new Illustrations();
-                $nameFile = $file;
-                $fileName = $fileUploader->upload($nameFile, 'illustrations');
-                $illustration->setName($fileName);
-                $illustration->setTrick($trick);
-                $em->persist($illustration);
+                if(!empty($form['illustrations'][$i]['name']->getData()))
+                {
+                    $illustration = $form['illustrations'][$i]->getData();
+                    $nameFile = $form['illustrations'][$i]['name']->getData();
+                    $fileName = $fileUploader->upload($nameFile, 'illustrations');
+                    $illustration->setName($fileName);
+                    $illustration->setTrick($trick);
+                    $em->persist($illustration);
+                }
             }
 
             $countVideoSend = count($form['videos']) - 1;
+
+            dump($form);
 
             for($i = 0; $i <= $countVideoSend; $i ++)
             {
