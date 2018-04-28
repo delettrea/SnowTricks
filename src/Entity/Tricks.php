@@ -54,16 +54,19 @@ class Tricks
     private $comments;
 
     /**
-     */
-    private $illustrations;
-
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="trick", orphanRemoval=true)
      */
     private $video;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Illustrations", mappedBy="trick", orphanRemoval=true)
+     */
+    private $illustration;
+
     private $videos;
+
+    private $illustrations;
+
 
     private $date;
 

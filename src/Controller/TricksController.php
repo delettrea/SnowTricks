@@ -7,7 +7,9 @@ use App\Entity\Illustrations;
 use App\Entity\Tricks;
 use App\Entity\Videos;
 use App\Form\VideosType;
+use App\Service\CollectionTypeEditor;
 use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,14 +18,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class TricksController extends Controller
 {
 
+    private $em;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
+
     /**
      * @Route("/", name="home_page")
      */
     public function index()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $tricks = $em->getRepository('App:Tricks')->findAll();
+        $tricks = $this->em->getRepository('App:Tricks')->findAll();
 
         return $this->render('tricks/index.html.twig', [
             'tricks' => $tricks,
@@ -36,9 +44,8 @@ class TricksController extends Controller
      */
     public function details(Request $request, Tricks $tricks)
     {
-        $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
-        $illustrations = $em->getRepository('App:Illustrations')->findBy(['trick' => $tricks]);
+        $comments = $this->em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
+        $illustrations = $this->em->getRepository('App:Illustrations')->findBy(['trick' => $tricks]);
 
         $form = $this->createForm('App\Form\CommentsType');
         $form->handleRequest($request);
@@ -55,9 +62,9 @@ class TricksController extends Controller
             $comment->setComment($text);
             $comment->setDateTime();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
+            $this->em = $this->getDoctrine()->getManager();
+            $this->em->persist($comment);
+            $this->em->flush();
 
             return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
         }
@@ -82,7 +89,7 @@ class TricksController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->flush();
 
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }
@@ -106,9 +113,8 @@ class TricksController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($trick);
-            $em->flush();
+            $this->em->remove($trick);
+            $this->em->flush();
         }
 
         return $this->redirectToRoute('home_page');
@@ -132,7 +138,7 @@ class TricksController extends Controller
      * @Route("/trick/new", name="trick_new")
      * @Method({"GET", "POST"})
      */
-    public function new(Request $request, FileUploader $fileUploader)
+    public function new(Request $request, FileUploader $fileUploader, CollectionTypeEditor $collectionTypeEditor)
     {
         $trick = new Tricks();
 
@@ -147,40 +153,12 @@ class TricksController extends Controller
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $trick->setDateCreation();
-            $em->persist($trick);
+            $this->em->persist($trick);
 
-            $countIllustrationSend = count($form['illustrations']) - 1;
+           $collectionTypeEditor->sendCollectionTypeForm($trick, $fileUploader, $form);
 
-            for($i = 0; $i <= $countIllustrationSend; $i ++)
-            {
-                if(!empty($form['illustrations'][$i]['name']->getData()))
-                {
-                    $illustration = $form['illustrations'][$i]->getData();
-                    $nameFile = $form['illustrations'][$i]['name']->getData();
-                    $fileName = $fileUploader->upload($nameFile, 'illustrations');
-                    $illustration->setName($fileName);
-                    $illustration->setTrick($trick);
-                    $em->persist($illustration);
-                }
-            }
-
-            $countVideoSend = count($form['videos']) - 1;
-
-            dump($form);
-
-            for($i = 0; $i <= $countVideoSend; $i ++)
-            {
-                if(!empty($form['videos'][$i]['name']->getData()))
-                {
-                    $video = $form['videos'][$i]->getData();
-                    $video->setTrick($trick);
-                    $em->persist($video);
-                }
-            }
-
-            $em->flush();
+            $this->em->flush();
 
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }
