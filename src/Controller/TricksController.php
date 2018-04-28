@@ -156,7 +156,7 @@ class TricksController extends Controller
             $trick->setDateCreation();
             $this->em->persist($trick);
 
-           $collectionTypeEditor->sendCollectionTypeForm($trick, $fileUploader, $form);
+            $collectionTypeEditor->sendCollectionTypeForm($trick, $fileUploader, $form);
 
             $this->em->flush();
 
