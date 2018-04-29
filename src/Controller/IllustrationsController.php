@@ -51,7 +51,7 @@ class IllustrationsController extends Controller
      * @Route("/illustration/delete/{id}", name="illustration_delete")
      * @Method({"GET"})
      */
-    public function delete(Request $request, Illustrations $illustrations)
+    public function delete(Illustrations $illustrations)
     {
             $em = $this->getDoctrine()->getManager();
             $em->remove($illustrations);

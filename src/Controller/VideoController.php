@@ -13,33 +13,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class VideoController extends Controller
 {
     /**
-     * @Route("/video/{id}/new", name="illustration_new")
+     * @Route("/video/{id}/delete", name="illustration_new")
      * @Method({"GET", "POST"})
      */
-    public function new(Request $request, Tricks $tricks)
+    public function delete(Videos $videos)
     {
-        $trick = new Tricks();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($videos);
+        $em->flush();
 
-        // dummy code - this is here just so that the Task has some tags
-        // otherwise, this isn't an interesting example
-        $video1 = new Videos();
-        $video1->setName('video1');
-        $trick->getVideos()->add($video1);
-        $video2 = new Videos();
-        $video2->setName('video2');
-        $trick->getVideos()->add($video2);
-        // end dummy code
+        return $this->redirectToRoute('trick_details', ['id' => $videos->getTrick()->getId()]);
+    }
 
-        $form = $this->createForm(VideoType::class);
-        dump($form);
+    /**
+     * @Route("/video/{id}/edit", name="illustration_new")
+     * @Method({"GET", "POST"})
+     */
+    public function edit(Request $request, Videos $videos)
+    {
+        $form = $this->createForm('App\Form\VideosType');
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $videos->setName($form['name']->getData());
+            $em->persist($videos);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_details', ['id' => $videos->getTrick()->getId()]);
         }
 
-        return $this->render('video/new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render('video/edit.html.twig', [
+            'tricks' => $videos->getTrick(),
+            'form' => $form->createView()
+        ]);
     }
+
 }
