@@ -46,6 +46,7 @@ class TricksController extends Controller
     {
         $comments = $this->em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
         $illustrations = $this->em->getRepository('App:Illustrations')->findBy(['trick' => $tricks]);
+        $videos = $this->em->getRepository('App:Videos')->findBy(['trick' => $tricks]);
 
         $form = $this->createForm('App\Form\CommentsType');
         $form->handleRequest($request);
@@ -73,6 +74,7 @@ class TricksController extends Controller
             'tricks' => $tricks,
             'comments' => $comments,
             'illustrations' => $illustrations,
+            'videos' => $videos,
             'form' => $form->createView(),
             'author' => $author
         ]);
@@ -150,7 +152,6 @@ class TricksController extends Controller
 
         $form = $this->createForm('App\Form\TricksType', $trick);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setDateCreation();

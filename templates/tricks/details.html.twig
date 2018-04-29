@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Trick</h1>
     {% if illustrations is empty %}
-        <img src="{{ illustrations_folder }}/default.jpg" alt="image {{ tricks.name }}">
+        <img src="{{ illustrations_folder }}/default.jpg" alt="image par default">
     {% else %}
     {% for img in illustrations %}
         <div>
@@ -13,6 +13,15 @@
             <a href="{{ path('illustration_delete', { 'id': img.id }) }}">Delete</a>
         </div>
     {% endfor %}
+    {% endif %}
+    {% if videos is empty %}
+        <img src="{{ illustrations_folder }}/noVideo.jpg" alt="aucune video">
+    {% else %}
+        {% for video in videos %}
+            <div>
+                {{ video.name | raw }}
+            </div>
+        {% endfor %}
     {% endif %}
     <table>
         <tbody>
