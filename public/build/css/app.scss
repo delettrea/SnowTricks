@@ -1,0 +1,61 @@
+$darkBlue: #313540;
+$blue: #3ec4e1;
+$option1Dark: #0b132b;
+$option1Light: #1c2541;
+
+
+body {
+  font-family: Cabin;
+  background-color: $darkBlue;
+  color: white;
+}
+
+/* HEADER */
+
+header{
+  display: none;
+}
+
+.navbar-inverse{
+  @extend body;
+  border: none;
+}
+
+/* INDEX.HTML.TWIG */
+
+.index_section1{
+  padding: 0;
+
+  .welcome_message{
+    height: 100vh;
+    width: 100%;
+    background-image: url("/img/index.jpg");
+    background-size: cover;
+    div {
+      background-color: rgba(255, 255, 255, 0.42);
+      color: black;
+      height: inherit;
+    }
+    h1{
+      text-transform: uppercase;
+    }
+    h5{
+      text-align: center;
+      margin: 0 2px;
+    }
+  }
+
+  .arrow-down{
+    float: right;
+  }
+}
+
+.title{
+  margin-top: 0;
+}
+
+.index_section2{
+  .tricks_one_illustration{
+    width: 100%;
+  }
+}

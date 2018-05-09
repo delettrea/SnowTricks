@@ -2,13 +2,39 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Bienvenue sur Snowtricks.com{% endblock %}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+    {% block header %}
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <img src="{{ asset('/img/logo.png') }}" alt="logo snowtricks">
+                    <a class="navbar-brand" href="{{ path('home_page') }}">Snowtricks</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href={{ path('home_page') }}>Home</a></li>
+                    <li><a href="#">Figures</a></li>
+                    <li><a href={{ path('login') }}>Login</a></li>
+                    <li><a href={{ path('registration') }}>S'inscrire</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

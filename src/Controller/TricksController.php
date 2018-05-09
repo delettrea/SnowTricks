@@ -30,8 +30,7 @@ class TricksController extends Controller
      */
     public function index()
     {
-
-        $tricks = $this->em->getRepository('App:Tricks')->findAll();
+        $tricks = $this->em->getRepository('App:Tricks')->TricksWithOneIllustration();
 
         return $this->render('tricks/index.html.twig', [
             'tricks' => $tricks,
@@ -134,6 +133,19 @@ class TricksController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    /**
+     * @Route("/delete/trick/{id}", name="trick_delete_url")
+     * @Method({"GET"})
+     */
+    public function deleteTrick(Tricks $tricks)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($tricks);
+        $em->flush();
+
+        return $this->redirectToRoute('home_page');
     }
 
     /**

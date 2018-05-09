@@ -201,6 +201,22 @@ class Tricks
         $this->illustrations = $illustrations;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIllustration()
+    {
+        return $this->illustration;
+    }
+
+    /**
+     * @param mixed $illustration
+     */
+    public function setIllustration($illustration)
+    {
+        $this->illustration = $illustration;
+    }
+
 
 
 

@@ -19,16 +19,10 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function TricksWithOneIllustration()
     {
-        return $this->createQueryBuilder('t')
-            ->where('t.something = :value')->setParameter('value', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->_em->createQuery('SELECT t, i FROM App:Tricks t LEFT JOIN t.illustration i GROUP BY t.id');
+        $result = $query->getResult();
+        return $result;
     }
-    */
 }
