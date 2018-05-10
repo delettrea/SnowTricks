@@ -13,27 +13,41 @@ header {
 /* INDEX.HTML.TWIG */
 .index_section1 {
   padding: 0; }
+  .index_section1 a {
+    color: #1c2541; }
+  .index_section1 a:active {
+    text-decoration: none; }
   .index_section1 .welcome_message {
     height: 100vh;
     width: 100%;
     background-image: url("/img/index.jpg");
-    background-size: cover; }
+    background-size: cover;
+    color: #1c2541; }
     .index_section1 .welcome_message div {
       background-color: rgba(255, 255, 255, 0.42);
-      color: black;
       height: inherit; }
     .index_section1 .welcome_message h1 {
       text-transform: uppercase; }
     .index_section1 .welcome_message h5 {
       text-align: center;
       margin: 0 2px; }
+    .index_section1 .welcome_message i {
+      margin-top: -61px;
+      margin-right: 8px;
+      cursor: pointer; }
   .index_section1 .arrow-down {
     float: right; }
 
 .title {
   margin-top: 0; }
 
-.index_section2 .tricks_one_illustration {
-  width: 100%; }
+.index_section2 {
+  margin-top: 22px; }
+  .index_section2 .tricks_one_illustration {
+    width: 100%; }
+  .index_section2 .trick {
+    border: white 1px solid;
+    margin: 15px 0;
+    padding: 0 0 12px 0; }
 
 /*# sourceMappingURL=app.css.map */

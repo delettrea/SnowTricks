@@ -4,10 +4,10 @@
     <section class="container-fluid index_section1 col-xs-12">
         <div class="welcome_message">
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <h1 class="title">snowtricks</h1>
+                <a href="{{ path('home_page') }}"><h1 class="title">snowtricks</h1></a>
                 <h5>Le site communautaire pour apprendre les figures de snowboard</h5>
             </div>
-            <i class="arrow-down fas fa-arrow-down"></i>
+            <i class="arrow-down fas fa-2x fa-arrow-down"></i>
         </div>
     </section>
     <section class="container index_section2 col-xs-12">
@@ -17,7 +17,7 @@
             </div>
         {% endfor %}
         {% for trick in tricks %}
-            <div class="{{ trick.name }} container">
+            <div class="trick {{ trick.name }} container">
                 <div>
                 {% if trick.illustration is empty %}
                     <img class="tricks_one_illustration" src="{{ illustrations_folder }}/default.jpg"
