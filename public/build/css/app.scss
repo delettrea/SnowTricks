@@ -10,6 +10,26 @@ body {
   color: white;
 }
 
+.font-white{
+  color: white;
+}
+
+.font-blue{
+  color: $blue;
+}
+
+.underline-blue{
+  border-bottom: $blue 1px solid;
+}
+
+.display-none{
+  display: none;
+}
+
+i:active{
+  color: $blue;
+}
+
 /* HEADER */
 
 header{
@@ -22,6 +42,12 @@ header{
 }
 
 /* INDEX.HTML.TWIG */
+
+/* index_section1 */
+
+.index_section1_shadow{
+  box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.42);
+}
 
 .index_section1{
   padding: 0;
@@ -52,9 +78,11 @@ header{
       margin-top: -61px;
       margin-right: 8px;
       cursor: pointer;
+      border: #3ec4e1 solid 1px;
+      padding: 8px 10px;
+      border-radius: 47px;
     }
   }
-
   .arrow-down{
     float: right;
   }
@@ -64,14 +92,26 @@ header{
   margin-top: 0;
 }
 
-.index_section2{
+/* index_section2 */
+
+#index_section2{
   margin-top: 22px;
   .tricks_one_illustration{
     width: 100%;
   }
   .trick{
-    border: white 1px solid;
+    border: rgba(255, 255, 255, 0.08) 1px solid;
     margin: 15px 0;
     padding: 0 0 12px 0;
+    .name{
+      padding: 12px 10px 0 10px;
+    }
+    .trick_detail_link{
+      margin-bottom: 0;
+      font-weight: bolder;
+      letter-spacing: 1px;
+    }
   }
 }
+
+/* END INDEX.HTML.TWIG */
