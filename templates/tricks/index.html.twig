@@ -3,7 +3,7 @@
 {% block body %}
     <section class="container-fluid index_section1 col-xs-12">
         <div class="welcome_message">
-            <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="container d-flex flex-column justify-content-center align-items-center">
                 <a href="{{ path('home_page') }}">
                     <img src="">
                     <h1 class="underline-blue title">snowtricks</h1>
@@ -13,7 +13,7 @@
             <i id="button_to_section2" class="arrow-down fas fa-2x fa-arrow-down"></i>
         </div>
     </section>
-    <section id="index_section2" class="container col-xs-12 display-none">
+    <section id="index_section2" class="container-fluid col-xs-12 display-none nav-height">
         {% for message in app.flashes('message') %}
             <div class="flash-notice">
                 {{ message }}

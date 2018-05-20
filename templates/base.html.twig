@@ -17,7 +17,7 @@
 <body>
     {% block header %}
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="nav-md navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <img src="{{ asset('/img/logo.png') }}" alt="logo snowtricks">
@@ -31,10 +31,21 @@
                 </ul>
             </div>
         </nav>
+        <nav class="nav-xs nav font-blue fixed-bottom">
+            <ul class="nav justify-content-around col-xs-12 col-sm-12">
+                <li class="nav-item"><a class="nav-link" href={{ path('home_page') }}><i class="fas fa-home font-blue"></i></a></li>
+                <li class="nav-item"><a id="go_to_tricks" class="nav-link" href="#"><i class="fas fa-bookmark font-blue"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href={{ path('login') }}><i class="fas fa-sign-in-alt font-blue"></i></a></li>
+            </ul>
+        </nav>
     </header>
     {% endblock %}
     {% block body %}{% endblock %}
-    {% block footer %}{% endblock %}
+    {% block footer %}
+        <footer class="container-fluid nav-height display-none">
+            <p>Copyright @ 2018</p>
+        </footer>
+    {% endblock %}
     {% block javascripts %}{% endblock %}
 </body>
 </html>

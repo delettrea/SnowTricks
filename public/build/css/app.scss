@@ -30,9 +30,10 @@ i:active{
   color: $blue;
 }
 
+
 /* HEADER */
 
-header{
+.nav-md{
   display: none;
 }
 
@@ -41,13 +42,19 @@ header{
   border: none;
 }
 
+nav{
+  background-color: $darkBlue;
+}
+
+.nav-height{
+  margin-bottom: 40px;
+}
+
+/* end HEADER */
+
 /* INDEX.HTML.TWIG */
 
 /* index_section1 */
-
-.index_section1_shadow{
-  box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.42);
-}
 
 .index_section1{
   padding: 0;
@@ -75,7 +82,7 @@ header{
       margin: 0 2px;
     }
     i{
-      margin-top: -61px;
+      margin-top: -104px;
       margin-right: 8px;
       cursor: pointer;
       border: #3ec4e1 solid 1px;
@@ -114,4 +121,4 @@ header{
   }
 }
 
-/* END INDEX.HTML.TWIG */
+/* end INDEX.HTML.TWIG */

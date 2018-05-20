@@ -1,12 +1,12 @@
 side();
-sideTouch();
+baseLinkTricks();
 
 function side() {
     $('#button_to_section2').click(animationSide);
 }
 
-function sideTouch() {
-    $('.index_section1').on('touchstart', animationSide);
+function baseLinkTricks() {
+    $('#go_to_tricks').on('touchstart click', animationSide);
 }
 
 function animationSide() {
@@ -14,7 +14,6 @@ function animationSide() {
     if (action === null) {
         var elem = $('#index_section2');
         $(elem).removeClass('display-none');
-        $('.index_section1').addClass('index_section1_shadow');
         $('html, body').animate({scrollTop: elem.offset().top}, 1000);
     }
     else {

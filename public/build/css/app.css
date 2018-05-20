@@ -19,17 +19,21 @@ i:active {
   color: #3ec4e1; }
 
 /* HEADER */
-header {
+.nav-md {
   display: none; }
 
 .navbar-inverse {
   border: none; }
 
+nav {
+  background-color: #313540; }
+
+.nav-height {
+  margin-bottom: 40px; }
+
+/* end HEADER */
 /* INDEX.HTML.TWIG */
 /* index_section1 */
-.index_section1_shadow {
-  box-shadow: 0 0 20px 0 rgba(255, 255, 255, 0.42); }
-
 .index_section1 {
   padding: 0; }
   .index_section1 a {
@@ -51,7 +55,7 @@ header {
       text-align: center;
       margin: 0 2px; }
     .index_section1 .welcome_message i {
-      margin-top: -61px;
+      margin-top: -104px;
       margin-right: 8px;
       cursor: pointer;
       border: #3ec4e1 solid 1px;
@@ -79,6 +83,6 @@ header {
       font-weight: bolder;
       letter-spacing: 1px; }
 
-/* END INDEX.HTML.TWIG */
+/* end INDEX.HTML.TWIG */
 
 /*# sourceMappingURL=app.css.map */
