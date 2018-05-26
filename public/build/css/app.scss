@@ -3,18 +3,17 @@ $blue: #3ec4e1;
 $option1Dark: #0b132b;
 $option1Light: #1c2541;
 
-
 body {
   font-family: Cabin;
   background-color: $darkBlue;
   color: white;
 }
 
-.font-white{
+.font-white, a:hover{
   color: white;
 }
 
-.font-blue{
+.font-blue, a{
   color: $blue;
 }
 
@@ -26,15 +25,39 @@ body {
   display: none;
 }
 
-i:active{
+i:active, a:active{
+  color: $blue;
+  text-decoration: none;
+}
+
+i:hover{
   color: $blue;
 }
 
+a:hover{
+  text-decoration: none;
+}
+
+.vw_100{
+  width: 100vw;
+   }
 
 /* HEADER */
 
 .nav-md{
   display: none;
+  img{
+    width: 80px;
+  }
+  h2:hover{
+    color: $blue;
+  }
+  ul{
+    a:hover{
+      border-top: $blue 1px solid;
+      padding-top: 6px;
+    }
+  }
 }
 
 .navbar-inverse{
@@ -67,7 +90,7 @@ nav{
   .welcome_message{
     height: 100vh;
     width: 100%;
-    background-image: url("/img/index.jpg");
+    background-image: url("/img/index2.jpg");
     background-size: cover;
     color: $option1Light;
     div {
@@ -95,10 +118,6 @@ nav{
   }
 }
 
-.title{
-  margin-top: 0;
-}
-
 /* index_section2 */
 
 #index_section2{
@@ -106,10 +125,15 @@ nav{
   .tricks_one_illustration{
     width: 100%;
   }
+  .one_illustration{
+    height: 160px;
+    overflow: hidden;
+  }
   .trick{
     border: rgba(255, 255, 255, 0.08) 1px solid;
     margin: 15px 0;
     padding: 0 0 12px 0;
+    max-width: 350px;
     .name{
       padding: 12px 10px 0 10px;
     }
@@ -118,7 +142,64 @@ nav{
       font-weight: bolder;
       letter-spacing: 1px;
     }
+    .name{
+      max-height: 50px;
+    }
+  }
+  .button:hover{
+    color: $blue;
+  }
+}
+
+/* FOOTER */
+
+footer{
+  height: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  p{
+    color: rgba(255, 255, 255, 0.36);
   }
 }
 
 /* end INDEX.HTML.TWIG */
+
+// MD
+@media (min-width: 768px){
+  /* HEADER */
+  .nav-md{
+    display: block;
+    ul{
+      width: 350px;
+    }
+    h2{
+      top: 6px;
+      position: relative;
+    }
+  }
+  .nav-xs{
+    display: none;
+  }
+  .header-size{
+    height: 82px;
+  }
+  /* end HEADER*/
+  #index_section2{
+    margin-top: 20px;
+  }
+}
+
+// XL
+@media (min-width: 1200px){
+  /* index.html.twig */
+  .index_section1{
+    .welcome_message{
+    background-image: url("/img/indexLG.jpg");
+    }
+    .welcome_message i {
+      margin-right: 25px;
+    }
+  }
+  #index_section2{
+    margin-top: 22px;
+  }
+}

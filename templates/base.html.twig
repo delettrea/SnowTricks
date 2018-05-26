@@ -17,33 +17,43 @@
 <body>
     {% block header %}
     <header>
-        <nav class="nav-md navbar">
+        <nav class="nav-md navbar fixed-top vw_100">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <img src="{{ asset('/img/logo.png') }}" alt="logo snowtricks">
-                    <a class="navbar-brand" href="{{ path('home_page') }}">Snowtricks</a>
+                    <a class="navbar-brand" href="{{ path('home_page') }}"><h2 class="m-0 font-white">Snowtricks</h2></a>
                 </div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav d-flex flex-row justify-content-around">
                     <li><a href={{ path('home_page') }}>Home</a></li>
+                    <span>|</span>
                     <li><a href="#">Figures</a></li>
+                    <span>|</span>
                     <li><a href={{ path('login') }}>Login</a></li>
+                    <span>|</span>
                     <li><a href={{ path('registration') }}>S'inscrire</a></li>
                 </ul>
             </div>
         </nav>
-        <nav class="nav-xs nav font-blue fixed-bottom">
+        {% block sizeHeader %}
+            <div class="header-size"></div>
+        {% endblock %}
+        <nav class="nav-xs nav font-blue fixed-bottom vw_100">
             <ul class="nav justify-content-around col-xs-12 col-sm-12">
                 <li class="nav-item"><a class="nav-link" href={{ path('home_page') }}><i class="fas fa-home font-blue"></i></a></li>
                 <li class="nav-item"><a id="go_to_tricks" class="nav-link" href="#"><i class="fas fa-bookmark font-blue"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href={{ path('login') }}><i class="fas fa-sign-in-alt font-blue"></i></a></li>
+                {% if app.user %}
+                    <li class="nav-item"><a class="nav-link" href={{ path('logout') }}><i class="fas fa-sign-out-alt font-blue"></i></a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href={{ path('login') }}><i class="fas fa-sign-in-alt font-blue"></i></a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
     {% endblock %}
     {% block body %}{% endblock %}
     {% block footer %}
-        <footer class="container-fluid nav-height display-none">
-            <p>Copyright @ 2018</p>
+        <footer class="container-fluid display-none align-items-center">
+            <p class="m-0">Copyright @ 2018</p>
         </footer>
     {% endblock %}
     {% block javascripts %}{% endblock %}

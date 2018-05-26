@@ -1,27 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="container-fluid index_section1 col-xs-12">
+    <section class="container-fluid index_section1 col-xs-12 vw_100">
         <div class="welcome_message">
-            <div class="container d-flex flex-column justify-content-center align-items-center">
+            <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
                 <a href="{{ path('home_page') }}">
-                    <img src="">
-                    <h1 class="underline-blue title">snowtricks</h1>
+                    <h1 class="underline-blue mt-0">snowtricks</h1>
                 </a>
-                <h5>Le site communautaire pour apprendre les figures de snowboard</h5>
+                <h5 class="container">Le site communautaire pour apprendre les figures de snowboard</h5>
             </div>
             <i id="button_to_section2" class="arrow-down fas fa-2x fa-arrow-down"></i>
         </div>
     </section>
-    <section id="index_section2" class="container-fluid col-xs-12 display-none nav-height">
+    <section id="index_section2" class="container-fluid col-xs-12 display-none nav-height row justify-content-center justify-content-md-around m-0">
         {% for message in app.flashes('message') %}
             <div class="flash-notice">
                 {{ message }}
             </div>
         {% endfor %}
         {% for trick in tricks %}
-            <div class="trick {{ trick.name }} container col-xs-12 col-sm-12 col-md-6">
-                <div>
+            <div class="trick {{ trick.name }} container col-xs-12 col-sm-12 col-md-5 col-lg-3">
+                <div class="one_illustration">
                 {% if trick.illustration is empty %}
                     <img class="tricks_one_illustration" src="{{ illustrations_folder }}/default.jpg"
                          alt="image par default">
@@ -34,7 +33,7 @@
             </div>
             <div class="name d-flex justify-content-between align-items-center">
                 <a class="trick_detail_link font-blue underline-blue" href="{{ path('trick_details', {'id' : trick.id}) }}">{{ trick.name }}</a>
-                <div class="div_button">
+                <div class="div_button d-flex">
                 <a class="button btn btn-link font-white" href="{{ path('trick_edit', { 'id': trick.id }) }}"><i class="fas fa-pencil-alt"></i></a>
                 <a class="button btn btn-link font-white" href="{{ path('trick_delete_url', { 'id': trick.id }) }}"><i class="fas fa-trash-alt"></i></a>
                 </div>
@@ -46,4 +45,7 @@
 
 {% block javascripts %}
 <script src="{{ asset('build/js/index.js') }}"></script>
+{% endblock %}
+
+{% block sizeHeader %}
 {% endblock %}
