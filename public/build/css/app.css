@@ -6,8 +6,14 @@ body, .navbar-inverse {
 .font-white, a:hover {
   color: white; }
 
+.blue-hover:hover {
+  color: #3ec4e1; }
+
 .font-blue, a {
   color: #3ec4e1; }
+
+.font-darkBlue {
+  color: #313540; }
 
 .underline-blue {
   border-bottom: #3ec4e1 1px solid; }
@@ -25,8 +31,34 @@ i:hover {
 a:hover {
   text-decoration: none; }
 
+.back-blue {
+  background-color: #3ec4e1; }
+
 .vw_100 {
   width: 100vw; }
+
+.margin-0 {
+  margin: 0; }
+
+.btn-primary-blue {
+  background-color: white;
+  border-color: white;
+  color: #3ec4e1; }
+
+.btn-primary-blue-reverse {
+  background-color: #3ec4e1;
+  border-color: #3ec4e1;
+  color: #313540; }
+
+button:active, .btn-primary-blue-reverse {
+  color: white;
+  background-color: #3ec4e1;
+  border-color: #3ec4e1; }
+
+button:active:hover, .btn-primary-blue-reverse:hover {
+  color: white;
+  background-color: #45dcf9;
+  border-color: #45dcf9; }
 
 /* HEADER */
 .nav-md {
@@ -38,6 +70,8 @@ a:hover {
   .nav-md ul a:hover {
     border-top: #3ec4e1 1px solid;
     padding-top: 6px; }
+  .nav-md ul a:active {
+    border-top-color: white; }
 
 .navbar-inverse {
   border: none; }
@@ -77,9 +111,18 @@ nav {
       cursor: pointer;
       border: #3ec4e1 solid 1px;
       padding: 8px 10px;
-      border-radius: 47px; }
+      border-radius: 47px;
+      background-color: rgba(255, 255, 255, 0.13); }
   .index_section1 .arrow-down {
     float: right; }
+  .index_section1 .message-succes .message-error {
+    display: flex;
+    justify-content: center; }
+    .index_section1 .message-succes .message-error div:first-child {
+      margin-top: 20px; }
+    .index_section1 .message-succes .message-error div {
+      max-width: 90vw;
+      position: absolute; }
 
 /* index_section2 */
 #index_section2 {
@@ -104,6 +147,39 @@ nav {
       max-height: 50px; }
   #index_section2 .button:hover {
     color: #3ec4e1; }
+  #index_section2 .modal-header {
+    flex-direction: row-reverse; }
+  #index_section2 .modal-body span {
+    font-weight: bold; }
+  #index_section2 #btn-ajax, #index_section2 .btn-ajax {
+    height: 70px;
+    max-width: 190px;
+    background-color: white;
+    border-color: white;
+    color: #3ec4e1; }
+
+/* end INDEX.HTML.TWIG */
+/* LOGIN.HTML.TWIG */
+.login-section, .registration-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .login-section .border, .registration-section .border {
+    border: 1px solid white;
+    height: 80vh;
+    width: 90vw; }
+  .login-section form, .registration-section form {
+    height: 300px; }
+  .login-section input, .login-section input:focus, .registration-section input, .registration-section input:focus {
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    background-color: #ffffff00; }
+  .login-section input:-webkit-autofill, .registration-section input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #313540 inset;
+    -webkit-text-fill-color: white; }
 
 /* FOOTER */
 footer {
@@ -112,7 +188,7 @@ footer {
   footer p {
     color: rgba(255, 255, 255, 0.36); }
 
-/* end INDEX.HTML.TWIG */
+/* end FOOTER */
 @media (min-width: 768px) {
   /* HEADER */
   .nav-md {
@@ -130,16 +206,53 @@ footer {
     height: 82px; }
 
   /* end HEADER*/
+  /* index.html.twig */
+  .index_section1 .message-succes div, .index_section1 .message-error div {
+    width: 90vw; }
+  .index_section1 .message-succes div:first-child, .index_section1 .message-error div:first-child {
+    margin-top: 110px; }
+
   #index_section2 {
-    margin-top: 20px; } }
+    margin-top: 70px; }
+    #index_section2 .trick {
+      margin: 30px 0;
+      width: 350px; }
+
+  /* end index.html.twig */
+  /* login.html.twig*/
+  .login-section, .registration-section {
+    height: 90vh; }
+    .login-section .border, .registration-section .border {
+      height: 70vh;
+      width: 60vw; } }
 @media (min-width: 1200px) {
   /* index.html.twig */
   .index_section1 .welcome_message {
     background-image: url("/img/indexLG.jpg"); }
   .index_section1 .welcome_message i {
     margin-right: 25px; }
+  .index_section1 .message-succes div, .index_section1 .message-error div {
+    max-width: 1000px; }
 
   #index_section2 {
-    margin-top: 22px; } }
+    max-width: 1779px;
+    margin: auto;
+    margin-top: 70px; }
+    #index_section2 #btn-ajax, #index_section2 .btn-ajax {
+      margin: 0 200px;
+      margin-bottom: 12px; }
+    #index_section2 .no-more-tricks {
+      margin: 12px 200px; }
+
+  /* login.html.twig*/
+  .login-section, .registration-section {
+    margin-top: 200px;
+    height: auto; }
+    .login-section .border, .registration-section .border {
+      height: 470px;
+      width: 470px; }
+    .login-section h1, .registration-section h1 {
+      position: absolute;
+      top: 150px; } }
 
 /*# sourceMappingURL=app.css.map */

@@ -2,6 +2,22 @@
 
 {% block body %}
     <section class="container-fluid index_section1 col-xs-12 vw_100">
+        {% for message in app.flashes('message-succes') %}
+            <div class="message-succes">
+                <div class="flash-notice alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('message-error') %}
+        <div class="message-error">
+            <div class="flash-notice alert alert-error alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
         <div class="welcome_message">
             <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
                 <a href="{{ path('home_page') }}">
@@ -12,39 +28,64 @@
             <i id="button_to_section2" class="arrow-down fas fa-2x fa-arrow-down"></i>
         </div>
     </section>
-    <section id="index_section2" class="container-fluid col-xs-12 display-none nav-height row justify-content-center justify-content-md-around m-0">
-        {% for message in app.flashes('message') %}
-            <div class="flash-notice">
-                {{ message }}
-            </div>
-        {% endfor %}
+    <section id="index_section2"
+             class="container-fluid col-xs-12 display-none nav-height row justify-content-center justify-content-md-around margin-0">
         {% for trick in tricks %}
             <div class="trick {{ trick.name }} container col-xs-12 col-sm-12 col-md-5 col-lg-3">
                 <div class="one_illustration">
-                {% if trick.illustration is empty %}
-                    <img class="tricks_one_illustration" src="{{ illustrations_folder }}/default.jpg"
-                         alt="image par default">
-                {% else %}
-                    {% for img in trick.illustration %}
-                        <img class="tricks_one_illustration" src="{{ illustrations_folder }}/{{ img.name }}"
-                             alt="image {{ trick.name }}">
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div class="name d-flex justify-content-between align-items-center">
-                <a class="trick_detail_link font-blue underline-blue" href="{{ path('trick_details', {'id' : trick.id}) }}">{{ trick.name }}</a>
-                <div class="div_button d-flex">
-                <a class="button btn btn-link font-white" href="{{ path('trick_edit', { 'id': trick.id }) }}"><i class="fas fa-pencil-alt"></i></a>
-                <a class="button btn btn-link font-white" href="{{ path('trick_delete_url', { 'id': trick.id }) }}"><i class="fas fa-trash-alt"></i></a>
+                    {% if trick.illustration is empty %}
+                        <img class="tricks_one_illustration" src="{{ illustrations_folder }}/default.jpg"
+                             alt="image par default">
+                    {% else %}
+                        {% for img in trick.illustration %}
+                            <img class="tricks_one_illustration" src="{{ illustrations_folder }}/{{ img.name }}"
+                                 alt="image {{ trick.name }}">
+                        {% endfor %}
+                    {% endif %}
                 </div>
-            </div>
+                <div class="name d-flex justify-content-between align-items-center">
+                    <a class="trick_detail_link font-blue underline-blue"
+                       href="{{ path('trick_details', {'id' : trick.id}) }}">{{ trick.name }}</a>
+                    {% if app.user %}
+                        <div class="div_button d-flex">
+                            <a class="button btn btn-link font-white"
+                               href="{{ path('trick_edit', { 'id': trick.id }) }}"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="button btn btn-link font-white" data-toggle="modal" data-target="#myModal"
+                               href="#"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+                {% block modal %}
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content font-darkBlue">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Suppression</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Etes-vous sur de vouloir supprimer définitivement la figure
+                                        <span>{{ trick.name }}</span> ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="button btn btn-danger font-white"
+                                       href="{{ path('trick_delete_url', { 'id': trick.id }) }}">Supprimer</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
             </div>
         {% endfor %}
+        <button id="btn-ajax" class="btn btn-primary btn-ajax">Voir d'autres Figures</button>
     </section>
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('build/js/index.js') }}"></script>
+    <script src="{{ asset('build/js/index.js') }}"></script>
 {% endblock %}
 
 {% block sizeHeader %}

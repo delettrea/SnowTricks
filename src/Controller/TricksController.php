@@ -30,9 +30,27 @@ class TricksController extends Controller
      */
     public function index()
     {
-        $tricks = $this->em->getRepository('App:Tricks')->TricksWithOneIllustration();
+        $tricks = $this->em->getRepository('App:Tricks')->TricksWithOneIllustration(0,8);
 
         return $this->render('tricks/index.html.twig', [
+            'tricks' => $tricks,
+        ]);
+    }
+
+    /**
+     * @Route("/ajax/trick/", name="ajax_trick")
+     * @Method("POST")
+     */
+    public function indexMoreTricks(Request $request)
+    {
+        $numberFirst = $request->get('numberFirst');
+        $numberMax = $request->get('numberMax');
+        //dump($numberMax);
+        //dump($numberFirst);
+
+        $tricks = $this->em->getRepository('App:Tricks')->TricksWithOneIllustration($numberFirst, $numberMax);
+
+        return $this->render('tricks/ajax.html.twig', [
             'tricks' => $tricks,
         ]);
     }
@@ -144,6 +162,11 @@ class TricksController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($tricks);
         $em->flush();
+
+        $this->addFlash(
+            "message-succes",
+            "La figure ".$tricks->getName()." a bien été supprimée."
+        );
 
         return $this->redirectToRoute('home_page');
     }

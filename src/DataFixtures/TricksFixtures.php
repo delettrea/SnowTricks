@@ -20,7 +20,14 @@ class TricksFixtures extends Fixture
             array('ref' => 'trick7' ,'name' => 'Tail grab' , 'group' => 'Grab', 'description' =>'Lors de la figure il faut saisir la partie arrière de la planche de snowboard avec la main arrière.' ),
             array('ref' => 'trick8' ,'name' => 'Nose slide' , 'group' => 'Slides', 'description' =>'Le nose slide est une figure qui consiste à glisser sur une barre de slide, peu importe sa forme, avec le haut de la planche sur le slide.' ),
             array('ref' => 'trick9' ,'name' => 'Nose grab' , 'group' => 'Grab', 'description' =>'Cette figure est un peu l\'inverse de la Tail grab. En effet le Nose grab consiste à prendre le haut de planche cette fois-ci et avec la main avant.'),
-        );
+            array('ref' => 'trick10' ,'name' => '1080 ou big foot' , 'group' => 'Rotation', 'description' =>'1080 ou big foot : cette figure décrit une rotation de trois tours avec le snowboard.' ),
+            array('ref' => 'trick11' ,'name' => 'Seat belt' , 'group' => 'Grab', 'description' =>'Cette figure  grab consiste à prendre le carre frontside de l\'arrière avec la main avant.' ),
+            array('ref' => 'trick12' ,'name' => 'Front side' , 'group' => 'Rotation', 'description' =>'Une rotation front side est une rotation réalisée vers le carré backside.' ),
+            array('ref' => 'trick13' ,'name' => 'Indy' , 'group' => 'Grab', 'description' =>'Cette figure consiste à prendre la carre frontside de la planche avec  la mains arrière entre les deux jambes.' ),
+            array('ref' => 'trick14' ,'name' => '360' , 'group' => 'Slides', 'description' =>'Un trois six est une rotation sur un tour complet.' ),
+            array('ref' => 'trick15' ,'name' => 'style week' , 'group' => 'Grab', 'description' =>'Proche du indy il s\'agit de faire la même chose mais d\'attraper le carre backside de la planche cette fois-ci.' ),
+            array('ref' => 'trick16' ,'name' => 'Truck driver' , 'group' => 'Grab', 'description' =>'Lors de la figure il faut saisir le carre avant et le carre arrière avec chaque main. Cette figure est semblable au fait de tenir un volant, d\'où son nom truck driver.' ),
+            );
 
         foreach ($tab as $row)
         {

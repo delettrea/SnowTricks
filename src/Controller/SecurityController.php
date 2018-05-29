@@ -76,7 +76,7 @@ class SecurityController extends Controller
                 $mailGenerator->registration($user);
 
                 $this->addFlash(
-                    "message",
+                    "message-succes",
                     "Votre compte à bien était créé. Veuillez confirmer votre inscription via le mail qui vient de vous être envoyé."
                 );
 
@@ -84,13 +84,13 @@ class SecurityController extends Controller
             }
             elseif (!empty($resp)){
                 $this->addFlash(
-                    "message",
+                    "message-error",
                     "Le nom d'utilisateur existe déjà, veuillez en choisir un nouveau."
                 );
             }
             else {
                 $this->addFlash(
-                    "message",
+                    "message-error",
                     "Le formulaire n'est pas valide, veuillez remplir correctement tous les champs."
                 );
             }
@@ -116,16 +116,15 @@ class SecurityController extends Controller
                 $user->setIsActive(true);
                 $em->persist($user);
                 $em->flush();
-                $message = "Votre compte à bien été activé.";
             } else {
                 $this->addFlash(
-                    "active",
+                    "message-succes",
                     "Le compte est déjà activé, vous pouvez vous connecter."
                 );
             };
         } else {
             $this->addFlash(
-                "active",
+                "message-error",
                 "Cet email ne permet pas d'activer un compte."
             );
         }
@@ -155,18 +154,18 @@ class SecurityController extends Controller
             if (!empty($user) && $user->getIsActive() == true) {
                 $mailGenerator->forgotPasswordEmail($user);
                 $this->addFlash(
-                    "message",
-                    "Votre inscription a bien été prise en compte.
-                    Un email vient de vous être envoyé pour que vous activiez votre compte."
+                    "message-succes",
+                    "Vous venez de faire une demande de changement votre mot de passe.
+                    Un email vient de vous être envoyé pour que vous changiez votre mot de passe."
                 );
             } elseif(empty($user)) {
                 $this->addFlash(
-                    "message",
+                    "message-error",
                     "Le nom d'utilisateur saisit ne correspond à aucun compte sur le site."
                 );
             } else {
                 $this->addFlash(
-                    "message",
+                    "message-error",
                     "L'utilisateur n'a pas encore validé son compte."
                 );
             }
@@ -193,7 +192,7 @@ class SecurityController extends Controller
 
         if (!empty($resp) && ($user->getisActive() === false)) {
             $this->addFlash(
-                "error",
+                "message-error",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur qui n'a pas encore activé son compte. 
                 Veuillez vous reporter à l'email de validation de votre compte envoyé lors de votre inscription."
             );
@@ -212,11 +211,17 @@ class SecurityController extends Controller
 
                     $em->flush();
 
+                    $this->addFlash(
+                        'message-succes',
+                        "Votre changement de mot de passe vient d'être effectué.
+                        Vous pouvez vous connecter maintenant à votre compte avec votre nouveau mot de passe."
+                    );
+
                     return $this->redirectToRoute('home_page');
                 }
                 else {
                     $this->addFlash(
-                        'message',
+                        'message-error',
                         "Le nom d'utilisateur est incorrect.
                         Veuillez renseigner le nom d'utilisateur correspondant à l'adresse email renseignée."
                     );
@@ -229,7 +234,7 @@ class SecurityController extends Controller
         }
         else {
             $this->addFlash(
-                "message",
+                "message-error",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur. 
                 Veuillez vérifier le lien dans l'email qui vous à été envoyer pour le changement de mot de passe."
             );

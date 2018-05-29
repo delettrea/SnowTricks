@@ -28,9 +28,13 @@
                     <span>|</span>
                     <li><a href="#">Figures</a></li>
                     <span>|</span>
-                    <li><a href={{ path('login') }}>Login</a></li>
-                    <span>|</span>
-                    <li><a href={{ path('registration') }}>S'inscrire</a></li>
+                    {% if app.user %}
+                        <li><a href={{ path('logout') }}>Deconnexion</a></li>
+                    {% else %}
+                        <li><a href={{ path('login') }}>Connexion</a></li>
+                        <span>|</span>
+                        <li><a href={{ path('registration') }}>Insription</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

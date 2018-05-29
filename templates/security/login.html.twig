@@ -1,30 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <section class="login-section d-flex align-items-center">
+        <div class="container border form-group d-flex align-items-center flex-column justify-content-around">
+            <h1>Connexion</h1>
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+            <form class="d-flex align-items-center flex-column justify-content-between" action="{{ path('login') }}" method="post">
+                <div class="form-group d-flex flex-column align-items-center">
+                <label for="username">Nom d'utilisateur:</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
+                </div>
 
-    <form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                <div class="form-group d-flex flex-column align-items-center">
+                <label for="password">Mot de passe:</label>
+                <input class="form-control" type="password" id="password" name="_password" />
+                </div>
+            <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Connexion</button>
+            </form>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
-
-    <button type="submit">login</button>
-
-
-
-    {#
-   {{ form_start(form) }}
-   <button type="submit">login</button>
-   {{ form_end(form) }}
-   #}
-
-    <div>
-        <a href="{{ path('home_page') }}">S'inscrire.</a>
-        <a href="{{ path('home_page') }}">Mot de passe oublié.</a>
-    </div>
-
+            <div class="div-a d-flex flex-column align-items-center justify-content-between">
+                <a class="font-white blue-hover" href="{{ path('registration') }}">S'inscrire.</a>
+                <a class="font-white blue-hover" href="{{ path('forgot_password') }}">Mot de passe oublié.</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

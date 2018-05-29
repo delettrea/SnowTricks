@@ -19,9 +19,13 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    public function TricksWithOneIllustration()
+    public function TricksWithOneIllustration($numberFirst, $numberMax)
     {
-        $query = $this->_em->createQuery('SELECT t, i FROM App:Tricks t LEFT JOIN t.illustration i GROUP BY t.id');
+        $query = $this->_em->createQuery('SELECT t, i FROM App:Tricks t LEFT JOIN t.illustration i GROUP BY t.id ORDER BY t.id DESC');
+
+        $query->setFirstResult($numberFirst);
+        $query->setMaxResults($numberMax);
+
         $result = $query->getResult();
         return $result;
     }

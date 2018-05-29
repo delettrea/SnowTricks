@@ -1,5 +1,6 @@
 $darkBlue: #313540;
 $blue: #3ec4e1;
+$blueHover: #45dcf9;
 $option1Dark: #0b132b;
 $option1Light: #1c2541;
 
@@ -13,8 +14,16 @@ body {
   color: white;
 }
 
+.blue-hover:hover{
+  color: $blue;
+}
+
 .font-blue, a{
   color: $blue;
+}
+
+.font-darkBlue{
+  color: $darkBlue;
 }
 
 .underline-blue{
@@ -38,9 +47,41 @@ a:hover{
   text-decoration: none;
 }
 
+.back-blue{
+  background-color: $blue;
+}
+
 .vw_100{
   width: 100vw;
    }
+
+.margin-0{
+  margin: 0;
+}
+
+.btn-primary-blue{
+  background-color: white;
+  border-color: white;
+  color: $blue;
+}
+
+.btn-primary-blue-reverse{
+  background-color: $blue;
+  border-color: $blue;
+  color: $darkBlue;
+}
+
+button:active, .btn-primary-blue-reverse{
+  color: white;
+  background-color: $blue;
+  border-color: $blue;
+}
+
+button:active:hover, .btn-primary-blue-reverse:hover{
+  color: white;
+  background-color: $blueHover;
+  border-color: $blueHover;
+}
 
 /* HEADER */
 
@@ -56,6 +97,9 @@ a:hover{
     a:hover{
       border-top: $blue 1px solid;
       padding-top: 6px;
+    }
+    a:active{
+      border-top-color: white;
     }
   }
 }
@@ -111,10 +155,22 @@ nav{
       border: #3ec4e1 solid 1px;
       padding: 8px 10px;
       border-radius: 47px;
+      background-color: rgba(255, 255, 255, 0.13);
     }
   }
   .arrow-down{
     float: right;
+  }
+  .message-succes .message-error{
+    display: flex;
+    justify-content: center;
+    div:first-child{
+      margin-top: 20px;
+    }
+    div{
+      max-width: 90vw;
+      position: absolute;
+    }
   }
 }
 
@@ -149,6 +205,51 @@ nav{
   .button:hover{
     color: $blue;
   }
+  .modal-header{
+    flex-direction: row-reverse;
+  }
+  .modal-body{
+    span{
+      font-weight: bold;
+    }
+  }
+  #btn-ajax, .btn-ajax{
+    height: 70px;
+    max-width: 190px;
+    background-color: white;
+    border-color: white;
+    color: $blue;
+  }
+}
+/* end INDEX.HTML.TWIG */
+
+/* LOGIN.HTML.TWIG */
+.login-section, .registration-section{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .border {
+    border: 1px solid white;
+    height: 80vh;
+    width: 90vw;
+  }
+  form{
+    height: 300px;
+  }
+  .border-md{
+  }
+  input, input:focus{
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    background-color: #ffffff00;
+  }
+  input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 30px $darkBlue inset;
+    -webkit-text-fill-color: white;
+  }
 }
 
 /* FOOTER */
@@ -161,7 +262,7 @@ footer{
   }
 }
 
-/* end INDEX.HTML.TWIG */
+/* end FOOTER */
 
 // MD
 @media (min-width: 768px){
@@ -183,8 +284,32 @@ footer{
     height: 82px;
   }
   /* end HEADER*/
+  /* index.html.twig */
+  .index_section1{
+    .message-succes, .message-error{
+      div{
+        width: 90vw;
+      }
+      div:first-child {
+        margin-top: 110px;
+      }
+    }
+  }
   #index_section2{
-    margin-top: 20px;
+    margin-top: 70px;
+    .trick{
+      margin: 30px 0;
+      width: 350px;
+    }
+  }
+  /* end index.html.twig */
+  /* login.html.twig*/
+  .login-section, .registration-section{
+    height: 90vh;
+    .border{
+      height: 70vh;
+      width: 60vw;
+    }
   }
 }
 
@@ -198,8 +323,35 @@ footer{
     .welcome_message i {
       margin-right: 25px;
     }
+    .message-succes, .message-error{
+      div{
+        max-width: 1000px;
+      }
+    }
   }
   #index_section2{
-    margin-top: 22px;
+    max-width: 1779px;
+    margin: auto;
+    margin-top: 70px;
+    #btn-ajax, .btn-ajax{
+      margin: 0 200px;
+      margin-bottom: 12px;
+    }
+    .no-more-tricks{
+      margin: 12px 200px;
+    }
+  }
+  /* login.html.twig*/
+  .login-section, .registration-section{
+    margin-top: 200px;
+    height: auto;
+    .border{
+      height: 470px;
+      width: 470px;
+    }
+    h1{
+      position: absolute;
+      top: 150px;
+    }
   }
 }

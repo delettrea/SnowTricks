@@ -48,6 +48,7 @@ class UserType extends AbstractType
                 ])
             ->add('avatar', FileType::class, [
                 'label' => 'Votre avatar',
+                'required'=> false
                     ])
                 ;
     }
