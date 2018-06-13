@@ -33,14 +33,11 @@
                     {% else %}
                         <li><a href={{ path('login') }}>Connexion</a></li>
                         <span>|</span>
-                        <li><a href={{ path('registration') }}>Insription</a></li>
+                        <li><a href={{ path('registration') }}>Inscription</a></li>
                     {% endif %}
                 </ul>
             </div>
         </nav>
-        {% block sizeHeader %}
-            <div class="header-size"></div>
-        {% endblock %}
         <nav class="nav-xs nav font-blue fixed-bottom vw_100">
             <ul class="nav justify-content-around col-xs-12 col-sm-12">
                 <li class="nav-item"><a class="nav-link" href={{ path('home_page') }}><i class="fas fa-home font-blue"></i></a></li>
@@ -56,7 +53,7 @@
     {% endblock %}
     {% block body %}{% endblock %}
     {% block footer %}
-        <footer class="container-fluid display-none align-items-center">
+        <footer class="container-fluid align-items-center">
             <p class="m-0">Copyright @ 2018</p>
         </footer>
     {% endblock %}

@@ -62,6 +62,7 @@ class TricksController extends Controller
     public function details(Request $request, Tricks $tricks)
     {
         $comments = $this->em->getRepository('App:Comments')->findBy(['trick' => $tricks]);
+        $background = $this->em->getRepository('App:illustrations')->findOneBy(['trick' => $tricks]);
         $illustrations = $this->em->getRepository('App:Illustrations')->findBy(['trick' => $tricks]);
         $videos = $this->em->getRepository('App:Videos')->findBy(['trick' => $tricks]);
 
@@ -91,6 +92,7 @@ class TricksController extends Controller
             'tricks' => $tricks,
             'comments' => $comments,
             'illustrations' => $illustrations,
+            'background' => $background,
             'videos' => $videos,
             'form' => $form->createView(),
             'author' => $author

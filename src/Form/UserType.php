@@ -20,7 +20,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => "Nom d'utilisateur",
+                'label' => "Nom d'utilisateur *",
                 'constraints' => [
                     new NotBlank([
                         'message' => "Veuillez renseigner un nom d'utilisateur."
@@ -28,7 +28,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Adresse email',
+                'label' => 'Adresse email *',
                 'constraints' => [
                     new Email([
                         'message' => "Veuillez renseigner une adresse email valide."
@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Mot de passe',
+                'label' => 'Mot de passe *',
                     'constraints' => [
                        new NotBlank([
                            'message' => 'Veuillez renseigner un mot de passe.'

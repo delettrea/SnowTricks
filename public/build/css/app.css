@@ -3,6 +3,14 @@ body, .navbar-inverse {
   background-color: #313540;
   color: white; }
 
+.div-inputFile label {
+  cursor: pointer;
+  color: #00b1ca;
+  font-weight: bold; }
+
+input[type=file] {
+  display: none; }
+
 .font-white, a:hover {
   color: white; }
 
@@ -14,6 +22,13 @@ body, .navbar-inverse {
 
 .font-darkBlue {
   color: #313540; }
+
+.form-errors {
+  color: #ff8a95; }
+
+.form-errors ul {
+  list-style-type: none;
+  padding: 0; }
 
 .underline-blue {
   border-bottom: #3ec4e1 1px solid; }
@@ -59,6 +74,11 @@ button:active:hover, .btn-primary-blue-reverse:hover {
   color: white;
   background-color: #45dcf9;
   border-color: #45dcf9; }
+
+.border-white {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 6px 12px; }
 
 /* HEADER */
 .nav-md {
@@ -115,12 +135,12 @@ nav {
       background-color: rgba(255, 255, 255, 0.13); }
   .index_section1 .arrow-down {
     float: right; }
-  .index_section1 .message-succes .message-error {
+  .index_section1 .message-succes, .index_section1 .message-error {
     display: flex;
     justify-content: center; }
-    .index_section1 .message-succes .message-error div:first-child {
+    .index_section1 .message-succes div:first-child, .index_section1 .message-error div:first-child {
       margin-top: 20px; }
-    .index_section1 .message-succes .message-error div {
+    .index_section1 .message-succes div, .index_section1 .message-error div {
       max-width: 90vw;
       position: absolute; }
 
@@ -160,31 +180,95 @@ nav {
 
 /* end INDEX.HTML.TWIG */
 /* LOGIN.HTML.TWIG */
-.login-section, .registration-section {
+.form-style-security {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center; }
-  .login-section .border, .registration-section .border {
+  .form-style-security .border {
     border: 1px solid white;
     height: 80vh;
     width: 90vw; }
-  .login-section form, .registration-section form {
-    height: 300px; }
-  .login-section input, .login-section input:focus, .registration-section input, .registration-section input:focus {
+  .form-style-security form {
+    min-height: 300px; }
+  .form-style-security input, .form-style-security input:focus {
     color: white;
     border: none;
     border-bottom: 1px solid white;
     border-radius: 0;
     background-color: #ffffff00; }
-  .login-section input:-webkit-autofill, .registration-section input:-webkit-autofill {
+  .form-style-security input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px #313540 inset;
     -webkit-text-fill-color: white; }
+
+.login-section form {
+  min-height: 0; }
+
+/* end login.html.twig */
+/*  DETAIL.HTML.TWIG */
+.details-section-head {
+  height: 50vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
+  .details-section-head .detail-wallpaper {
+    background-color: #ffffff73;
+    width: inherit;
+    height: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .details-section-head .detail-wallpaper .div_button {
+      position: absolute;
+      top: 8px;
+      right: 9px; }
+
+.details-section-media .illustration img {
+  max-width: 88vw; }
+.details-section-media .media-videos img {
+  width: 88vw; }
+.details-section-media .media-illustration-xs {
+  height: 15vh; }
+
+.detail-comment .hr-white {
+  border-color: rgba(255, 255, 255, 0.2);
+  width: 50vw; }
+.detail-comment .avatar-user {
+  height: 60px;
+  width: 60px;
+  margin: 6px 12px; }
+.detail-comment #comments_comment {
+  width: 80vw; }
+.detail-comment .container-comment {
+  margin-bottom: 12px; }
+.detail-comment .content-comment {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px; }
+  .detail-comment .content-comment .username {
+    margin-top: 7px; }
+
+.media-illustration-xl {
+  display: none; }
+
+.media-illustration-xs {
+  display: flex; }
+  .media-illustration-xs .div_button .button {
+    border-color: white; }
+
+.row-media img {
+  margin-bottom: 12px; }
+.row-media .div_button {
+  margin-bottom: 12px; }
+  .row-media .div_button .btn:hover {
+    color: #3ec4e1; }
 
 /* FOOTER */
 footer {
   height: 60px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14); }
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 25px;
+  padding-top: 12px; }
   footer p {
     color: rgba(255, 255, 255, 0.36); }
 
@@ -220,11 +304,18 @@ footer {
 
   /* end index.html.twig */
   /* login.html.twig*/
-  .login-section, .registration-section {
+  .form-style-security {
     height: 90vh; }
-    .login-section .border, .registration-section .border {
+    .form-style-security .border {
       height: 70vh;
-      width: 60vw; } }
+      width: 60vw; }
+
+  /* end login.html.twig */
+  /*  DETAIL.HTML.TWIG */
+  .details-section-media .modal-dialog {
+    max-width: 95vw; }
+  .details-section-media .media-illustration-xs {
+    height: 10vh; } }
 @media (min-width: 1200px) {
   /* index.html.twig */
   .index_section1 .welcome_message {
@@ -245,14 +336,33 @@ footer {
       margin: 12px 200px; }
 
   /* login.html.twig*/
-  .login-section, .registration-section {
+  .form-style-security {
     margin-top: 200px;
     height: auto; }
-    .login-section .border, .registration-section .border {
+    .form-style-security .border {
       height: 470px;
       width: 470px; }
-    .login-section h1, .registration-section h1 {
+    .form-style-security h1 {
       position: absolute;
-      top: 150px; } }
+      top: 150px; }
+
+  /* end login.html.twig */
+  /* details.html.twig */
+  .details-section-media .modal {
+    max-width: 750px;
+    margin: auto; }
+
+  .media-illustration-xs {
+    display: none; }
+
+  .media-illustration-xl {
+    display: block; }
+    .media-illustration-xl img {
+      width: 350px;
+      height: 232px; }
+
+  .row-media {
+    margin-top: 12px; } }
+/* end details.html.twig*/
 
 /*# sourceMappingURL=app.css.map */

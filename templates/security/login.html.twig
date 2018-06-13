@@ -1,12 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}SnowTricks - Connexion.{% endblock %}
+
 {% block body %}
-    <section class="login-section d-flex align-items-center">
+    <section class="form-style-security login-section d-flex align-items-center flex-column">
+        {% for message in app.flashes('message-succes') %}
+            <div class="message-succes">
+                <div class="flash-notice alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('message-error') %}
+            <div class="message-error">
+                <div class="flash-notice alert alert-error alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+            {% if error %}
+                <div class="message-error">
+                    <div class="flash-notice alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                </div>
+            {% endif %}
         <div class="container border form-group d-flex align-items-center flex-column justify-content-around">
             <h1>Connexion</h1>
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
             <form class="d-flex align-items-center flex-column justify-content-between" action="{{ path('login') }}" method="post">
                 <div class="form-group d-flex flex-column align-items-center">
                 <label for="username">Nom d'utilisateur:</label>
@@ -26,4 +49,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/index.js') }}"></script>
 {% endblock %}

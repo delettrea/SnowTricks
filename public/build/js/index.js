@@ -59,6 +59,8 @@ function $_GET(param) {
     return vars;
 }
 
+// AJAX
+
 function loadMoreTricks() {
     firstMin = 0;
 

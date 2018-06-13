@@ -1,42 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <section class="registration-section">
-        <div class="container border form-group d-flex align-items-center flex-column justify-content-around">
-            <h1>Inscription</h1>
+{% block title %}SnowTricks - Inscription.{% endblock %}
 
-            {% for message in app.flashes('message') %}
-                <div class="flash-notice">
-                    {{ message }}
+{% block body %}
+    <section class="form-style-security registration-section flex-column">
+        <div>
+            {% for message in app.flashes('message-error') %}
+                <div class="message-error">
+                    <div class="flash-notice alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                    </div>
                 </div>
             {% endfor %}
+        </div>
+        <div class="container border form-group d-flex align-items-center flex-column justify-content-around">
+            <h1>Inscription</h1>
 
             {{ form_start(form) }}
                 <div class="form-group d-flex flex-column align-items-center">
                     {{ form_label(form.username) }}
-                    {{ form_errors(form.username) }}
+                    <div class="form-errors">
+                        {{ form_errors(form.username) }}
+                    </div>
                     {{ form_widget(form.username) }}
                 </div>
 
                 <div class="form-group d-flex flex-column align-items-center">
-                {{ form_label(form.email) }}
-                {{ form_errors(form.email) }}
-                {{ form_widget(form.email) }}
+                    {{ form_label(form.email) }}
+                    <div class="form-errors">
+                        {{ form_errors(form.email) }}
+                    </div>
+                    {{ form_widget(form.email) }}
                 </div>
 
                 <div class="form-group d-flex flex-column align-items-center">
-                {{ form_label(form.plainPassword) }}
-                {{ form_errors(form.plainPassword) }}
-                {{ form_widget(form.plainPassword) }}
+                    {{ form_label(form.plainPassword) }}
+                    <div class="form-errors">
+                        {{ form_errors(form.plainPassword) }}
+                    </div>
+                    {{ form_widget(form.plainPassword) }}
                 </div>
 
                 <div class="form-group d-flex flex-column align-items-center">
-                {{ form_label(form.avatar) }}
-                {{ form_errors(form.avatar) }}
-                {{ form_widget(form.avatar) }}
+                    <div class="div-inputFile">
+                    {{ form_label(form.avatar) }}
+                    </div>
+                    <div class="form-errors">
+                        {{ form_errors(form.avatar) }}
+                    </div>
+                    {{ form_widget(form.avatar) }}
                 </div>
 
             <div class="form-group d-flex flex-column align-items-center">
+                <p>* Champs obligatoires.</p>
             <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Créer un compte</button>
             </div>
 
@@ -46,4 +63,8 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/registration.js') }}"></script>
 {% endblock %}

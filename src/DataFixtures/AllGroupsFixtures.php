@@ -6,7 +6,7 @@ use App\Entity\Groups;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class GroupsFixtures extends Fixture
+class AllGroupsFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
 

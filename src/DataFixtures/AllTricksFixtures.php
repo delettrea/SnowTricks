@@ -6,7 +6,7 @@ use App\Entity\Tricks;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TricksFixtures extends Fixture
+class AllTricksFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {

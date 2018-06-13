@@ -15,7 +15,7 @@ class ForgotPasswordType extends AbstractType
     {
         $builder
             ->add('username', TextType::class,[
-                'label' => "Nom d'Utilisateur",
+                'label' => "Nom d'utilisateur",
                 'constraints' => [
                     new NotBlank([
                         'message' => "Veuillez renseigner un nom d'utilisateur."

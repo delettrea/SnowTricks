@@ -31,10 +31,11 @@
     <section id="index_section2"
              class="container-fluid col-xs-12 display-none nav-height row justify-content-center justify-content-md-around margin-0">
         {% for trick in tricks %}
+            {% set modalTrickName = trick.name %}
             <div class="trick {{ trick.name }} container col-xs-12 col-sm-12 col-md-5 col-lg-3">
                 <div class="one_illustration">
                     {% if trick.illustration is empty %}
-                        <img class="tricks_one_illustration" src="{{ illustrations_folder }}/default.jpg"
+                        <img class="tricks_one_illustration" src="{{ illustrations_folder }}/noimg.png"
                              alt="image par default">
                     {% else %}
                         {% for img in trick.illustration %}
@@ -50,14 +51,14 @@
                         <div class="div_button d-flex">
                             <a class="button btn btn-link font-white"
                                href="{{ path('trick_edit', { 'id': trick.id }) }}"><i class="fas fa-pencil-alt"></i></a>
-                            <a class="button btn btn-link font-white" data-toggle="modal" data-target="#myModal"
+                            <a class="button btn btn-link font-white" data-toggle="modal" data-target="#myModal{{ trick.id }}"
                                href="#"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     {% endif %}
                 </div>
                 {% block modal %}
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal fade" id="myModal{{ trick.id }}" role="dialog">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content font-darkBlue">
@@ -67,7 +68,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>Etes-vous sur de vouloir supprimer définitivement la figure
-                                        <span>{{ trick.name }}</span> ?</p>
+                                        <span>{{ modalTrickName }}</span> ?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <a class="button btn btn-danger font-white"
@@ -86,7 +87,4 @@
 
 {% block javascripts %}
     <script src="{{ asset('build/js/index.js') }}"></script>
-{% endblock %}
-
-{% block sizeHeader %}
 {% endblock %}

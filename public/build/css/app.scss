@@ -3,11 +3,25 @@ $blue: #3ec4e1;
 $blueHover: #45dcf9;
 $option1Dark: #0b132b;
 $option1Light: #1c2541;
+$errorsColor: #ff8a95;
 
 body {
   font-family: Cabin;
   background-color: $darkBlue;
   color: white;
+}
+
+.div-inputFile {
+  label {
+    cursor: pointer;
+    color: #00b1ca;
+    font-weight: bold;
+  }
+}
+
+// et on masque le input
+input[type=file] {
+  display: none;
 }
 
 .font-white, a:hover{
@@ -24,6 +38,15 @@ body {
 
 .font-darkBlue{
   color: $darkBlue;
+}
+
+.form-errors{
+  color: $errorsColor;
+}
+
+.form-errors ul{
+  list-style-type: none;
+  padding: 0;
 }
 
 .underline-blue{
@@ -71,6 +94,7 @@ a:hover{
   color: $darkBlue;
 }
 
+
 button:active, .btn-primary-blue-reverse{
   color: white;
   background-color: $blue;
@@ -81,6 +105,12 @@ button:active:hover, .btn-primary-blue-reverse:hover{
   color: white;
   background-color: $blueHover;
   border-color: $blueHover;
+}
+
+.border-white{
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 6px 12px;
 }
 
 /* HEADER */
@@ -161,7 +191,7 @@ nav{
   .arrow-down{
     float: right;
   }
-  .message-succes .message-error{
+  .message-succes, .message-error{
     display: flex;
     justify-content: center;
     div:first-child{
@@ -224,7 +254,7 @@ nav{
 /* end INDEX.HTML.TWIG */
 
 /* LOGIN.HTML.TWIG */
-.login-section, .registration-section{
+.form-style-security{
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -235,7 +265,7 @@ nav{
     width: 90vw;
   }
   form{
-    height: 300px;
+    min-height: 300px;
   }
   .border-md{
   }
@@ -251,12 +281,101 @@ nav{
     -webkit-text-fill-color: white;
   }
 }
+.login-section form{
+  min-height: 0;
+}
+/* end login.html.twig */
+
+/*  DETAIL.HTML.TWIG */
+.details-section-head{
+  height: 50vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  .detail-wallpaper{
+    background-color: #ffffff73;
+    width: inherit;
+    height: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .div_button{
+      position: absolute;
+      top: 8px;
+      right: 9px;
+    }
+  }
+}
+.details-section-media{
+  .illustration{
+    img{
+      max-width: 88vw;
+    }
+  }
+  .media-videos{
+    img{
+      width: 88vw;
+    }
+  }
+  .media-illustration-xs{
+    height: 15vh;
+  }
+}
+.detail-comment{
+  .hr-white{
+    border-color: rgba(255, 255, 255, 0.2);
+    width: 50vw;
+  }
+  .avatar-user{
+    height: 60px;
+    width: 60px;
+    margin: 6px 12px;
+  }
+  #comments_comment{
+    width: 80vw;
+  }
+  .container-comment{
+    margin-bottom: 12px;
+  }
+  .content-comment{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    .username{
+      margin-top: 7px;
+    }
+  }
+}
+.media-illustration-xl{
+  display: none;
+}
+.media-illustration-xs{
+  display: flex;
+  .div_button{
+    .button{
+      border-color: white;
+    }
+  }
+}
+.row-media{
+  img{
+    margin-bottom: 12px;
+  }
+  .div_button{
+    margin-bottom: 12px;
+    .btn:hover{
+      color: $blue;
+    }
+  }
+}
 
 /* FOOTER */
 
 footer{
   height: 60px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  margin-bottom: 25px;
+  padding-top: 12px;
   p{
     color: rgba(255, 255, 255, 0.36);
   }
@@ -265,29 +384,29 @@ footer{
 /* end FOOTER */
 
 // MD
-@media (min-width: 768px){
+@media (min-width: 768px) {
   /* HEADER */
-  .nav-md{
+  .nav-md {
     display: block;
-    ul{
+    ul {
       width: 350px;
     }
-    h2{
+    h2 {
       top: 6px;
       position: relative;
     }
   }
-  .nav-xs{
+  .nav-xs {
     display: none;
   }
-  .header-size{
+  .header-size {
     height: 82px;
   }
   /* end HEADER*/
   /* index.html.twig */
-  .index_section1{
-    .message-succes, .message-error{
-      div{
+  .index_section1 {
+    .message-succes, .message-error {
+      div {
         width: 90vw;
       }
       div:first-child {
@@ -295,20 +414,30 @@ footer{
       }
     }
   }
-  #index_section2{
+  #index_section2 {
     margin-top: 70px;
-    .trick{
+    .trick {
       margin: 30px 0;
       width: 350px;
     }
   }
   /* end index.html.twig */
   /* login.html.twig*/
-  .login-section, .registration-section{
+  .form-style-security {
     height: 90vh;
-    .border{
+    .border {
       height: 70vh;
       width: 60vw;
+    }
+  }
+  /* end login.html.twig */
+  /*  DETAIL.HTML.TWIG */
+  .details-section-media {
+    .modal-dialog {
+      max-width: 95vw;
+    }
+    .media-illustration-xs {
+      height: 10vh;
     }
   }
 }
@@ -342,7 +471,7 @@ footer{
     }
   }
   /* login.html.twig*/
-  .login-section, .registration-section{
+  .form-style-security{
     margin-top: 200px;
     height: auto;
     .border{
@@ -354,4 +483,26 @@ footer{
       top: 150px;
     }
   }
-}
+  /* end login.html.twig */
+  /* details.html.twig */
+  .details-section-media{
+    .modal{
+      max-width: 750px;
+      margin: auto;
+    }
+  }
+  .media-illustration-xs{
+    display: none;
+  }
+  .media-illustration-xl{
+    display: block;
+    img{
+      width: 350px;
+      height: 232px;
+    }
+  }
+  .row-media{
+      margin-top: 12px;
+  }
+  }
+  /* end details.html.twig*/

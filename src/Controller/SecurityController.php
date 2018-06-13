@@ -116,6 +116,10 @@ class SecurityController extends Controller
                 $user->setIsActive(true);
                 $em->persist($user);
                 $em->flush();
+                $this->addFlash(
+                    "message-succes",
+                    "Votre compte est bien activé, vous pouvez vous connecter."
+                );
             } else {
                 $this->addFlash(
                     "message-succes",
@@ -128,10 +132,7 @@ class SecurityController extends Controller
                 "Cet email ne permet pas d'activer un compte."
             );
         }
-        return $this->render('security/activeAccount.html.twig', array(
-            'id' => $id,
-            'key' => $confirm_key,
-        ));
+        return $this->redirectToRoute('home_page');
     }
 
     /**
@@ -240,6 +241,6 @@ class SecurityController extends Controller
             );
         }
 
-        return $this->redirectToRoute('home_page');
+        return $this->redirectToRoute('login');
     }
 }
