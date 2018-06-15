@@ -34,8 +34,6 @@ class TricksType extends AbstractType
             ->add('group', EntityType::class, array(
                 'class' => 'App:Groups',
                 'choice_label' => 'name',
-                'expanded' => true,
-                'multiple' => false,
                 'label' => 'Groupe de la figure',
                 'constraints' => [
                     new NotBlank([
@@ -49,7 +47,7 @@ class TricksType extends AbstractType
             'entry_options' => array('label' => false),
             'allow_add' => true,
             'label' => 'Vidéos',
-            'required'=> false
+            'required'=> false,
         ));
 
         $builder->add('illustrations', CollectionType::class, array(

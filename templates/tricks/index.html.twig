@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="container-fluid index_section1 col-xs-12 vw_100">
+    <section class="container-fluid index_section1 col-xs-12">
         {% for message in app.flashes('message-succes') %}
             <div class="message-succes">
                 <div class="flash-notice alert alert-success alert-dismissible">
@@ -30,6 +30,13 @@
     </section>
     <section id="index_section2"
              class="container-fluid col-xs-12 display-none nav-height row justify-content-center justify-content-md-around margin-0">
+        <div class="vw_100 d-flex justify-content-center mt-4 mb-4">
+            {% if app.user %}
+                <a class="btn btn-primary-blue font-white" href="{{ path('trick_new') }}">
+                    <i class="fas fa-plus-circle mr-2"></i>Ajouter une nouvelle figure
+                </a>
+            {% endif %}
+        </div>
         {% for trick in tricks %}
             {% set modalTrickName = trick.name %}
             <div class="trick {{ trick.name }} container col-xs-12 col-sm-12 col-md-5 col-lg-3">
@@ -83,6 +90,9 @@
         {% endfor %}
         <button id="btn-ajax" class="btn btn-primary btn-ajax">Voir d'autres Figures</button>
     </section>
+    <div class="arrow-up">
+        <i id="" class="arrow-down fas fa-2x fa-arrow-up"></i>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

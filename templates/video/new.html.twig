@@ -1,15 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Video creation</h1>
-
-    {{ form_start(form) }}
-    <input type="submit" value="Edit" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('trick_details', { 'id': tricks.id }) }}">Back to the list</a>
-        </li>
-    </ul>
+    <section class="section-addVideo d-flex flex-column">
+        <h4 class="text-center font-blue">Ajouter une video</h4>
+        <p class="text-center instruction container">Veuillez ajouter la balise < iframe > de la video à ajouter sur cette figure. <br>
+            Cette balise se trouve dans les onglets "partager" et "intégrer" sur les site de videos.
+        </p>
+        <div class="form-edit  d-flex flex-column justify-content-center">
+            {{ form_start(form) }}
+                <div class="form-group d-flex flex-column align-items-center justify-content-around">
+                    <div class="form-errors">
+                        {{ form_errors(form.name) }}
+                    </div>
+                    {{ form_widget(form.name) }}
+                    <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Ajouter la video</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
 {% endblock %}

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class VideoController extends Controller
 {
     /**
-     * @Route("/video/delete/{id}", name="video_new")
+     * @Route("/video/delete/{id}", name="video_delete")
      * @Method({"GET", "POST"})
      */
     public function delete(Videos $videos)
@@ -63,11 +63,12 @@ class VideoController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $videos = new Videos();
+            $videos->setTrick($tricks);
             $videos->setName($form['name']->getData());
             $em->persist($videos);
             $em->flush();
 
-            return $this->redirectToRoute('trick_details', ['id' => $videos->getTrick()->getId()]);
+            return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
         }
 
         return $this->render('video/new.html.twig', [

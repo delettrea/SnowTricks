@@ -26,7 +26,7 @@
                 <ul class="nav navbar-nav d-flex flex-row justify-content-around">
                     <li><a href={{ path('home_page') }}>Home</a></li>
                     <span>|</span>
-                    <li><a href="#">Figures</a></li>
+                    <li><a href="{{ path('trick_last') }}">Figures</a></li>
                     <span>|</span>
                     {% if app.user %}
                         <li><a href={{ path('logout') }}>Deconnexion</a></li>
@@ -38,10 +38,11 @@
                 </ul>
             </div>
         </nav>
+        <div class="nav-md header-size"></div>
         <nav class="nav-xs nav font-blue fixed-bottom vw_100">
             <ul class="nav justify-content-around col-xs-12 col-sm-12">
                 <li class="nav-item"><a class="nav-link" href={{ path('home_page') }}><i class="fas fa-home font-blue"></i></a></li>
-                <li class="nav-item"><a id="go_to_tricks" class="nav-link" href="#"><i class="fas fa-bookmark font-blue"></i></a></li>
+                <li class="nav-item"><a id="go_to_tricks" class="nav-link" href="{{ path('trick_last') }}"><i class="fas fa-bookmark font-blue"></i></a></li>
                 {% if app.user %}
                     <li class="nav-item"><a class="nav-link" href={{ path('logout') }}><i class="fas fa-sign-out-alt font-blue"></i></a></li>
                 {% else %}
@@ -51,7 +52,9 @@
         </nav>
     </header>
     {% endblock %}
+    <body>
     {% block body %}{% endblock %}
+    </body>
     {% block footer %}
         <footer class="container-fluid align-items-center">
             <p class="m-0">Copyright @ 2018</p>

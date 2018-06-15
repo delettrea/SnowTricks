@@ -14,9 +14,6 @@
                         </div>
                         <div class="modal-body">
                             <div class="illustration d-flex flex-column align-items-center">
-                                {% if illustrations is empty %}
-                                    <img src="{{ illustrations_folder }}/noimg.png" alt="image par default">
-                                {% else %}
                                     {% for img in illustrations %}
                                         <div class="row-media">
                                             <img src="{{ illustrations_folder }}/{{ img.name}}" alt="image {{ tricks.name }}">
@@ -51,14 +48,10 @@
                                             </div>
                                         {% endblock %}
                                     {% endfor %}
-                                {% endif %}
                             </div>
                             <div class="media-videos  d-flex flex-column align-items-center">
-                                {% if videos is empty %}
-                                    <img src="{{ illustrations_folder }}/novideo.png" alt="aucune video">
-                                {% else %}
                                     {% for video in videos %}
-                                        <div>
+                                        <div class="row-media">
                                             {{ video.name | raw }}
                                             {% if app.user %}
                                                 <div class="div_button d-flex">
@@ -91,7 +84,6 @@
                                             </div>
                                         {% endblock %}
                                     {% endfor %}
-                                {% endif %}
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -45,8 +45,6 @@ class TricksController extends Controller
     {
         $numberFirst = $request->get('numberFirst');
         $numberMax = $request->get('numberMax');
-        //dump($numberMax);
-        //dump($numberFirst);
 
         $tricks = $this->em->getRepository('App:Tricks')->TricksWithOneIllustration($numberFirst, $numberMax);
 
@@ -106,17 +104,25 @@ class TricksController extends Controller
     public function edit(Request $request, Tricks $trick)
     {
         $deleteForm = $this->createDeleteForm($trick);
+        $background = $this->em->getRepository('App:illustrations')->findOneBy(['trick' => $trick]);
+        $illustrations = $this->em->getRepository('App:Illustrations')->findBy(['trick' => $trick]);
+        $videos = $this->em->getRepository('App:Videos')->findBy(['trick' => $trick]);
         $editForm = $this->createForm('App\Form\EditTrickType', $trick);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $trick->setDateEdit(new \DateTime());
+            $this->em->persist($trick);
             $this->em->flush();
 
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }
 
         return $this->render('tricks/edit.html.twig', array(
-            'trick' => $trick,
+            'tricks' => $trick,
+            'illustrations' => $illustrations,
+            'background' => $background,
+            'videos' => $videos,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -205,5 +211,16 @@ class TricksController extends Controller
             'trick' => $trick,
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/trick/last", name="trick_last")
+     * @Method({"GET", "POST"})
+     */
+    public function last()
+    {
+        $tricks = $this->em->getRepository('App:Tricks')->findOneBy(array(), array('id' => 'desc'),1,0);
+
+        return $this->redirectToRoute('trick_details', array('id' => $tricks->getId()));
     }
 }

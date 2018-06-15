@@ -1,15 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Trick creation</h1>
+    <section class="section-addVideo d-flex flex-column">
+        <h4 class="text-center font-blue">Ajouter une image</h4>
+        <p class="text-center instruction container">Veuillez cliquer sur le mot illustration pour envoyer votre nouvelle image pour la figure.</p>
+        <div class="form-edit  d-flex flex-column justify-content-center">
+            {{ form_start(form) }}
+            <div class="form-group d-flex flex-column align-items-center justify-content-around">
+                <div class="form-group d-flex flex-column align-items-center">
+                    <div class="div-inputFile">
+                        {{ form_label(form.name) }}
+                    </div>
+                    <div class="form-errors">
+                        {{ form_errors(form.name) }}
+                    </div>
+                    {{ form_widget(form.name) }}
+                </div>
+                <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Ajouter la video</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
 
-    {{ form_start(form) }}
-    <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('trick_details',{ 'id': tricks.id }) }}">Back to the figure</a>
-        </li>
-    </ul>
+{% block javascripts %}
+    <script src="{{ asset('build/js/registration.js') }}"></script>
 {% endblock %}

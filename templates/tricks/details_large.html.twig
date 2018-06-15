@@ -1,11 +1,6 @@
 {% block body %}
     <div class="media-illustration-xl">
         <div class="illustration d-flex flex-wrap justify-content-around">
-            {% if illustrations is empty %}
-                <div class="row-media">
-                    <img src="{{ illustrations_folder }}/noimg.png" alt="image par default">
-                </div>
-            {% else %}
                 {% for img in illustrations %}
                     <div class="row-media">
                         <img src="{{ illustrations_folder }}/{{ img.name}}" alt="image {{ tricks.name }}">
@@ -40,18 +35,40 @@
                         </div>
                     {% endblock %}
                 {% endfor %}
-            {% endif %}
-            {% if videos is empty %}
-                <div class="row-media">
-                    <img src="{{ illustrations_folder }}/novideo.png" alt="aucune video">
-                </div>
-            {% else %}
                 {% for video in videos %}
                     <div class="row-media">
                         {{ video.name | raw }}
+                        {% if app.user %}
+                            <div class="div_button d-flex">
+                                <a class="button btn btn-link font-white"
+                                   href="{{ path('video_edit', { 'id': video.id }) }}"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="button btn btn-link font-white" data-toggle="modal" data-target="#ModalVideoXl{{ video.id }}"
+                                   href="#"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        {% endif %}
                     </div>
+                    {% block modal_delete_video %}
+                        <div class="modal fade" id="ModalVideoXl{{ video.id }}" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content font-darkBlue">
+                                    <div class="modal-header  flex-row-reverse">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Suppression</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Etes-vous sur de vouloir supprimer définitivement cette video ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="button btn btn-danger font-white"
+                                           href="{{ path('video_delete', { 'id': video.id }) }}">Supprimer</a>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
                 {% endfor %}
-            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -60,6 +60,14 @@ a:hover {
   border-color: white;
   color: #3ec4e1; }
 
+button:active .btn-primary-blue {
+  background-color: white;
+  border-color: white;
+  color: #3ec4e1; }
+
+.btn-primary-blue:hover {
+  color: #45dcf9; }
+
 .btn-primary-blue-reverse {
   background-color: #3ec4e1;
   border-color: #3ec4e1;
@@ -145,38 +153,36 @@ nav {
       position: absolute; }
 
 /* index_section2 */
-#index_section2 {
-  margin-top: 22px; }
-  #index_section2 .tricks_one_illustration {
-    width: 100%; }
-  #index_section2 .one_illustration {
-    height: 160px;
-    overflow: hidden; }
-  #index_section2 .trick {
-    border: rgba(255, 255, 255, 0.08) 1px solid;
-    margin: 15px 0;
-    padding: 0 0 12px 0;
-    max-width: 350px; }
-    #index_section2 .trick .name {
-      padding: 12px 10px 0 10px; }
-    #index_section2 .trick .trick_detail_link {
-      margin-bottom: 0;
-      font-weight: bolder;
-      letter-spacing: 1px; }
-    #index_section2 .trick .name {
-      max-height: 50px; }
-  #index_section2 .button:hover {
-    color: #3ec4e1; }
-  #index_section2 .modal-header {
-    flex-direction: row-reverse; }
-  #index_section2 .modal-body span {
-    font-weight: bold; }
-  #index_section2 #btn-ajax, #index_section2 .btn-ajax {
-    height: 70px;
-    max-width: 190px;
-    background-color: white;
-    border-color: white;
-    color: #3ec4e1; }
+#index_section2 .tricks_one_illustration {
+  width: 100%; }
+#index_section2 .one_illustration {
+  height: 160px;
+  overflow: hidden; }
+#index_section2 .trick {
+  border: rgba(255, 255, 255, 0.08) 1px solid;
+  margin: 15px 0;
+  padding: 0 0 12px 0;
+  max-width: 350px; }
+  #index_section2 .trick .name {
+    padding: 12px 10px 0 10px; }
+  #index_section2 .trick .trick_detail_link {
+    margin-bottom: 0;
+    font-weight: bolder;
+    letter-spacing: 1px; }
+  #index_section2 .trick .name {
+    max-height: 50px; }
+#index_section2 .button:hover {
+  color: #3ec4e1; }
+#index_section2 .modal-header {
+  flex-direction: row-reverse; }
+#index_section2 .modal-body span {
+  font-weight: bold; }
+#index_section2 #btn-ajax, #index_section2 .btn-ajax {
+  height: 70px;
+  max-width: 190px;
+  background-color: white;
+  border-color: white;
+  color: #3ec4e1; }
 
 /* end INDEX.HTML.TWIG */
 /* LOGIN.HTML.TWIG */
@@ -208,7 +214,6 @@ nav {
 /*  DETAIL.HTML.TWIG */
 .details-section-head {
   height: 50vh;
-  width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; }
@@ -226,8 +231,8 @@ nav {
 
 .details-section-media .illustration img {
   max-width: 88vw; }
-.details-section-media .media-videos img {
-  width: 88vw; }
+.details-section-media .media-videos iframe {
+  max-width: 88vw; }
 .details-section-media .media-illustration-xs {
   height: 15vh; }
 
@@ -263,6 +268,29 @@ nav {
   .row-media .div_button .btn:hover {
     color: #3ec4e1; }
 
+.detail-card {
+  background-color: #313540; }
+  .detail-card .description {
+    margin-bottom: 12px; }
+
+.form-edit textarea {
+  min-height: 125px; }
+.form-edit input, .form-edit textarea, .form-edit select {
+  width: 70vw; }
+.form-edit input[type=text], .form-edit select, .form-edit textarea {
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; }
+.form-edit .detail-card {
+  width: 100vw; }
+
+/*  NEW.HTML.TWIG*/
+.section-new-trick .new-section-head {
+  width: 100vw; }
+
 /* FOOTER */
 footer {
   height: 60px;
@@ -271,6 +299,47 @@ footer {
   padding-top: 12px; }
   footer p {
     color: rgba(255, 255, 255, 0.36); }
+
+/* video.html.twig*/
+.section-addVideo, .section-addIllustration {
+  margin-top: 10vh; }
+  .section-addVideo .instruction, .section-addIllustration .instruction {
+    margin-top: 5vh; }
+
+.section-addVideo .form-edit .form-group, .section-addIllustration .form-edit .form-group {
+  height: 70vw; }
+
+/* illustration.html.twig */
+.section-addIllustration .div-inputFile {
+  margin-bottom: 30px; }
+
+.remove-li {
+  list-style: none; }
+  .remove-li i {
+    margin-right: 12px; }
+
+.illustration-form #tricks_illustrations label {
+  font-weight: bolder;
+  margin-top: 12px;
+  cursor: pointer; }
+.illustration-form .form-group label:first-child {
+  font-weight: normal; }
+
+.li-form-illustration {
+  margin-bottom: 20px;
+  text-align: center; }
+  .li-form-illustration label {
+    font-weight: bolder;
+    cursor: pointer; }
+
+.section-new-trick label {
+  cursor: auto; }
+.section-new-trick input[type=file] {
+  display: block;
+  width: auto;
+  text-align: center; }
+.section-new-trick .remove-li {
+  text-align: center; }
 
 /* end FOOTER */
 @media (min-width: 768px) {
@@ -296,11 +365,9 @@ footer {
   .index_section1 .message-succes div:first-child, .index_section1 .message-error div:first-child {
     margin-top: 110px; }
 
-  #index_section2 {
-    margin-top: 70px; }
-    #index_section2 .trick {
-      margin: 30px 0;
-      width: 350px; }
+  #index_section2 .trick {
+    margin: 30px 0;
+    width: 350px; }
 
   /* end index.html.twig */
   /* login.html.twig*/
@@ -315,7 +382,18 @@ footer {
   .details-section-media .modal-dialog {
     max-width: 95vw; }
   .details-section-media .media-illustration-xs {
-    height: 10vh; } }
+    height: 10vh; }
+
+  .form-edit input, .form-edit textarea, .form-edit select {
+    width: 60vw; }
+
+  .detail-card {
+    width: 100vw; }
+
+  /* end details.html.twig */
+  /* video.html.twig */
+  .section-addVideo .form-edit .form-group, .section-addIllustration .form-edit .form-group {
+    height: 350px; } }
 @media (min-width: 1200px) {
   /* index.html.twig */
   .index_section1 .welcome_message {
@@ -327,13 +405,13 @@ footer {
 
   #index_section2 {
     max-width: 1779px;
-    margin: auto;
-    margin-top: 70px; }
+    margin: auto; }
     #index_section2 #btn-ajax, #index_section2 .btn-ajax {
       margin: 0 200px;
       margin-bottom: 12px; }
     #index_section2 .no-more-tricks {
-      margin: 12px 200px; }
+      width: 100vw;
+      text-align: center; }
 
   /* login.html.twig*/
   .form-style-security {
@@ -357,12 +435,44 @@ footer {
 
   .media-illustration-xl {
     display: block; }
-    .media-illustration-xl img {
-      width: 350px;
-      height: 232px; }
+    .media-illustration-xl img, .media-illustration-xl iframe {
+      width: 350px; }
 
   .row-media {
-    margin-top: 12px; } }
+    margin-top: 12px; }
+
+  .detail-comment #comments_comment {
+    max-width: 750px; }
+
+  .details-section-head .detail-wallpaper .div_button {
+    top: 18vh;
+    right: 11vw; }
+
+  .detail-informations .description {
+    margin-top: 12px; }
+
+  .all-comment {
+    margin-bottom: 14px; }
+
+  .detail-background {
+    background-size: 100vw 70vh;
+    background-repeat: no-repeat; }
+
+  .detail-card {
+    background-color: #313540;
+    width: 80vw;
+    border: 1px solid white;
+    margin-top: 70px;
+    margin-bottom: 70px; }
+    .detail-card .div_button .btn:hover, .detail-card .div_button a:hover, .detail-card .div_button i:hover {
+      color: #45dcf9; }
+
+  .form-edit input, .form-edit textarea, .form-edit select {
+    max-width: 700px; }
+
+  /*  NEW.HTML.TWIG */
+  .section-new-trick .new-section-head {
+    width: 80vw; } }
 /* end details.html.twig*/
 
 /*# sourceMappingURL=app.css.map */

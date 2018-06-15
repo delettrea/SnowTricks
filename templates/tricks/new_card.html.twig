@@ -1,0 +1,79 @@
+{% block body %}
+    <section class="details-section-head new-section-head" style="background-image: url({{ illustrations_folder }}/noimg.png)" >
+        <div class="detail-wallpaper d-flex">
+            {% if app.user %}
+            <div class="div_button d-flex btn-group">
+                <a class="btn btn-primary-blue font-white"
+                   href="{{ path('home_page') }}"><i class="fas fa-reply"></i></a>
+            </div>
+            {% endif %}
+            <div class="font-darkBlue">
+                <h1>Nouvelle Figure</h1>
+            </div>
+        </div>
+    </section>
+    <section class="new-section-media">
+        <div class="form-edit  d-flex flex-column">
+            {{ form_start(form) }}
+            <div class="form-group d-flex flex-column align-items-center">
+                {{ form_label(form.name) }}
+                <div class="form-errors">
+                    {{ form_errors(form.name) }}
+                </div>
+                {{ form_widget(form.name) }}
+            </div>
+
+            <div class="form-group d-flex flex-column align-items-center">
+                {{ form_label(form.description) }}
+                <div class="form-errors">
+                    {{ form_errors(form.description) }}
+                </div>
+                {{ form_widget(form.description) }}
+            </div>
+
+            <div class="form-group d-flex flex-column align-items-center">
+                {{ form_label(form.group) }}
+                <div class="form-errors">
+                    {{ form_errors(form.group) }}
+                </div>
+                {{ form_widget(form.group) }}
+            </div>
+
+            <div class="form-group d-flex flex-column align-items-center">
+                <ul class="videos p-0" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                    {% for video in form.videos %}
+                        <li class="video-form d-flex flex-column">
+                            <div class="form-group d-flex flex-column align-items-center">
+                                {{ form_label(form.videos) }}
+                                <div class="form-errors">
+                                    {{ form_errors(form.videos) }}
+                                </div>
+                                {{ form_widget(form.videos) }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="form-group d-flex flex-column align-items-center">
+                <ul class="illustrations p-0" data-prototype="{{ form_widget(form.illustrations.vars.prototype)|e('html_attr') }}">
+                    {% for illustration in form.illustrations %}
+                        <li class="illustration-form d-flex flex-column">
+                            <div class="form-group d-flex flex-column align-items-center d-none">
+                                {{ form_label(form.illustrations) }}
+                                <div class="form-errors">
+                                    {{ form_errors(form.illustrations) }}
+                                </div>
+                                <div class="font-white d-none">
+                                {{ form_widget(form.illustrations) }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Créer la figure</button>
+            </div>
+        </div>
+            {{ form_end(form) }}
+    </section>
+{% endblock %}

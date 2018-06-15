@@ -23,7 +23,7 @@ class IllustrationsController extends Controller
     public function new(Request $request, Tricks $tricks, FileUploader $fileUploader)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm('App\Form\NewIllustrationsType', $tricks);
+        $form = $this->createForm('App\Form\IllustrationsType', $tricks);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())

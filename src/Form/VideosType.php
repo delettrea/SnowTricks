@@ -20,6 +20,7 @@ class VideosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class, [
+            'label' => false,
             'required' => false,
             'constraints' => new Regex([
                 'pattern' => "#<iframe(.+)</iframe>#",

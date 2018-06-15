@@ -1,4 +1,5 @@
 removeFooter();
+removeNavHeight();
 side();
 sideTouch();
 baseLinkTricks();
@@ -9,6 +10,15 @@ function removeFooter() {
         footer = $('footer');
         $(footer).removeClass('d-flex');
         $(footer).addClass('display-none');
+    }
+}
+
+function removeNavHeight() {
+    if('.index_section1'){
+        $('.header-size').addClass('d-none');
+    }
+    else{
+        $('.header-size').removeClass('d-none');
     }
 }
 

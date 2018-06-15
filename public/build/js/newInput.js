@@ -1,10 +1,10 @@
 var $collectionVideo;
 var $collectionIllustration;
 
-var $addVideoLink = $('<a href="#" class="add_video_link">Ajouter une autre Vidéo</a>');
-var $newLinkVideo = $('<li></li>').append($addVideoLink);
-var $addIllustrationLink = $('<a href="#" class="add_illustration_link">Ajouter une autre Illustration</a>');
-var $newLinkVideoIllustration = $('<li></li>').append($addIllustrationLink);
+var $addVideoLink = $('<a href="#" class="add_video_link"><i class="fas fa-plus-circle"></i>Ajouter une autre Vidéo</a>');
+var $newLinkVideo = $('<li class="remove-li"></li>').append($addVideoLink);
+var $addIllustrationLink = $('<a href="#" class="add_illustration_link"><i class="fas fa-plus-circle"></i>Ajouter une autre Illustration</a>');
+var $newLinkVideoIllustration = $('<li class="remove-li"></li>').append($addIllustrationLink);
 
 jQuery(document).ready(function() {
     $collectionVideo = $('ul.videos');
@@ -35,6 +35,7 @@ function addInputForm($collection, $newLink) {
 
     $collection.data('index', index + 1);
 
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<li class="li-form-illustration d-flex flex-column"></li>').append(newForm);
+
     $newLink.before($newFormLi);
 }

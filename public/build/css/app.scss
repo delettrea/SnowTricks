@@ -88,6 +88,16 @@ a:hover{
   color: $blue;
 }
 
+button:active .btn-primary-blue{
+  background-color: white;
+  border-color: white;
+  color: $blue;
+}
+
+.btn-primary-blue:hover{
+  color: $blueHover;
+}
+
 .btn-primary-blue-reverse{
   background-color: $blue;
   border-color: $blue;
@@ -207,7 +217,6 @@ nav{
 /* index_section2 */
 
 #index_section2{
-  margin-top: 22px;
   .tricks_one_illustration{
     width: 100%;
   }
@@ -289,7 +298,6 @@ nav{
 /*  DETAIL.HTML.TWIG */
 .details-section-head{
   height: 50vh;
-  width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -314,8 +322,8 @@ nav{
     }
   }
   .media-videos{
-    img{
-      width: 88vw;
+    iframe{
+      max-width: 88vw;
     }
   }
   .media-illustration-xs{
@@ -368,6 +376,37 @@ nav{
     }
   }
 }
+.detail-card{
+  background-color: $darkBlue;
+  .description{
+    margin-bottom: 12px;
+  }
+}
+.form-edit{
+  textarea{
+    min-height: 125px;
+  }
+  input, textarea, select{
+    width: 70vw;
+  }
+  input[type=text], select, textarea {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .detail-card{
+    width: 100vw;
+  }
+}
+/*  NEW.HTML.TWIG*/
+.section-new-trick{
+  .new-section-head{
+    width: 100vw;
+  }
+}
 
 /* FOOTER */
 
@@ -380,6 +419,70 @@ footer{
     color: rgba(255, 255, 255, 0.36);
   }
 }
+/* video.html.twig*/
+.section-addVideo, .section-addIllustration{
+  margin-top: 10vh;
+  .instruction{
+    margin-top: 5vh;
+  }
+}
+.section-addVideo, .section-addIllustration{
+  .form-edit {
+    .form-group {
+      height: 70vw;
+    }
+  }
+}
+/* illustration.html.twig */
+.section-addIllustration{
+  .div-inputFile{
+    margin-bottom: 30px;
+  }
+}
+.remove-li{
+  list-style: none;
+  i{
+    margin-right: 12px;
+  }
+}
+
+.illustration-form{
+  #tricks_illustrations{
+    label{
+      font-weight: bolder;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+  }
+  .form-group{
+    label:first-child{
+      font-weight: normal;
+    }
+  }
+}
+
+.li-form-illustration{
+  margin-bottom: 20px;
+  text-align: center;
+  label{
+    font-weight: bolder;
+    cursor: pointer;
+  }
+}
+.section-new-trick{
+  label{
+    cursor: auto;
+  }
+  input[type=file]{
+    display: block;
+    width: auto;
+    text-align: center;
+  }
+  .remove-li{
+    text-align: center;
+  }
+}
+
 
 /* end FOOTER */
 
@@ -415,7 +518,6 @@ footer{
     }
   }
   #index_section2 {
-    margin-top: 70px;
     .trick {
       margin: 30px 0;
       width: 350px;
@@ -440,6 +542,24 @@ footer{
       height: 10vh;
     }
   }
+  .form-edit{
+    input, textarea, select{
+      width: 60vw;
+    }
+  }
+  .detail-card{
+    width: 100vw;
+  }
+  /* end details.html.twig */
+
+  /* video.html.twig */
+  .section-addVideo, .section-addIllustration {
+    .form-edit {
+      .form-group {
+        height: 350px;
+      }
+    }
+  }
 }
 
 // XL
@@ -461,13 +581,13 @@ footer{
   #index_section2{
     max-width: 1779px;
     margin: auto;
-    margin-top: 70px;
     #btn-ajax, .btn-ajax{
       margin: 0 200px;
       margin-bottom: 12px;
     }
     .no-more-tricks{
-      margin: 12px 200px;
+      width: 100vw;
+      text-align: center;
     }
   }
   /* login.html.twig*/
@@ -496,13 +616,60 @@ footer{
   }
   .media-illustration-xl{
     display: block;
-    img{
+    img, iframe{
       width: 350px;
-      height: 232px;
     }
   }
   .row-media{
       margin-top: 12px;
+  }
+  .detail-comment{
+    #comments_comment{
+      max-width: 750px;
+    }
+  }
+  .details-section-head{
+    .detail-wallpaper{
+      .div_button{
+        top: 18vh;
+        right: 11vw;
+      }
+    }
+  }
+  .detail-informations{
+    .description{
+      margin-top: 12px;
+    }
+  }
+  .all-comment{
+    margin-bottom: 14px;
+  }
+  .detail-background{
+    background-size: 100vw 70vh;
+    background-repeat: no-repeat;
+  }
+  .detail-card{
+    background-color: $darkBlue;
+    width: 80vw;
+    border: 1px solid white;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    .div_button{
+      .btn:hover, a:hover, i:hover{
+        color: $blueHover;
+      }
+    }
+  }
+  .form-edit{
+    input, textarea, select{
+      max-width: 700px;
+    }
+  }
+  /*  NEW.HTML.TWIG */
+  .section-new-trick{
+    .new-section-head{
+      width: 80vw;
+    }
   }
   }
   /* end details.html.twig*/

@@ -165,7 +165,7 @@ class Tricks
 
     /**
      */
-    public function setDateCreation()
+    public function setDateCreation($date)
     {
         $this->dateCreation = $this->date;
     }
@@ -180,9 +180,9 @@ class Tricks
 
     /**
      */
-    public function setDateEdit()
+    public function setDateEdit($dateEdit)
     {
-        $this->dateEdit = $this->date;
+        $this->dateEdit = $dateEdit;
     }
 
     /**

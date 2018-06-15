@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Trick creation</h1>
+    <div class="section-new-trick detail-background d-flex justify-content-center" style="background-image: url({{ illustrations_folder }}/noimg.png)">
+        <div class="detail-card">
+            {% include 'tricks/new_card.html.twig' %}
+        </div>
+    </div>
+
+    <!-- <h1>Trick creation</h1>
 
     {{ form_start(form) }}
     <h3>Videos</h3>
@@ -24,10 +30,11 @@
         <li>
             <a href="{{ path('home_page') }}">Back to the list</a>
         </li>
-    </ul>
+    </ul> -->
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('build/js/newInput.js') }}"></script>
+    <script src="{{ asset('build/js/inputFiles.js') }}"></script>
 {% endblock %}
