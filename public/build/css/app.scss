@@ -201,16 +201,16 @@ nav{
   .arrow-down{
     float: right;
   }
-  .message-succes, .message-error{
-    display: flex;
-    justify-content: center;
-    div:first-child{
-      margin-top: 20px;
-    }
-    div{
-      max-width: 90vw;
-      position: absolute;
-    }
+}
+.message-succes, .message-error{
+  display: flex;
+  justify-content: center;
+  div:first-child{
+    margin-top: 20px;
+  }
+  div{
+    max-width: 85vw;
+    position: absolute;
   }
 }
 
@@ -260,6 +260,18 @@ nav{
     color: $blue;
   }
 }
+.arrow-up {
+    /*text-align: right;
+    width: 50px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    border: #3ec4e1 solid 1px;
+    padding: 8px 10px;
+    border-radius: 47px;
+    background-color: rgba(255, 255, 255, 0.13);*/
+  float: right;
+  }
+
 /* end INDEX.HTML.TWIG */
 
 /* LOGIN.HTML.TWIG */
@@ -401,6 +413,7 @@ nav{
     width: 100vw;
   }
 }
+
 /*  NEW.HTML.TWIG*/
 .section-new-trick{
   .new-section-head{
@@ -411,7 +424,7 @@ nav{
 /* FOOTER */
 
 footer{
-  height: 60px;
+  max-height: 60px;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
   margin-bottom: 25px;
   padding-top: 12px;
@@ -507,16 +520,15 @@ footer{
   }
   /* end HEADER*/
   /* index.html.twig */
-  .index_section1 {
     .message-succes, .message-error {
+      position: absolute;
+      top: 64px;
+      left: 50vw;
+      z-index: 3;
       div {
         width: 90vw;
       }
-      div:first-child {
-        margin-top: 110px;
-      }
     }
-  }
   #index_section2 {
     .trick {
       margin: 30px 0;
@@ -563,113 +575,119 @@ footer{
 }
 
 // XL
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   /* index.html.twig */
-  .index_section1{
-    .welcome_message{
-    background-image: url("/img/indexLG.jpg");
+  .index_section1 {
+    .welcome_message {
+      background-image: url("/img/indexLG.jpg");
     }
     .welcome_message i {
       margin-right: 25px;
     }
-    .message-succes, .message-error{
-      div{
-        max-width: 1000px;
-      }
+  }
+  .message-succes, .message-error {
+    div {
+      max-width: 1000px;
     }
   }
-  #index_section2{
+  #index_section2 {
     max-width: 1779px;
     margin: auto;
-    #btn-ajax, .btn-ajax{
+    #btn-ajax, .btn-ajax {
       margin: 0 200px;
       margin-bottom: 12px;
     }
-    .no-more-tricks{
+    .no-more-tricks {
       width: 100vw;
       text-align: center;
     }
   }
   /* login.html.twig*/
-  .form-style-security{
+  .form-style-security {
     margin-top: 200px;
-    height: auto;
-    .border{
+    height: 100vh;
+    .border {
       height: 470px;
       width: 470px;
     }
-    h1{
+    h1 {
       position: absolute;
       top: 150px;
     }
   }
   /* end login.html.twig */
   /* details.html.twig */
-  .details-section-media{
-    .modal{
+  .details-section-media {
+    .modal {
       max-width: 750px;
       margin: auto;
     }
   }
-  .media-illustration-xs{
+  .media-illustration-xs {
     display: none;
   }
-  .media-illustration-xl{
+  .media-illustration-xl {
     display: block;
-    img, iframe{
+    img, iframe {
       width: 350px;
     }
   }
-  .row-media{
-      margin-top: 12px;
+  .row-media {
+    margin-top: 12px;
   }
-  .detail-comment{
-    #comments_comment{
+  .detail-comment {
+    #comments_comment {
       max-width: 750px;
     }
   }
-  .details-section-head{
-    .detail-wallpaper{
-      .div_button{
+  .details-section-head {
+    .detail-wallpaper {
+      .div_button {
         top: 18vh;
         right: 11vw;
       }
     }
   }
-  .detail-informations{
-    .description{
+  .detail-informations {
+    .description {
       margin-top: 12px;
     }
   }
-  .all-comment{
+  .all-comment {
     margin-bottom: 14px;
   }
-  .detail-background{
+  .detail-background {
     background-size: 100vw 70vh;
     background-repeat: no-repeat;
   }
-  .detail-card{
+  .detail-card {
     background-color: $darkBlue;
     width: 80vw;
     border: 1px solid white;
     margin-top: 70px;
     margin-bottom: 70px;
-    .div_button{
-      .btn:hover, a:hover, i:hover{
+    .div_button {
+      .btn:hover, a:hover, i:hover {
         color: $blueHover;
       }
     }
   }
-  .form-edit{
-    input, textarea, select{
+  .form-edit {
+    input, textarea, select {
       max-width: 700px;
     }
   }
+  .info-trick {
+    margin: 40px 0;
+  }
   /*  NEW.HTML.TWIG */
-  .section-new-trick{
-    .new-section-head{
+  .section-new-trick {
+    .new-section-head {
       width: 80vw;
     }
   }
+  .height-page {
+    height: 63vh;
   }
+}
   /* end details.html.twig*/

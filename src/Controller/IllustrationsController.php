@@ -23,20 +23,18 @@ class IllustrationsController extends Controller
     public function new(Request $request, Tricks $tricks, FileUploader $fileUploader)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm('App\Form\IllustrationsType', $tricks);
+        $form = $this->createForm('App\Form\IllustrationsType');
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            foreach ($form['files']->getData() as $file)
-            {
                 $illustration = new Illustrations();
-                $nameFile = $file;
+                $nameFile = $form['name']->getData();
                 $fileName = $fileUploader->upload($nameFile, 'illustrations');
                 $illustration->setName($fileName);
                 $illustration->setTrick($tricks);
                 $em->persist($illustration);
-            }
+
             $em->flush();
 
             return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);

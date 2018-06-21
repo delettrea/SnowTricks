@@ -143,14 +143,15 @@ nav {
       background-color: rgba(255, 255, 255, 0.13); }
   .index_section1 .arrow-down {
     float: right; }
-  .index_section1 .message-succes, .index_section1 .message-error {
-    display: flex;
-    justify-content: center; }
-    .index_section1 .message-succes div:first-child, .index_section1 .message-error div:first-child {
-      margin-top: 20px; }
-    .index_section1 .message-succes div, .index_section1 .message-error div {
-      max-width: 90vw;
-      position: absolute; }
+
+.message-succes, .message-error {
+  display: flex;
+  justify-content: center; }
+  .message-succes div:first-child, .message-error div:first-child {
+    margin-top: 20px; }
+  .message-succes div, .message-error div {
+    max-width: 85vw;
+    position: absolute; }
 
 /* index_section2 */
 #index_section2 .tricks_one_illustration {
@@ -183,6 +184,17 @@ nav {
   background-color: white;
   border-color: white;
   color: #3ec4e1; }
+
+.arrow-up {
+  /*text-align: right;
+  width: 50px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  border: #3ec4e1 solid 1px;
+  padding: 8px 10px;
+  border-radius: 47px;
+  background-color: rgba(255, 255, 255, 0.13);*/
+  float: right; }
 
 /* end INDEX.HTML.TWIG */
 /* LOGIN.HTML.TWIG */
@@ -293,7 +305,7 @@ nav {
 
 /* FOOTER */
 footer {
-  height: 60px;
+  max-height: 60px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 25px;
   padding-top: 12px; }
@@ -360,10 +372,13 @@ footer {
 
   /* end HEADER*/
   /* index.html.twig */
-  .index_section1 .message-succes div, .index_section1 .message-error div {
-    width: 90vw; }
-  .index_section1 .message-succes div:first-child, .index_section1 .message-error div:first-child {
-    margin-top: 110px; }
+  .message-succes, .message-error {
+    position: absolute;
+    top: 64px;
+    left: 50vw;
+    z-index: 3; }
+    .message-succes div, .message-error div {
+      width: 90vw; }
 
   #index_section2 .trick {
     margin: 30px 0;
@@ -400,7 +415,8 @@ footer {
     background-image: url("/img/indexLG.jpg"); }
   .index_section1 .welcome_message i {
     margin-right: 25px; }
-  .index_section1 .message-succes div, .index_section1 .message-error div {
+
+  .message-succes div, .message-error div {
     max-width: 1000px; }
 
   #index_section2 {
@@ -416,7 +432,7 @@ footer {
   /* login.html.twig*/
   .form-style-security {
     margin-top: 200px;
-    height: auto; }
+    height: 100vh; }
     .form-style-security .border {
       height: 470px;
       width: 470px; }
@@ -470,9 +486,15 @@ footer {
   .form-edit input, .form-edit textarea, .form-edit select {
     max-width: 700px; }
 
+  .info-trick {
+    margin: 40px 0; }
+
   /*  NEW.HTML.TWIG */
   .section-new-trick .new-section-head {
-    width: 80vw; } }
+    width: 80vw; }
+
+  .height-page {
+    height: 63vh; } }
 /* end details.html.twig*/
 
 /*# sourceMappingURL=app.css.map */

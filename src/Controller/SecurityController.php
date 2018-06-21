@@ -192,6 +192,7 @@ class SecurityController extends Controller
         $resp = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
 
         if (!empty($resp) && ($user->getisActive() === false)) {
+            dump('if');
             $this->addFlash(
                 "message-error",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur qui n'a pas encore activé son compte. 
@@ -199,7 +200,7 @@ class SecurityController extends Controller
             );
         }
         elseif (!empty($resp)) {
-            $form = $this->createForm(ResetPasswordType::class, $user);
+            $form = $this->createForm(ResetPasswordType::class);
 
             $form->handleRequest($request);
 
@@ -207,7 +208,7 @@ class SecurityController extends Controller
 
                 if ($idUsername === $user->getUsername()) {
 
-                    $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                    $password = $passwordEncoder->encodePassword($user, $form['plainPassword']->getData());
                     $user->setPassword($password);
 
                     $em->flush();
@@ -241,6 +242,6 @@ class SecurityController extends Controller
             );
         }
 
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('home_page');
     }
 }

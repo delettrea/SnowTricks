@@ -165,7 +165,7 @@ class Tricks
 
     /**
      */
-    public function setDateCreation($date)
+    public function setDateCreation()
     {
         $this->dateCreation = $this->date;
     }

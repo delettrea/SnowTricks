@@ -13,7 +13,7 @@
                 </div>
             {% endif %}
             <div class="font-darkBlue">
-                <h1>{{ tricks.name }}</h1>
+                <h1>{{ tricks.name }}<span class="font-white"> - Edition</span></h1>
             </div>
         </div>
         {% block modal %}
@@ -76,7 +76,11 @@
                     {{ form_widget(edit_form.group) }}
                 </div>
                 </div>
+                <div class="edit-div-button div_button">
+                <a class="button btn btn-danger font-white" data-toggle="modal" data-target="#myModal{{ tricks.id }}"
+                   href="#">Supprimer</a>
                 <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Editer la figure</button>
+                </div>
                 {{ form_end(edit_form) }}
             </div>
         </div>

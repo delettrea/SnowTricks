@@ -6,7 +6,7 @@ baseLinkTricks();
 $('#btn-ajax').click(loadMoreTricks);
 
 function removeFooter() {
-    if ('.index_section1') {
+    if ($('.index_section1')) {
         footer = $('footer');
         $(footer).removeClass('d-flex');
         $(footer).addClass('display-none');
@@ -14,7 +14,7 @@ function removeFooter() {
 }
 
 function removeNavHeight() {
-    if('.index_section1'){
+    if($('.index_section1')){
         $('.header-size').addClass('d-none');
     }
     else{
@@ -38,6 +38,10 @@ function animationSideIf(){
     if($('#index_section2').hasClass('display-none')){
         animationSide();
     }
+}
+
+function animationArrowUp() {
+    $('.arrow-up').click(animationSide);
 }
 
 function animationSide() {
@@ -111,5 +115,12 @@ function test(ResultMax, firstMin){
     else {
         $("#btn-ajax").remove();
         $(".trick:last-child").after('<p class="no-more-tricks">Toutes les figures sont affichées.</p>')
+    }
+}
+
+function arrowUp(ifMax){
+    if(ifMax => 15){
+        $('.arrow-up').removeClass('d-none');
+        animationArrowUp();
     }
 }

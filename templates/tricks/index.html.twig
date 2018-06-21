@@ -2,22 +2,6 @@
 
 {% block body %}
     <section class="container-fluid index_section1 col-xs-12">
-        {% for message in app.flashes('message-succes') %}
-            <div class="message-succes">
-                <div class="flash-notice alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ message }}
-                </div>
-            </div>
-        {% endfor %}
-        {% for message in app.flashes('message-error') %}
-        <div class="message-error">
-            <div class="flash-notice alert alert-error alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{ message }}
-            </div>
-        </div>
-        {% endfor %}
         <div class="welcome_message">
             <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
                 <a href="{{ path('home_page') }}">
@@ -90,9 +74,7 @@
         {% endfor %}
         <button id="btn-ajax" class="btn btn-primary btn-ajax">Voir d'autres Figures</button>
     </section>
-    <div class="arrow-up">
-        <i id="" class="arrow-down fas fa-2x fa-arrow-up"></i>
-    </div>
+        <i id="" class="arrow-up fixed-bottom fas fa-2x fa-arrow-up"></i>
 {% endblock %}
 
 {% block javascripts %}

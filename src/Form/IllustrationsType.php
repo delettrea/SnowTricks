@@ -22,8 +22,9 @@ class IllustrationsType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Illustrations::class
-        ]);
+        $resolver->setDefaults(array(
+            'data_class' => Illustrations::class,
+        ));
     }
+
 }

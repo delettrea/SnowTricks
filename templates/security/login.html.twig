@@ -3,7 +3,7 @@
 {% block title %}SnowTricks - Connexion.{% endblock %}
 
 {% block body %}
-    <section class="form-style-security login-section d-flex align-items-center flex-column">
+    <section class="form-style-security height-page login-section d-flex align-items-center flex-column">
         {% for message in app.flashes('message-succes') %}
             <div class="message-succes">
                 <div class="flash-notice alert alert-success alert-dismissible">
@@ -49,8 +49,5 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('build/js/index.js') }}"></script>
+    </div>
 {% endblock %}

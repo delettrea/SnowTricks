@@ -48,7 +48,7 @@
     <section class="container detail-informations">
         <div class="description">
             <p class="text-center">{{ tricks.description }}</p>
-            <div class="info-trick d-flex flex-column justify-content-center align-items-center">
+            <div class="info-trick d-flex flex-column flex-xl-row justify-content-center justify-content-xl-around align-items-center ">
                 <p class="border-white">Groupe : {{ tricks.group.name }}</p>
                 <p class="border-white">Date de création : {{ tricks.dateCreation|date("m/d/Y") }}</p>
                 {% if tricks.dateEdit %}
