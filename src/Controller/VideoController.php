@@ -77,4 +77,15 @@ class VideoController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/video/delete_mobile/{id}", name="video_delete_mobile")
+     * @Method({"GET"})
+     */
+    public function deleteMobile(Videos $videos)
+    {
+        return $this->render('video/delete.html.twig', [
+            'video' => $videos
+        ]);
+    }
+
 }

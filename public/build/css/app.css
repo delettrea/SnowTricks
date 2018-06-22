@@ -353,6 +353,14 @@ footer {
 .section-new-trick .remove-li {
   text-align: center; }
 
+.delete-illusration {
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center; }
+
 /* end FOOTER */
 @media (min-width: 768px) {
   /* HEADER */

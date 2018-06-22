@@ -59,6 +59,17 @@ class IllustrationsController extends Controller
     }
 
     /**
+     * @Route("/illustration/delete_mobile/{id}", name="illustration_delete_mobile")
+     * @Method({"GET"})
+     */
+    public function deleteMobile(Illustrations $illustrations)
+    {
+        return $this->render('illustrations/delete.html.twig', [
+            'illustration' => $illustrations
+        ]);
+    }
+
+    /**
      * @Route("/illustration/edit/{id}", name="illustration_edit")
      * @Method({"GET", "POST"})
      */

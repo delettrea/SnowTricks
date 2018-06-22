@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="delete-illusration">
+        <h3>Supprimer une illustration</h3>
+        <p>Etes-vous sur de vouloir supprimer définitivement cette illustration ?</p>
+    <div class="modal-footer">
+        <a id="delete_img" class="button btn btn-danger font-white"
+           href="{{ path('illustration_delete', { 'id': illustration.id }) }}">Supprimer</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+    </div>
+    </section>
+{% endblock %}
