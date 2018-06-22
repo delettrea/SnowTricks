@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Editer la figure {{ tricks.name }} - SnowTricks{% endblock %}
+
+
 {% block body %}
     {% if background %}
         {% set back = background.name %}

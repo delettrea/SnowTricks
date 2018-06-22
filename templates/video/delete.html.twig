@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Supprimer la video - SnowTricks{% endblock %}
+
+
 {% block body %}
-    <section class="delete-illusration">
+    <section class="delete-video">
         <h3>Supprimer une video</h3>
         <p>Etes-vous sur de vouloir supprimer définitivement cette video ?</p>
         <div class="modal-footer">
-            <a id="delete_img" class="button btn btn-danger font-white"
+            <a id="delete_video" class="button btn btn-danger font-white"
                href="{{ path('video_delete', { 'id': video.id }) }}">Supprimer</a>
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
         </div>
