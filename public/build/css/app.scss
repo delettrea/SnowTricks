@@ -261,15 +261,15 @@ nav{
   }
 }
 .arrow-up {
-    /*text-align: right;
-    width: 50px;
-    margin-bottom: 25px;
+    text-align: right;
+    position: fixed;
+    right: 8px;
+    bottom: 80px;
     cursor: pointer;
     border: #3ec4e1 solid 1px;
     padding: 8px 10px;
     border-radius: 47px;
-    background-color: rgba(255, 255, 255, 0.13);*/
-  float: right;
+    background-color: rgba(255, 255, 255, 0.13);
   }
 
 /* end INDEX.HTML.TWIG */
@@ -688,6 +688,9 @@ footer{
   }
   .height-page {
     height: 63vh;
+  }
+  .arrow-up{
+    right: 25px;
   }
 }
   /* end details.html.twig*/

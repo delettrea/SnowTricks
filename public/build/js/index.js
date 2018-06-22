@@ -3,7 +3,32 @@ removeNavHeight();
 side();
 sideTouch();
 baseLinkTricks();
+animationArrowUp();
 $('#btn-ajax').click(loadMoreTricks);
+
+function arrowUp() {
+    section = [];
+
+    $('.trick').each(function () {
+        section.push($($(this)));
+    });
+    
+    $(window).scroll(function (e) {
+        scrollTop = $(this).scrollTop() + ($(window).height() / 2);
+        scroll = $(this).scrollTop() + ($(window).height());
+
+        $(section[0]).addClass('removeArrowUp');
+        $(section[14]).addClass('arrowUp');
+
+        if(scroll > ($('.arrowUp').offset().top)){
+            $('#arrow-up').removeClass('d-none');
+        }
+
+        if(scrollTop < $('.removeArrowUp').offset().top){
+            $('#arrow-up').addClass('d-none');
+        }
+        });
+}
 
 function removeFooter() {
     if ($('.index_section1')) {
@@ -95,7 +120,8 @@ function loadMoreTricks() {
         }}).done(function (data) {
             $(".btn-ajax").remove();
             $(".trick:last-child").after(data);
-            test(ResultMax, firstMin);
+        arrowUp();
+        test(ResultMax, firstMin);
     });
 
 }
@@ -115,12 +141,5 @@ function test(ResultMax, firstMin){
     else {
         $("#btn-ajax").remove();
         $(".trick:last-child").after('<p class="no-more-tricks">Toutes les figures sont affichées.</p>')
-    }
-}
-
-function arrowUp(ifMax){
-    if(ifMax => 15){
-        $('.arrow-up').removeClass('d-none');
-        animationArrowUp();
     }
 }
