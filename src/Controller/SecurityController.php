@@ -29,11 +29,6 @@ class SecurityController extends Controller
 
         $lastUsername = $authUtils->getLastUsername();
 
-        $this->addFlash(
-            "message-succes",
-            "Bienvenue sur SNowtricks."
-        );
-
         return $this->render('security/login.html.twig', array(
             'error'         => $error,
             'last_username' => $lastUsername,

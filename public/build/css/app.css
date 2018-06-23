@@ -122,7 +122,7 @@ nav {
   .index_section1 .welcome_message {
     height: 100vh;
     width: 100%;
-    background-image: url("/img/index2.jpg");
+    background-image: url("/img/indexSM.jpg");
     background-size: cover;
     color: #1c2541; }
     .index_section1 .welcome_message div {
@@ -361,6 +361,9 @@ footer {
   align-items: center;
   text-align: center; }
 
+#edit-div-button a:hover, #edit-div-button button:hover {
+  color: white; }
+
 /* end FOOTER */
 @media (min-width: 768px) {
   /* HEADER */
@@ -416,7 +419,11 @@ footer {
   /* end details.html.twig */
   /* video.html.twig */
   .section-addVideo .form-edit .form-group, .section-addIllustration .form-edit .form-group {
-    height: 350px; } }
+    height: 350px; }
+
+  .details-section-head .detail-wallpaper .div_button {
+    top: 9vh;
+    right: 2vw; } }
 @media (min-width: 1200px) {
   /* index.html.twig */
   .index_section1 .welcome_message {

@@ -174,7 +174,7 @@ nav{
   .welcome_message{
     height: 100vh;
     width: 100%;
-    background-image: url("/img/index2.jpg");
+    background-image: url("/img/indexSM.jpg");
     background-size: cover;
     color: $option1Light;
     div {
@@ -503,6 +503,9 @@ footer{
   align-items: center;
   text-align: center;
 }
+#edit-div-button a:hover, #edit-div-button button:hover{
+  color: white;
+}
 
 
 /* end FOOTER */
@@ -577,6 +580,14 @@ footer{
     .form-edit {
       .form-group {
         height: 350px;
+      }
+    }
+  }
+  .details-section-head {
+    .detail-wallpaper {
+      .div_button {
+        top: 9vh;
+        right: 2vw;
       }
     }
   }

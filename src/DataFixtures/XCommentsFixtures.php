@@ -11,10 +11,13 @@ class XCommentsFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $tab = array(
-            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°1, Autheur : User1.', 'dateTime' => '2018-04-24 00:00:00'),
-            array('author' => 'user1', 'trick' => 'trick1', 'comment' => 'Commentaire n°2, Autheur : User1.', 'dateTime' => '2018-04-24 00:00:00'),
-            array('author' => 'user2', 'trick' => 'trick1', 'comment' => 'Commentaire n°3, Autheur : User2.', 'dateTime' => '2018-04-24 00:00:00'),
-            array('author' => 'user3', 'trick' => 'trick1', 'comment' => 'Commentaire n°4, Autheur : User3.', 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user1', 'trick' => 'trick16', 'comment' => "J'adore cette figure je la conseille à tout le monde.", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user3', 'trick' => 'trick16', 'comment' => "C'est vrai qu'elle a l'air vraiment bien mais j'ai un peu peur de la ratée, elle a l'air assez technique.", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user1', 'trick' => 'trick16', 'comment' => "Oui au premier abord elle a l'air compliquée mais en fait ça va, je te la conseille.", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user2', 'trick' => 'trick16', 'comment' => "Super figure.", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user3', 'trick' => 'trick3', 'comment' => "Très bonne figure, la meilleure que j'ai pu faire.", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user2', 'trick' => 'trick3', 'comment' => "Je suis d'accord", 'dateTime' => '2018-04-24 00:00:00'),
+            array('author' => 'user1', 'trick' => 'trick15', 'comment' => "A essayer.", 'dateTime' => '2018-04-24 00:00:00'),
         );
 
         foreach ($tab as $row)
