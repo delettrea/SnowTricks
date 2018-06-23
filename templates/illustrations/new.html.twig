@@ -3,7 +3,7 @@
 {% block title %} Nouvelle illustration - SnowTricks{% endblock %}
 
 {% block body %}
-    <section class="section-addVideo d-flex flex-column">
+    <section class="section-addIllustration d-flex flex-column">
         <h4 class="text-center font-blue">Ajouter une image</h4>
         <p class="text-center instruction container">Veuillez cliquer sur le mot illustration pour envoyer votre nouvelle image pour la figure.</p>
         <div class="form-edit  d-flex flex-column justify-content-center">
@@ -18,7 +18,7 @@
                     </div>
                     {{ form_widget(form.name) }}
                 </div>
-                <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Ajouter la video</button>
+                <button class="btn btn-primary btn-primary-blue-reverse" type="submit">Ajouter l'image</button>
             </div>
             {{ form_end(form) }}
         </div>
@@ -26,5 +26,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/js/inputFiles.js') }}"></script>
+    <script src="{{ asset('build/js/inputIllustration.js') }}"></script>
 {% endblock %}
