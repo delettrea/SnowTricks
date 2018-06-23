@@ -83,6 +83,11 @@ class TricksController extends Controller
             $this->em->persist($comment);
             $this->em->flush();
 
+            $this->addFlash(
+                "message-succes",
+                "Votre commentaire a bien été ajouté."
+            );
+
             return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
         }
 
@@ -115,6 +120,11 @@ class TricksController extends Controller
             $this->em->persist($trick);
             $this->em->flush();
 
+            $this->addFlash(
+                "message-succes",
+                "La figure a bien été éditée."
+            );
+
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }
 
@@ -143,6 +153,11 @@ class TricksController extends Controller
             $this->em->remove($trick);
             $this->em->flush();
         }
+
+        $this->addFlash(
+            "message-succes",
+            "La figure a bien été supprimée."
+        );
 
         return $this->redirectToRoute('home_page');
     }
@@ -203,6 +218,11 @@ class TricksController extends Controller
             $collectionTypeEditor->sendCollectionTypeForm($trick, $fileUploader, $form);
 
             $this->em->flush();
+
+            $this->addFlash(
+                "message-succes",
+                "La figure a bien été créée."
+            );
 
             return $this->redirectToRoute('trick_details', array('id' => $trick->getId()));
         }

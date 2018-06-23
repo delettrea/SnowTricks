@@ -25,11 +25,16 @@ class CommentsController extends Controller
             $em->remove($comments);
             $em->flush();
 
+            $this->addFlash(
+                "message-succes",
+                "Le commentaire est bien supprimé."
+            );
+
             return $this->redirectToRoute('trick_details', ['id' => $comments->getTrick()->getId()]);
         }
         else{
             $this->addFlash(
-                "message",
+                "message-error",
                 "Vous ne pouvez supprimer que les commentaires dont vous êtes l'auteur."
             );
             return $this->redirectToRoute('trick_details', ['id' => $comments->getTrick()->getId()]);

@@ -37,6 +37,11 @@ class IllustrationsController extends Controller
 
             $em->flush();
 
+            $this->addFlash(
+                "message-succes",
+                "La nouvelle illustration a bien été ajoutée."
+            );
+
             return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
         }
 
@@ -54,6 +59,11 @@ class IllustrationsController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($illustrations);
             $em->flush();
+
+        $this->addFlash(
+            "message-error",
+            "L'illustration vient d'être supprimée."
+        );
 
             return $this->redirectToRoute('trick_details', ['id' => $illustrations->getTrick()->getId()]);
     }
@@ -88,6 +98,11 @@ class IllustrationsController extends Controller
             $em->flush();
 
             $trickId = $illustrations->getTrick()->getId();
+
+            $this->addFlash(
+                "message-succes",
+                "L'illustration a bien été modifiée."
+            );
 
             return $this->redirectToRoute('trick_details', ['id' => $trickId]);
         }

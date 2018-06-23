@@ -21,6 +21,11 @@ class VideoController extends Controller
         $em->remove($videos);
         $em->flush();
 
+        $this->addFlash(
+            "message-succes",
+            "La video a bien été supprimée."
+        );
+
         return $this->redirectToRoute('trick_details', ['id' => $videos->getTrick()->getId()]);
     }
 
@@ -39,6 +44,11 @@ class VideoController extends Controller
             $videos->setName($form['name']->getData());
             $em->persist($videos);
             $em->flush();
+
+            $this->addFlash(
+                "message-succes",
+                "La video a bien été modifiée."
+            );
 
             return $this->redirectToRoute('trick_details', ['id' => $videos->getTrick()->getId()]);
         }
@@ -67,6 +77,11 @@ class VideoController extends Controller
             $videos->setName($form['name']->getData());
             $em->persist($videos);
             $em->flush();
+
+            $this->addFlash(
+                "message-succes",
+                "La nouvelle video a bien été ajoutée."
+            );
 
             return $this->redirectToRoute('trick_details', ['id' => $tricks->getId()]);
         }

@@ -29,6 +29,11 @@ class SecurityController extends Controller
 
         $lastUsername = $authUtils->getLastUsername();
 
+        $this->addFlash(
+            "message-succes",
+            "Bienvenue sur SNowtricks."
+        );
+
         return $this->render('security/login.html.twig', array(
             'error'         => $error,
             'last_username' => $lastUsername,
@@ -192,7 +197,6 @@ class SecurityController extends Controller
         $resp = $em->getRepository('App:User')->findBy(array('id' => $id, 'passwordKey' => $password_key));
 
         if (!empty($resp) && ($user->getisActive() === false)) {
-            dump('if');
             $this->addFlash(
                 "message-error",
                 "La page demandée ne permet pas de changer le mot de passe d'un utilisateur qui n'a pas encore activé son compte. 
