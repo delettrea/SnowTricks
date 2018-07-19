@@ -48,11 +48,13 @@ class SecurityController extends Controller
         if ($form->isSubmitted()) {
 
             $username = $form['username']->getData();
+            $email = $form['email']->getData();
 
             $em = $this->getDoctrine()->getManager();
             $resp = $em->getRepository('App:User')->findByUsername($username);
+            $respEmail = $em->getRepository('App:User')->findByEmail($email);
 
-            if ($form->isValid() && empty($resp)) {
+            if ($form->isValid() && (empty($resp) && empty($respEmail))) {
 
                 if(!empty($form['avatar']->getData()))
                 {
@@ -86,6 +88,12 @@ class SecurityController extends Controller
                 $this->addFlash(
                     "message-error",
                     "Le nom d'utilisateur existe déjà, veuillez en choisir un nouveau."
+                );
+            }
+            elseif (!empty($respEmail)){
+                $this->addFlash(
+                    "message-error",
+                    "L'adresse email existe déjà, veuillez en choisir une nouvelle."
                 );
             }
             else {
