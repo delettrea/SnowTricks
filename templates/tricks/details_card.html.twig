@@ -50,9 +50,9 @@
             <p class="text-center">{{ tricks.description }}</p>
             <div class="info-trick d-flex flex-column flex-xl-row justify-content-center justify-content-xl-around align-items-center ">
                 <p class="border-white">Groupe : {{ tricks.group.name }}</p>
-                <p class="border-white">Date de création : {{ tricks.dateCreation|date("m/d/Y") }}</p>
+                <p class="border-white">Date de création : {{ tricks.dateCreation|date("d/m/Y") }}</p>
                 {% if tricks.dateEdit %}
-                    <p class="border-white">Date de modification : {{ tricks.dateEdit|date("m/d/Y") }}</p>
+                    <p class="border-white">Date de modification : {{ tricks.dateEdit|date("d/m/Y") }}</p>
                 {% endif %}
             </div>
             {% if app.user %}
