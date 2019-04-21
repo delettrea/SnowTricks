@@ -43,7 +43,7 @@ class Tricks
     private $dateEdit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TricksGroups", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $group;

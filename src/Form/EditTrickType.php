@@ -32,7 +32,7 @@ class EditTrickType extends AbstractType
                 ]
             ])
             ->add('group', EntityType::class, array(
-                'class' => 'App:Groups',
+                'class' => 'App:TricksGroups',
                 'choice_label' => 'name',
                 'label' => 'Groupe de la figure',
                 'constraints' => [

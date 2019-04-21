@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Groups;
+use App\Entity\TricksGroups;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,7 +23,7 @@ class AllGroupsFixtures extends Fixture
 
         foreach ($tab as $row)
         {
-            $groups = new Groups();
+            $groups = new TricksGroups();
             $groups->setName($row['name']);
             $groups->setDescription($row['description']);
 
