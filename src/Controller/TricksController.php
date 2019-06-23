@@ -241,6 +241,10 @@ class TricksController extends Controller
     {
         $tricks = $this->em->getRepository('App:Tricks')->findOneBy(array(), array('id' => 'desc'),1,0);
 
-        return $this->redirectToRoute('trick_details', array('id' => $tricks->getId()));
+        if(!empty($tricks)){
+            return $this->redirectToRoute('trick_details', array('id' => $tricks->getId()));
+        }else{
+            return $this->redirectToRoute('home_page');
+        }
     }
 }

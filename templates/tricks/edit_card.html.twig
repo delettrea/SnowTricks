@@ -46,9 +46,9 @@
     <section class="container detail-informations">
         <div class="description">
             <div class="info-trick d-flex flex-column justify-content-center align-items-center">
-                <p class="border-white">Date de création : {{ tricks.dateCreation|date("d/m/Y") }}</p>
+                <p class="border-white">Date de création : {{ tricks.dateCreation|date("m/d/Y") }}</p>
                 {% if tricks.dateEdit %}
-                    <p class="border-white">Date de modification : {{ tricks.dateEdit|date("d/m/Y") }}</p>
+                    <p class="border-white">Date de modification : {{ tricks.dateEdit|date("m/d/Y") }}</p>
                 {% endif %}
                 <div class="form-edit  d-flex flex-column">
                 {{ form_start(edit_form) }}
